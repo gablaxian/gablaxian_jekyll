@@ -1,16 +1,16 @@
 * 				{ margin:0; padding:0; }
-html,body 		{ background: #3399ff url('background_pattern.png') 0 0 repeat-x; color: #fefefe; padding: 0 10px; }
+html,body 		{ background: #3399ff url('../img/background_pattern.png') 0 0 repeat-x; color: #fefefe; padding: 0 10px; }
 .container 		{ max-width: 800px; margin: 0 auto; }
 	
 .site-header	{ display: block; margin: 20px 0; }
-.site-header h1 { background: url('logo.png') 0 0 no-repeat; width: 265px; height: 65px; }
+.site-header h1 { background: url('../img/logo.png') 0 0 no-repeat; width: 265px; height: 65px; }
 	
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
 only screen and (-moz-min-device-pixel-ratio: 1.5),
 only screen and (-o-min-device-pixel-ratio: 3/2),
 only screen and (min-device-pixel-ratio: 1.5) {
 	.site-header h1 {
-		background-image: url('logo2x.png'); background-size: 265px 65px;
+		background-image: url('../img/logo2x.png'); background-size: 265px 65px;
 	}
 }
 	
