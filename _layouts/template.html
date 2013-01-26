@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>{% if page.title %} {{ page.title }} | {% endif %} gablaxian.com</title>
+	
+	<meta name="viewport" content="width=device-width">
+	
+	<meta name="description" content="Home of one gablaxian">
+	<meta name="keywords" content="gablaxian,portfolio,web design,web development,website">
+	
+	<link rel="stylesheet" href="/css/main.css">
+</head>
+
+<body>
+	
+	<div class="container">
+		
+		<header class="site-header">
+			<h1 class="ir">gablaxian.com</h1>
+		</header>
+		
+		<nav class="site-navigation">
+			<ul>
+				<li><a href="/journal">Journal</a></li>
+			</ul>
+		</nav>
+		
+		<div role="main">
+			
+			{{ content }}
+			
+		</div>
+	
+	</div>
+	
+</body>
+</html>
