@@ -1,10 +1,40 @@
-* 				{ margin:0; padding:0; }
-html,body 		{ background: #3399ff url('../img/background_pattern.png') 0 0 repeat-x; color: #fefefe; padding: 0 10px; }
+/**
+	Styles for gablaxian.com
+	Author: Graham Smith
+**/
+
+
+/** Reset **/
+html, body, div, h1, h2, h3, h4, p, code, pre, strong, em, b, i, ul, ol, li, section, nav { margin:0; padding:0; font-size:100%; }
+
+/** General Styles **/
+html { background: rgb(13,129,244) url('../img/background_pattern.png') 0 100% repeat-x; height: 100%; }
+html, body {  color: #fefefe; padding: 0 10px; }
+
+body { font-family: 'ff-tisa-web-pro', 'times new roman', serif; line-height: 1.4 }
+
+h1	{ margin: 10px 0 }
+p 	{ margin-bottom: 20px }
+a	{ color: rgb(23, 70, 55) }
+
+/** Layout **/
 .container 		{ max-width: 800px; margin: 0 auto; }
-	
+
+/** Header **/
 .site-header	{ display: block; margin: 20px 0; }
 .site-header h1 { background: url('../img/logo.png') 0 0 no-repeat; width: 265px; height: 65px; }
-	
+
+/** Navigation **/
+.site-navigation	{ display: none }
+.site-navigation ul { list-style: none }
+.site-navigation a	{ color: #fff }
+
+/** Content **/
+[role="main"] { margin-top: 35px }
+[role="main"] h1 { font-size: 1.4rem }
+[role="main"] h2 { font-size: 1.2rem }
+
+/** High Pixel Density Displays **/
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
 only screen and (-moz-min-device-pixel-ratio: 1.5),
 only screen and (-o-min-device-pixel-ratio: 3/2),
@@ -13,9 +43,8 @@ only screen and (min-device-pixel-ratio: 1.5) {
 		background-image: url('../img/logo2x.png'); background-size: 265px 65px;
 	}
 }
-	
-	
-	
+
+
 .ir {
     background-color: transparent;
     border: 0;
