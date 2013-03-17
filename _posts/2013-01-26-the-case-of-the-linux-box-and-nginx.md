@@ -1,14 +1,16 @@
 ---
 layout: template
 ---
+
+# The Case of the Linux Box and nginx
 	
-So, let's take a look at what I've done so far.
+Following on from the last post which laid the landscape covering the whys, we now get on to the hows.
 
 ## The server
 
-I've been with MediaTemple for many years, first with their (dv) servers for client work, then their (gs) servers for my personal sites. I've never had a problem with them in all that time. Their customer service is impeccable, their knowledgebase is a treasure trove of information, and the user forums pointed me in the right direction more times than I care to count. So, even though the price was a little higher than probably warranted, I opted for their (ve) server. What you get is 4+ GB of RAM, 20+ GB of HDD space, and, well, that's it. I don't even know how much processing power I've got. You choose from 4 different Linux variations, Ubuntu, Fedora, CentOS and Debian, if I recall correctly. Then you get SSH access, and away you go! Anything you want on there, that's up to you.
+I've been with MediaTemple for many years, first with their (dv) servers for client work, then their (gs) servers for my personal sites. I've never had a problem with them in all that time. Their customer service is impeccable, their knowledgebase is a treasure trove of information, and the user forums have pointed me in the right direction more times than I care to count. So, even though the price was a little higher than probably warranted, I opted for their (ve) server. What you get is 1+ GB of RAM, 20+ GB of HDD space, and, well, that's about it. I don't even know how much processing power I've got. You choose from 4 different Linux variations, Ubuntu, Fedora, CentOS and Debian, if I recall correctly. Then you get SSH access, and away you go! Anything you want on there, that's up to you.
 
-Oh, but why, Graham, WHY!? I hear you ask. Well firstly, stop shouting. Secondly, because I like to experiment. Even at the server level. It's not something I'd dare do for a client, however, but on a shared host you wouldn't normally be able to dabble in things like NodeJS or set up your own Git server.
+Oh, but why, Graham, WHY!? I hear you ask. Well firstly, stop shouting. Secondly, because experimentation's ace! Even at the server level. It's not something I'd dare do for a client, oh dear gods no, but on a shared host you wouldn't normally be able to dabble in things like NodeJS, set up your own Git server, or just feel like Hugh Jackman in Swordfish.
 
 ## The setup
 
@@ -18,13 +20,13 @@ It's easy to think that just because I've gone to a *hosting* company that I've 
 
 These options are always open to me, but I'm sticking with a Web server for now. Which means I'll need some web serving software. The most common is Apache. But, not this time. I'm going for something smaller, leaner, faster. I'm going for nginx. I want my Web server spitting out static files as fast as it can, and nginx does this superbly. Later, if I want Apache serving up PHP files or whatever, then I can use nginx as a proxy, directing all calls to PHP files off to Apache, but leave it serving up the static files.
 
-Linux distributions tend to have a package management system. Ubuntu/Debian has apt, Fedora and Red Hat based systems have rpm/yum, whichever you use, you'll often find that the package available through these means is an older version. So, it's up to you to decide how old you're comfortable with. This server is a testing ground for me. I like to live on the cutting edge, so tend to go for the latest development version. Not Nightlies though. That's just silly. In the case of nginx the latest *stable* version was 1.2.x and the latest development version was 1.3.x, but the latest package was 1.0.x. That's just too far back really. So, the only option is to grab the latest files and compile it myself, which, in the Linux world is almost as simple as installing the package.
+Linux distributions tend to have a package management system. Ubuntu/Debian has apt, Fedora and Red Hat based systems have rpm/yum. Whichever you use, you'll often find that the package available through these means is an older version. So, it's up to you to decide how old you're comfortable with. This server is a testing ground for me and I want it so cutting edge, my fingers bleed just by touching the keyboard. So I'm going with the latest development version. Not nightlies though. That's just silly. Stop being silly. In the case of nginx the latest *stable* version was 1.2.x and the latest development version was 1.3.x, but the latest package was 1.0.x. That's just too far back really. So, the only option is to grab the latest files and compile it myself, which, in the Linux world is almost as simple as installing the package.
 
 And here's how we do it. Firstly, SSH into your server with
 
 	ssh domainname.com
 
-Then we're going to use a common place to hold the source files and download what we need. If you didn't log in as root, then you'll need to run sudo -i so all the commands are run as root. Otherwise you'll have permission errors coming out your ears.
+Then we're going to use a common place to hold the source files and download what we need. If you didn't log in as root, then you'll need to run sudo -i so all the commands are run as root. Otherwise you'll have permission errors coming out of your ears.
 
 	cd /usr/local/src
 	wget http://nginx.org/download/nginx-1.3.11.tar.gz
@@ -32,11 +34,13 @@ Then we're going to use a common place to hold the source files and download wha
 	cd nginx-1.3.11
 	./configure
 
-Wait for the configuration to complete. Now, if you hit a problem where after configure it says:
+Wait for the configuration to complete.
+
+Now, if you hit a problem where after `./configure` it says:
 
 	"./configure: error: the HTTP rewrite module requires the PCRE library. You can either disable the module by using --without-http_rewrite_module option, or install the PCRE library into the system, or build the PCRE library statically from the source with nginx by using --with-pcre=<path> option."
 
-Or the same with the zlib library, which is what happened to me, then you'll need to download those two libraries to your server, unzip them and include them during the configuration. So, still in the /usr/local/src directory grab the two libraries:
+Or the same with the zlib library, which is what happened to me, then you'll need to download those two libraries to your server, unzip them and include them during the configuration. So, still in the `/usr/local/src` directory grab the two libraries:
 
 	wget http://downloads.sourceforge.net/project/pcre/pcre/8.32/pcre-8.32.tar.gz
 	wget http://zlib.net/zlib-1.2.7.tar.gz
@@ -44,7 +48,7 @@ Or the same with the zlib library, which is what happened to me, then you'll nee
 	tar xzvf pcre-8.32.tar.gz
 	tar xzvf zlib-1.2.7.tar.gz
 
-It isn't a direct link to the PCRE library, so it might take a few attempts to get the files. If you're having issues, then you can use the link to download the files locally, then using your SSH details, SFTP into your server and upload it manually. This *could* cause issues if you disabled root access as I did. The you'd have to upload the files to your home directory and move them through the command line. I can help with that outside of the article if requested.
+It isn't a direct link to the PCRE library, so it might take a few attempts to get the files. If you're having issues, then you can use the link to download the files locally, then using your SSH details, SFTP into your server and upload it manually.
 
 With those downloaded, head back to your nginx folder and alter the configuration line, like so
 
@@ -149,3 +153,10 @@ If you log into your server via SFTP as root, this'll be much easier. Head to `/
 
 	  include sites-available/*;
 	}
+
+Then get that server started with:
+
+	sudo /usr/local/nginx/nginx
+
+And there we have it! At some point in the future I'll add comments to this post, in case you have questions. But until then... Umm... tough.
+

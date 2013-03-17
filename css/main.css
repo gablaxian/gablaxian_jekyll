@@ -1,61 +1,111 @@
 /**
-	Styles for gablaxian.com
-	Author: Graham Smith
+    Styles for gablaxian.com
+    Author: Graham Smith
 **/
-
-
 /** Reset **/
-html, body, div, h1, h2, h3, h4, p, code, pre, strong, em, b, i, ul, ol, li, section, nav { margin:0; padding:0; font-size:100%; }
+html, body, div, h1, h2, h3, h4, p, code, pre, strong, em, b, i, ul, ol, li, section, nav {
+  margin: 0;
+  padding: 0;
+  font-size: 100%; }
+
+* {
+  box-sizing: border-box; }
 
 /** General Styles **/
-html { background: rgb(13,129,244) url('../img/background_pattern.png') 0 100% repeat-x; height: 100%; }
-html, body {  color: #fefefe; padding: 0 10px; }
+html {
+  height: 100%; }
 
-body { font-family: 'ff-tisa-web-pro', 'times new roman', serif; line-height: 1.4 }
+body {
+  font-family: "ff-tisa-web-pro", "times new roman", serif;
+  line-height: 1.5;
+  color: #444; }
 
-h1	{ margin: 10px 0 }
-p 	{ margin-bottom: 20px }
-a	{ color: rgb(23, 70, 55) }
+html, body {
+  background-color: whitesmoke; }
+
+h1 {
+  margin: 10px 0; }
+
+p {
+  margin-bottom: 20px; }
+
+a {
+  color: #174637; }
 
 /** Layout **/
-.container 		{ max-width: 800px; margin: 0 auto; }
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 15px; }
 
 /** Header **/
-.site-header	{ display: block; margin: 20px 0; }
-.site-header h1 { background: url('../img/logo.png') 0 0 no-repeat; width: 265px; height: 65px; }
+.site-header {
+  display: block;
+  background-color: #0060b7;
+  padding: 20px 0; }
+
+.site-header h1 {
+  background: url("../img/logo.png") 15px 0 no-repeat;
+  max-width: 720px;
+  height: 65px;
+  margin: 0 auto;
+  padding: 0 15px; }
 
 /** Navigation **/
-.site-navigation	{ display: none }
-.site-navigation ul { list-style: none }
-.site-navigation a	{ color: #fff }
+.site-navigation {
+  margin: 0.6em 0; }
+  .site-navigation ul {
+    list-style: none; }
+  .site-navigation li {
+    float: left; }
 
 /** Content **/
-[role="main"] { margin-top: 35px }
-[role="main"] h1 { font-size: 1.4rem }
-[role="main"] h2 { font-size: 1.2rem }
+[role="main"] {
+  margin-top: 35px; }
+
+[role="main"] h1 {
+  font-size: 1.6rem;
+  margin-bottom: 1rem; }
+
+[role="main"] h2 {
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem; }
+
+pre {
+  margin-bottom: 1rem;
+  overflow: auto;
+  border: 1px solid #dddddd;
+  box-shadow: 1px 1px 1px #999999;
+  padding: 0.5rem; }
+
+/** Footer **/
+.site-footer {
+  height: 2em; }
 
 /** High Pixel Density Displays **/
-@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
-only screen and (-moz-min-device-pixel-ratio: 1.5),
-only screen and (-o-min-device-pixel-ratio: 3/2),
-only screen and (min-device-pixel-ratio: 1.5) {
-	.site-header h1 {
-		background-image: url('../img/logo2x.png'); background-size: 265px 65px;
-	}
-}
-
-
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3 / 2), only screen and (min-device-pixel-ratio: 1.5) {
+  .site-header h1 {
+    background-image: url("../img/logo2x.png");
+    background-size: 265px 65px; } }
 .ir {
-    background-color: transparent;
-    border: 0;
-    overflow: hidden;
-    /* IE 6/7 fallback */
-    *text-indent: -9999px;
-}
+  background-color: transparent;
+  border: 0;
+  overflow: hidden;
+  /* IE 6/7 fallback */
+  *text-indent: -9999px; }
 
 .ir:before {
-    content: "";
-    display: block;
-    width: 0;
-    height: 100%;
-}
+  content: "";
+  display: block;
+  width: 0;
+  height: 100%; }
+
+.clearfix:before,
+.clearfix:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */ }
+
+.clearfix:after {
+  clear: both; }

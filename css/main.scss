@@ -1,0 +1,89 @@
+/**
+    Styles for gablaxian.com
+    Author: Graham Smith
+**/
+
+
+/** Reset **/
+html, body, div, h1, h2, h3, h4, p, code, pre, strong, em, b, i, ul, ol, li, section, nav { margin:0; padding:0; font-size:100%; }
+
+* {
+    box-sizing: border-box;
+}
+
+/** General Styles **/
+html { height: 100%; }
+body { font-family: 'ff-tisa-web-pro', 'times new roman', serif; line-height: 1.5; color: #444; }
+
+html, body { background-color: rgb(245,245,245) }
+
+h1  { margin: 10px 0 }
+p   { margin-bottom: 20px }
+a   { color: rgb(23, 70, 55) }
+
+/** Layout **/
+.container      { max-width: 720px; margin: 0 auto; padding: 0 15px; }
+
+/** Header **/
+.site-header    { display: block; background-color: rgb(0,96,183); padding: 20px 0 }
+.site-header h1 { background: url('../img/logo.png') 15px 0 no-repeat; max-width: 720px; height: 65px; margin: 0 auto; padding: 0 15px; }
+
+/** Navigation **/
+.site-navigation {
+    margin: 0.6em 0;
+    ul { list-style: none }
+    li { float: left }
+    a  {  }
+}
+
+/** Content **/
+[role="main"]       { margin-top: 35px }
+[role="main"] h1    { font-size: 1.6rem; margin-bottom: 1rem; }
+[role="main"] h2    { font-size: 1.2rem; margin-bottom: 0.8rem; }
+
+pre {
+    margin-bottom: 1rem;
+    overflow: auto;
+    border: 1px solid rgb(221, 221, 221);
+    box-shadow: 1px 1px 1px rgb(153, 153, 153);
+    padding: 0.5rem;
+}
+
+/** Footer **/
+.site-footer { height: 2em }
+
+/** High Pixel Density Displays **/
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+only screen and (-moz-min-device-pixel-ratio: 1.5),
+only screen and (-o-min-device-pixel-ratio: 3/2),
+only screen and (min-device-pixel-ratio: 1.5) {
+    .site-header h1 {
+        background-image: url('../img/logo2x.png'); background-size: 265px 65px;
+    }
+}
+
+
+.ir {
+    background-color: transparent;
+    border: 0;
+    overflow: hidden;
+    /* IE 6/7 fallback */
+    *text-indent: -9999px;
+}
+
+.ir:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 100%;
+}
+
+.clearfix:before,
+.clearfix:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.clearfix:after {
+    clear: both;
+}
