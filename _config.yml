@@ -1,2 +1,2 @@
 auto: true
-exclude: ['main.scss']
+exclude: ['README.md', 'main.scss']
