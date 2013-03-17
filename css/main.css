@@ -57,7 +57,8 @@ a {
   .site-navigation ul {
     list-style: none; }
   .site-navigation li {
-    float: left; }
+    float: left;
+    margin-right: 0.8em; }
 
 /** Content **/
 [role="main"] {
