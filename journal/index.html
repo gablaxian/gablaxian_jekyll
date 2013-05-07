@@ -15,8 +15,6 @@ layout: template
         {% else %}
         <p>{{ post.content | strip_html | truncatewords: 50 }}</p>
         {% endif %}
-
-        <p class><a href="{{ post.url }}">Read more...</a></p>
     </article>
 
     {% endfor %}
