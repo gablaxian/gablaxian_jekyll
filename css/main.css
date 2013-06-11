@@ -17,7 +17,7 @@ html {
   height: 100%; }
 
 body {
-  font-family: "ff-tisa-web-pro", "times new roman", serif;
+  font-family: 'ff-tisa-web-pro', 'times new roman', serif;
   line-height: 1.5;
   color: #444; }
 
@@ -42,7 +42,7 @@ a {
 
 .starfield-bg {
   background-color: #000;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid #fff;
   min-height: 120px; }
 
 /** Header **/
@@ -123,9 +123,7 @@ pre {
 .ir {
   background-color: transparent;
   border: 0;
-  overflow: hidden;
-  /* IE 6/7 fallback */
-  *text-indent: -9999px; }
+  overflow: hidden; }
 
 .ir:before {
   content: "";
@@ -153,7 +151,7 @@ pre {
 
   * {
     background: transparent !important;
-    color: black !important;
+    color: #000 !important;
     /* Black prints faster: h5bp.com/s */
     box-shadow: none !important;
     text-shadow: none !important; }
@@ -176,7 +174,7 @@ pre {
     content: ""; }
 
   pre, blockquote {
-    border: 1px solid #999999;
+    border: 1px solid #999;
     page-break-inside: avoid; }
 
   thead {

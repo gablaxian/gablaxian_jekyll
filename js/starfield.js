@@ -2,8 +2,7 @@
 
 var StarField = function(options) {
 
-    var options         = options || {},
-        canvas          = document.getElementById('starfield'),
+    var canvas          = options.id ? document.getElementById(options.id) : document.body.appendChild(document.createElement('canvas')),
         context         = canvas.getContext('2d'),
         canvas_width    = options.width     || window.innerWidth,
         canvas_height   = options.height    || 150,
@@ -164,6 +163,3 @@ var StarField = function(options) {
     init();
     animate();
 }
-
-StarField();
-

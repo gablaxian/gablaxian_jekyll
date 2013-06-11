@@ -5,9 +5,13 @@ disqus: true
 
 # Super JS Adventure!
 
+__UPDATE__
+
+Following on from the previous post below, wherein I posed what sort of game people would like to see made, frankly, no one gave a shit–as expected from people living in the internet. So, my fallback option–re-creating The Legend of Zelda but with SNES graphics–is go!
+
 ## Introduction
 
-Oh, Hi. I didn't see you there. When did you get here? WHO ARE YOU!? I mean, welcome! I'm delighted to announce my little side-project, Super JS Adventure! In an effort to improve my own Javascript skills, along with my love of computer games, what will follow is my journey into writing a (hopefully) simple JS game over the course of several weeks/months. The plan is to blog the journey, step-by-step, starting from basic concepts such as the game loop, leading up to less concrete concepts, like level design.
+Oh, Hi. I didn't see you there. When did you get here? WHO ARE YOU!? Err... I mean, welcome! I'm delighted to announce my little side-project, Super JS Adventure! In an effort to improve my own Javascript skills, along with my love of computer games, what will follow is my journey into writing a (hopefully) simple JS game over the course of several weeks/months. The plan is to blog the journey, step-by-step, starting from basic concepts such as the game loop, leading up to less concrete concepts, like level design.
 
 I've been wrestling with the idea of what to build. Initially it was to be a generic platformer. Something that would feature all aspects of game design. But, having been playing the original Legend of Zelda on the NES recently–not having access to it as a child, but, instead, the musically creepy Zelda II–and wondering what it would look like with the SNES's A Link to the Past graphics, I thought we could build that instead.
 
