@@ -20,7 +20,7 @@ The first issue we're going to come across is the keypress. So, for example, if 
 
 The problem here is that the OS has some default behaviour when it comes to holding down a key. It will first fire off an event for that key, pressing it once, then it will pause for a second before repeatedly firing off that same event. I'm not sure how fast this event fires, but it looks to be around 20-25 times a second. This is not fast enough or reactive enough for a game.
 
-The solution to this is to not depend on the keydown event to fire repeatetedly, but instead use it, along with keyup, to act as a sort of trigger. We know that when a key is pressed an event fires immediately, and the same with keyup. So, we set a listener for both those events and simply set a variable on keydown to say which key has been pressed and unset that variable when on keyup. On each loop of the game loop, we just check those variables. I actually came across this technique when viewing the source for Ben Joffe's [Canvascape Demo](http://www.benjoffe.com/code/demos/canvascape/textures), so all credit goes to him for this solution.
+The solution to this is to not depend on the keydown event to fire repeatetedly, but instead use it, along with keyup, to act as a sort of trigger. We know that when a key is pressed an event fires immediately, and the same with releasing a key. So, we set a listener for both those events and simply use a variable to store a sort of on or off value to represent whether it is being pressed or not. On each loop of the game loop, we just check those variables. I actually came across this technique when viewing the source for Ben Joffe's [Canvascape Demo](http://www.benjoffe.com/code/demos/canvascape/textures), so all credit goes to him for this solution.
 
 First we set another global variable, `key`
 
@@ -31,9 +31,9 @@ First we set another global variable, `key`
         key     = [0,0,0,0,0],
         link    = new Image();
 
-It's an array of the five keys we're currently interested in, Up, Down, Left, Right and Space, all initialised at 0, for off. If we only allowed the variable to store which key was being pressed, then we couldn't react to simultaneous key presses, like Down and Right, preventing our character from moving diagonally.
+It's an array of the five keys we're currently interested in, Up, Down, Left, Right and Space, all initialised at 0, for off. If we used the variable to only store which key was being pressed, then we couldn't react to simultaneous key presses, like Down and Right, preventing our character from moving diagonally. We _could_ use a variable per key, but this works well enough and keeps our code a little leaner.
 
-Then we add a function to set the values of this array with the appropriate keys:
+We then add a function to set the values of this array with the appropriate keys:
 
     function changeKey(which, to) {
         switch (which){
@@ -54,7 +54,7 @@ Now we're free to add our event handlers to call this function:
     
 `document.onkeydown` is just a shorthand way of writing `addEventListener()`. Feel free to use the W3C standard, if you like. Otherwise, all that's happening is when a user presses a key we get the event (e on non-IE browsers, window.event for IE) and sends the keyCode to the `changeKey()` function. From there we check which key is pressed and set the appropriate value in the array to 1.
 
-Putting all that together with our game, we'll get our little Link moving around. Currently, we have the Link image being statically drawn at 20px left and 20px down. First there needs to be a way of storing his position for us to manipulate. We can do that with a global variable:
+Putting all that together with our game, we'll get our little Link moving around. Currently, we have the Link image being statically drawn at 20px left and 20px down. First there needs to be a way of storing his position for us to manipulate. We can do that with a new global variable:
 
     var player  = {
         x : 0,
@@ -63,13 +63,13 @@ Putting all that together with our game, we'll get our little Link moving around
 
 I'm using a JSON object so we can keep everything related to the player nice and enclosed. We can read/write their position with `player.x` and `player.y`
 
-We'll give Link a bit more space to begin with by setting his initial position to 100px left and 100px down in the `init()` function:
+We'll give Link a bit more space to begin with by setting his initial position to 100px left and 100px down in the `init()` function by adding:
 
     // Place Link a little more central
     player.x = 100;
     player.y = 100;
 
-Now, remembering back to the Game Loop, on of its steps, after clearing the screen, is handling user input. So, that's our next destination. On each loop of the game, we check to see if the user is pressing any keys, by looking at the key array we set earlier, then we react. In this case, we look for the direction keys being pressed, and alter the player's position until the key is released. For now, we'll move the player by 4px per frame in any given direction:
+Now, remembering back to the Game Loop, one of its steps after clearing the screen is handling user input. So that's our next destination. On each loop of the game, we check to see if the user is pressing any keys by looking at the key array we set earlier, then we react. In this case, we look for the each of the direction keys being pressed, and alter the player's position until that key is released. For now, we'll move the player by 4px per frame in any given direction by adding this code to `main()`:
 
     // Handle the Input
     if (key[2]) // up
@@ -81,7 +81,7 @@ Now, remembering back to the Game Loop, on of its steps, after clearing the scre
     if( key[1]) // right
         player.x += 4;
 
-Finally, we have to draw Link in the at the new coordinates on each frame, so taking the `drawImage()` function we had in the main loop: `ctx.drawImage(link, 20, 20)`, we replace it with the stored positions:
+Finally, we have to draw Link in the at the new coordinates on each frame, so taking the `drawImage()` function we had in the main loop, `ctx.drawImage(link, 20, 20)`, we replace it with the stored positions:
 
     ctx.drawImage(link, player.x, player.y);
 
