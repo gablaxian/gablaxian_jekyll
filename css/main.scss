@@ -22,6 +22,10 @@ h1  { margin: 10px 0 }
 p   { margin-bottom: 20px }
 a   { color: rgb(255, 143, 0); font-weight: 600 }
 
+/* Yay Markdown and the annoying paragraph it adds when nesting lists! */
+li p { margin: 0 }
+ul ul { margin: 8px 0 20px 25px }
+
 /** Layout **/
 .container      { max-width: 720px; margin: 0 auto; padding: 0 15px; }
 
@@ -45,6 +49,8 @@ a   { color: rgb(255, 143, 0); font-weight: 600 }
 .main h2    { font-size: 1.2rem; margin-bottom: 0.8em; }
 .main h3    { margin: 0.8em 0 }
 
+.main h1 + ul { margin-bottom: 2em }
+
 pre {
     margin-bottom: 1rem;
     overflow: auto;
@@ -62,7 +68,7 @@ pre {
 }
 
 /** Footer **/
-.site-footer { height: 2em }
+.site-footer { height: 8em }
 
 /** Extras **/
 
