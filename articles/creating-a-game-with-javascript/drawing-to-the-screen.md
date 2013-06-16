@@ -89,7 +89,7 @@ I've gone and created the link.png file and a new images folder to our folder st
         link    = new Image();
 
 
-Now, images like this, which would probably be used everywhere in the game should be initialised on game load. Wait, we have a function for that: `init()`! So let's load the image in the `init() function:
+Now, images like this, which would probably be used everywhere in the game should be initialised on game load. Wait, we have a function for that: `init()`! So let's load the image in the `init()` function:
 
     function init() {
         // Initialise the game!
