@@ -85,4 +85,7 @@ Finally, we have to draw Link in the at the new coordinates on each frame, so ta
 
     ctx.drawImage(link, player.x, player.y);
 
-And now we have a walking, well, gliding, Link! You can see all the [source code](http://github.com/gablaxian/super-js-adventure) on Github.
+And now we have a walking, well, gliding, Link!
+
+You can see all the [source code](http://github.com/gablaxian/super-js-adventure) on Github.
+And you can see the game so far [here](http://gablaxian.com/experiments/super-js-adventure/)
