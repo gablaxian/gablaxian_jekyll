@@ -1,7 +1,7 @@
 ---
 layout: template
 title: Handling User Input
-
+disqus: true
 ---
 
 # Handling User Input
@@ -54,4 +54,35 @@ Now we're free to add our event handlers to call this function:
     
 `document.onkeydown` is just a shorthand way of writing `addEventListener()`. Feel free to use the W3C standard, if you like. Otherwise, all that's happening is when a user presses a key we get the event (e on non-IE browsers, window.event for IE) and sends the keyCode to the `changeKey()` function. From there we check which key is pressed and set the appropriate value in the array to 1.
 
+Putting all that together with our game, we'll get our little Link moving around. Currently, we have the Link image being statically drawn at 20px left and 20px down. First there needs to be a way of storing his position for us to manipulate. We can do that with a global variable:
 
+    var player  = {
+        x : 0,
+        y : 0
+    };
+
+I'm using a JSON object so we can keep everything related to the player nice and enclosed. We can read/write their position with `player.x` and `player.y`
+
+We'll give Link a bit more space to begin with by setting his initial position to 100px left and 100px down in the `init()` function:
+
+    // Place Link a little more central
+    player.x = 100;
+    player.y = 100;
+
+Now, remembering back to the Game Loop, on of its steps, after clearing the screen, is handling user input. So, that's our next destination. On each loop of the game, we check to see if the user is pressing any keys, by looking at the key array we set earlier, then we react. In this case, we look for the direction keys being pressed, and alter the player's position until the key is released. For now, we'll move the player by 4px per frame in any given direction:
+
+    // Handle the Input
+    if (key[2]) // up
+        player.y -= 4;
+    if( key[3]) // down
+        player.y += 4;
+    if( key[0]) // left
+        player.x -= 4;
+    if( key[1]) // right
+        player.x += 4;
+
+Finally, we have to draw Link in the at the new coordinates on each frame, so taking the `drawImage()` function we had in the main loop: `ctx.drawImage(link, 20, 20)`, we replace it with the stored positions:
+
+    ctx.drawImage(link, player.x, player.y);
+
+And now we have a walking, well, gliding, Link!
