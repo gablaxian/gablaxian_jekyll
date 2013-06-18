@@ -101,4 +101,19 @@ So, let's get that added in along with functions for initialisation and the main
 
 Pretty simple, eh? We don't have much to show for it, but it you fire that up in your browser, you'll have a canvas ready to be drawn to, and a loop running at 60fps. Good job! Have a biscuit.
 
+**Update**
+
+As I recently learned, Firefox doesn't yet support `requestAnimationFrame()` unprefixed. The spec for this feature was still in flux intil pretty recently. Even now it's not _really_ finalised, but it doesn't look like it'll change again. Regardless, we need to fix it so that Firefox can use the function. To the polyfill!
+
+We simply add this code from Paul Irish's excellent [blog post](http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/), straight after the global variables for now:
+
+    var vendors = ['webkit', 'moz'];
+    for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+        window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
+        window.cancelAnimationFrame =
+          window[vendors[x]+'CancelAnimationFrame'] || window[vendors[x]+'CancelRequestAnimationFrame'];
+    }
+
+This will create the required function to simply call the prefixed function instead.
+
 Join me next time when we deal with drawing to the screen!
