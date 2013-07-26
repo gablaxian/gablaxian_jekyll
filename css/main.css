@@ -28,7 +28,7 @@ h1 {
   margin: 10px 0; }
 
 p {
-  margin-bottom: 20px; }
+  margin-bottom: 2rem; }
 
 a {
   color: #ff8f00;
@@ -124,11 +124,15 @@ ul ul {
   margin-bottom: 2em; }
 
 pre {
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   overflow: auto;
   border: 1px solid #dddddd;
   box-shadow: 1px 1px 1px #999999;
   padding: 0.5em; }
+
+.main img {
+  display: block;
+  margin: 10px auto; }
 
 /** Comments **/
 .comments {
