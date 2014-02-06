@@ -34,7 +34,7 @@ It's looping at 60fps. Now let's draw ourselves a red rectangle. It's like the H
 
 And there we have it. A 60fps red rectangle!
 
-![Red Rectangle](/img/articles/2-red-rectangle.png)
+![Red Rectangle](/assets/img/articles/2-red-rectangle.png)
 
 The ctx object is the canvas context which we set in the last post as a global variable. With that, we define a colour which is set for all following drawing operations. Were we to then draw a line or another rectangle, it would also be red, up until we set a new fillStyle. The `fillRect()` function is called with the x and y coordinates first (0, 0), and then we set the width and height, both at 50px.
 
@@ -53,7 +53,7 @@ The canvas element works a lot like a paint program. Each time something is draw
         requestAnimationFrame(main);
     }
 
-![Animated Rectangle](/img/articles/2-animated-rectangle.png)
+![Animated Rectangle](/assets/img/articles/2-animated-rectangle.png)
 
 If we want to make it look like the rectangle is moving, we clear the canvas before drawing to it again with `clearRect()`;
 
@@ -78,7 +78,7 @@ Okay! Well, drawing us some rudimentary shapes is all well and good, but we're w
 
 Say hello to Link!
 
-![Red Rectangle](/img/articles/2-link.png)
+![Red Rectangle](/assets/img/articles/2-link.png)
 
 I've gone and created the link.png file and a new images folder to our folder structure. Adding him to our game requires us to first load in the image using native Javacript. Let's first add a new global variable for our link image.
 
@@ -108,7 +108,7 @@ Now we can go back to the main loop and draw link to the screen with canvas' `dr
         requestAnimationFrame(main);
     }
 
-![Red Rectangle](/img/articles/2-link-in-game.png)
+![Red Rectangle](/assets/img/articles/2-link-in-game.png)
 
 And there we have it. Link makes an appearance so we can now class our little app as a true Zelda game.
 

@@ -89,7 +89,187 @@ And now we have a walking, well&hellip; _gliding_, Link!
 
 ## Using a Gamepad
 
-We're not done yet, though. A couple of
+We're not done yet, though. The keyboard's great and all, but _I_ certainly didn't play any Zelda games with a keyboard. Wouldn't it be great to play with a controller, just like the old days? GamePad API to the rescue!
 
-You can see all the [source code](http://github.com/gablaxian/super-js-adventure) on Github.
-And you can see the game so far [here](http://gablaxian.com/experiments/super-js-adventure/)
+The GamePad API isn't quite finished, which does explain some of the more curious aspects of the various browsers' implementations. This code may need to be changed in future.
+
+Chrome supports the GamePad API even in public builds. Firefox does _technically_ support the GamePad API, but only in the 'nightlies' which are pre-beta builds for experimental features that few people use. So we'll be limiting our code to Chrome only in this case.
+
+In Chrome there are no events like we get with the keyboard or mouse. There is no 'gamepad connected' event, or a 'button pressed' event. For Chrome, we have to poll every frame just to see if the joystick is still there! Even in Firefox, which does have a connected and disconnected event, you still need to actually press a button furst for them to even trigger. Apprently, this is to prevent 'finger printing', whatever that might be. So, to re-iterate, we are definitely in beta territory. Proceed at your own peril.
+
+If you want to explore the API a little further, there's a great article over on [html5rocks](http://www.html5rocks.com/en/tutorials/doodles/gamepad/) which I've been using to implement the gamepad in this project.
+
+So, first thing's first. Let's move the code for all input handling out of the main Javascript and give it its own file and library. The Input library:
+
+    var Input = {
+
+    }
+
+We'll give it an `init()` function to load the basics and also bring in the changeKey that we've already implemented for the keyboard:
+
+    var Input = {
+
+        init: function() {
+            // Set up the keyboard events
+            document.onkeydown  = function(e) { Input.changeKey((e||window.event).keyCode, 1); }
+            document.onkeyup    = function(e) { Input.changeKey((e||window.event).keyCode, 0); }
+        },
+
+        // called on key up and key down events
+        changeKey: function(which, to) {
+            switch (which){
+                case 65: case 37: key[0]=to; break; // left
+                case 87: case 38: key[2]=to; break; // up
+                case 68: case 39: key[1]=to; break; // right
+                case 83: case 40: key[3]=to; break;// down
+                case 32: key[4]=to; break; // attack (space bar)
+                case 91: key[5]=to; break; // use item (cmd)
+                case 88: key[6]=to; break; // start (x)
+                case 90: key[7]=to; break; // select (z)
+            }
+        }
+    }
+
+I've also added a few more buttons so we are in line with the controls for the original Zelda; attack, use item, start and select, and mapped them to some keys. The extra buttons won't do anything yet, but they're ready for when we need them.
+
+Okay, we've got the original functionality back in place. Now for the gamepad. We start with a few variables we'll need to track the gamepad:
+
+    var Input = {
+
+        gamepad: null,
+
+        ticking: false,
+
+        // Previous timestamps for gamepad state; used in Chrome to not bother with
+        // analyzing the polled data if nothing changed (timestamp is the same
+        // as last time).
+        prevTimestamp: null,
+
+
+We store the gamepad object when we find one. Ticking controls our polling so that we can start/stop polling as and when we need to. Holding the previous timestamp of the controller allows us to check if the user has disconnected their joystick.
+
+Let's upgrade our `init()` function to check for gamepad support and, if so, start the polling:
+
+    init: function() {
+        // Set up the keyboard events
+        document.onkeydown  = function(e) { Input.changeKey((e||window.event).keyCode, 1); }
+        document.onkeyup    = function(e) { Input.changeKey((e||window.event).keyCode, 0); }
+
+        // Checks Chrome to see if the GamePad API is supported.
+        var gamepadSupportAvailable = !!navigator.webkitGetGamepads || !!navigator.webkitGamepads;
+
+        if(gamepadSupportAvailable) {
+            // Since Chrome only supports polling, we initiate polling loop straight
+            // away. For Firefox, we will only do it if we get a connect event.
+            if (!!navigator.webkitGamepads || !!navigator.webkitGetGamepads) {
+                Input.startPolling();
+            }
+        }
+    },
+
+
+We'd best get that polling code in now!
+
+    /**
+     * Starts a polling loop to check for gamepad state.
+     */
+    startPolling: function() {
+        // Don’t accidentally start a second loop, man.
+        if (!Input.ticking) {
+            Input.ticking = true;
+            Input.tick();
+        }
+    },
+
+    /**
+     * Stops a polling loop by setting a flag which will prevent the next
+     * requestAnimationFrame() from being scheduled.
+     */
+    stopPolling: function() {
+        Input.ticking = false;
+    },
+
+    /**
+     * A function called with each requestAnimationFrame(). Polls the gamepad
+     * status and schedules another poll.
+     */
+    tick: function() {
+        Input.pollStatus();
+        Input.scheduleNextTick();
+    },
+
+    scheduleNextTick: function() {
+        // Only schedule the next frame if we haven’t decided to stop via
+        // stopPolling() before.
+        if (Input.ticking) {
+            requestAnimationFrame(Input.tick);
+        }
+    },
+
+    /**
+     * Checks for the gamepad status. Monitors the necessary data and notices
+     * the differences from previous state (buttons and connects/disconnects for Chrome). If differences are noticed, asks
+     * to update the display accordingly. Should run as close to 60 frames per second as possible.
+     */
+    pollStatus: function() {
+        // We're only interested in one gamepad, which is the first.
+        gamepad = navigator.webkitGetGamepads && navigator.webkitGetGamepads()[0];
+
+        if(!gamepad)
+            return;
+
+        // Don’t do anything if the current timestamp is the same as previous
+        // one, which means that the state of the gamepad hasn’t changed.
+        // The first check makes sure we’re not doing anything if the timestamps are empty or undefined.
+        if (gamepad.timestamp && (gamepad.timestamp == Input.prevTimestamp)) {
+            return
+        }
+
+        Input.prevTimestamp = gamepad.timestamp;
+
+        Input.updateKeys();
+    },
+
+Lots of code here. If you've ever dabbled with scrolling events in the browser, this polling idea is generally recommended so that you're not firing events on each scroll update. We can also pause the polling, which stops the loop, and thereby prevents unnecessary work. But the main point of the code is that `pollStatus()` function.
+
+On each frame we get the gamepad, if one is there. And remember, no gamepad exists until it's plugged in and a button is pressed. We also only care about one gamepad, which means we can grab the first element (\[0\]) of the `webkitGetGamepads()` function. If we find a gamepad, then check the timestamp to see whether anything has changed since the last update. Otherwise, do nothing. If something has changed, then we update the timestamp and update the `key[]` array which controls Link.
+
+Updating the keys is pretty simple:
+    
+    updateKeys: function() {
+
+        // console.log(gamepad.buttons)
+
+        // Map the d-pad
+        key[0] = gamepad.axes[0] <= -0.5 // left
+        key[1] = gamepad.axes[0] >= 0.5 // right
+        key[2] = gamepad.axes[1] <= -0.5  // up
+        key[3] = gamepad.axes[1] >= 0.5 // down
+
+        // Map the Buttons
+        key[4] = gamepad.buttons[0]; // attack (A)
+        key[5] = gamepad.buttons[1]; // use item (B)
+
+        key[6] = gamepad.buttons[10]; // start
+        key[7] = gamepad.buttons[9]; // select
+    }
+
+We only need a few buttons, so this _should_ be generic enough for most joysticks. However, I've been testing with a Microsoft Sidewinder control pad, and the button layout is not like current Xbox/PS controllers. We can update this with further testing.
+
+With this done, we just need to add the new file to our project:
+
+    <script src="js/input.js"></script>
+    <script src="js/main.js"></script>
+
+and then initialise the Inputs in the `init()` function of our main code:
+
+    // Setup the Input
+    Input.init();
+
+
+And now we have Zelda with a controller. The way it was meant to be. Wonderful.
+
+## Progress
+
+And you can see v0.2 of the game with Gamepad support [here](http://gablaxian.com/experiments/super-js-adventure/0.2/)
+Or check out all the [source code](http://github.com/gablaxian/super-js-adventure) on Github.

@@ -24,7 +24,7 @@ for Firefox.
 
 Which results in the following:
 
-![Scaled Canvas](/img/articles/4-scaled-canvas.png)
+![Scaled Canvas](/assets/img/articles/4-scaled-canvas.png)
 
 Hey! What happened to all that lovely detail? The problem lies with the browser. All browsers employ an algorithm when resizing images which does not favour our retro look one bit.
 

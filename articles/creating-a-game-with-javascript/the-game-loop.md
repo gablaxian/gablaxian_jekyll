@@ -11,6 +11,7 @@ Coming from a Web Development background, you may be forgiven for expecting a ga
 Our Zelda game will follow this simplified sequence each time it's loaded:
 
 * Initialisation
+    * Load assets
 * Game Loop
 	* Clear the screen
 	* Retrieve Player Input
