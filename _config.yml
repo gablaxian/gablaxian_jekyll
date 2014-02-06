@@ -1,1 +1,1 @@
-exclude: ['README.md', 'main.scss', 'node_modules', 'package.json', 'gruntfile.js']
+exclude: [ 'node_modules', 'README.md', 'main.scss', 'package.json', 'gruntfile.js', 'npm-debug.log']
