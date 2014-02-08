@@ -1,1 +1,3 @@
+pygments: true
+
 exclude: [ 'node_modules', 'README.md', 'main.scss', 'package.json', 'gruntfile.js', 'npm-debug.log']

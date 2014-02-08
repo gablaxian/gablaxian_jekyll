@@ -14,23 +14,31 @@ Luckily for us, the context provides us with an object in JS with a few more fun
 
 Diving straight in, looking at our `main()` function from last time:
 
-    function main() {
-        // Here's where we handle all the input, logic and drawing to the screen per frame.
+{% highlight js %}
 
-        // call itself by requesting the next animation frame, and so begin the endless loop
-        requestAnimationFrame(main);
-    }
+function main() {
+    // Here's where we handle all the input, logic and drawing to the screen per frame.
+
+    // call itself by requesting the next animation frame, and so begin the endless loop
+    requestAnimationFrame(main);
+}
+
+{% endhighlight %}
 
 It's looping at 60fps. Now let's draw ourselves a red rectangle. It's like the Hello World of drawing applications.
 
-    function main() {
-        
-        // set colour to red for all following canvas operations.
-        ctx.fillStyle = '#f00';
-        ctx.fillRect(0, 0, 50, 50);
+{% highlight js %}
 
-        requestAnimationFrame(main);
-    }
+function main() {
+    
+    // set colour to red for all following canvas operations.
+    ctx.fillStyle = '#f00';
+    ctx.fillRect(0, 0, 50, 50);
+
+    requestAnimationFrame(main);
+}
+
+{% endhighlight %}
 
 And there we have it. A 60fps red rectangle!
 
@@ -40,35 +48,42 @@ The ctx object is the canvas context which we set in the last post as a global v
 
 The canvas element works a lot like a paint program. Each time something is drawn to the screen, it stays there until you erase it. So, if we introduce some animation, say, moving the rectangle 1px to the right on each frame, we're going to slowly animate drawing a line:
 
-    var x = 0;
+{% highlight js %}
+var x = 0;
 
-    function main() {
-        
-        // set colour to red for all following canvas operations.
-        ctx.fillStyle = '#f00';
-        ctx.fillRect(x, 0, 50, 50);
+function main() {
+    
+    // set colour to red for all following canvas operations.
+    ctx.fillStyle = '#f00';
+    ctx.fillRect(x, 0, 50, 50);
 
-        x = x + 1;
+    x = x + 1;
 
-        requestAnimationFrame(main);
-    }
+    requestAnimationFrame(main);
+}
+{% endhighlight %}
 
 ![Animated Rectangle](/assets/img/articles/2-animated-rectangle.png)
 
 If we want to make it look like the rectangle is moving, we clear the canvas before drawing to it again with `clearRect()`;
 
-    function main() {
+{% highlight js %}
 
-        ctx.clearRect(0, 0, 256, 224);
-        
-        // set colour to red for all following canvas operations.
-        ctx.fillStyle = '#f00';
-        ctx.fillRect(x, 0, 50, 50);
+function main() {
 
-        x = x + 1;
+    ctx.clearRect(0, 0, 256, 224);
+    
+    // set colour to red for all following canvas operations.
+    ctx.fillStyle = '#f00';
+    ctx.fillRect(x, 0, 50, 50);
 
-        requestAnimationFrame(main);
-    }
+    x = x + 1;
+
+    requestAnimationFrame(main);
+}
+
+{% endhighlight %}
+
 
 The `clearRect()` function works like `fillRect()`. Give it x and y coordinates and a width and height. In this case we're clearing the whole canvas. The canvas element is transparent by default. However, if you know what the background color will always be, in this case white, then we don't actually have to `clearRect()`, but we could set the `fillStyle` to `#fff` and use `fillRect()` again.
 
@@ -82,31 +97,42 @@ Say hello to Link!
 
 I've gone and created the link.png file and a new images folder to our folder structure. Adding him to our game requires us to first load in the image using native Javacript. Let's first add a new global variable for our link image.
 
-    var canvas  = document.getElementById('super-js-adventure'),
-        ctx     = canvas.getContext('2d'),
-        width   = 256,
-        height  = 224,
-        link    = new Image();
+{% highlight js %}
 
+var canvas  = document.getElementById('super-js-adventure'),
+    ctx     = canvas.getContext('2d'),
+    width   = 256,
+    height  = 224,
+    link    = new Image();
+
+{% endhighlight %}
 
 Now, images like this, which would probably be used everywhere in the game should be initialised on game load. Wait, we have a function for that: `init()`! So let's load the image in the `init()` function:
 
-    function init() {
-        // Initialise the game!
-        link.src = 'images/link.png';
-    }
+{% highlight js %}
+
+function init() {
+    // Initialise the game!
+    link.src = 'images/link.png';
+}
+
+{% endhighlight %}
 
 Now we can go back to the main loop and draw link to the screen with canvas' `drawImage()` function.
 
-    function main() {
-        // Here's where we handle all the input, logic and drawing to the screen per frame.
-        ctx.clearRect(0, 0, 256, 224);
+{% highlight js %}
 
-        ctx.drawImage(link, 20, 20);
+function main() {
+    // Here's where we handle all the input, logic and drawing to the screen per frame.
+    ctx.clearRect(0, 0, 256, 224);
 
-        // call itself by requesting the next animation frame, and so begin the endless loop
-        requestAnimationFrame(main);
-    }
+    ctx.drawImage(link, 20, 20);
+
+    // call itself by requesting the next animation frame, and so begin the endless loop
+    requestAnimationFrame(main);
+}
+
+{% endhighlight %}
 
 ![Red Rectangle](/assets/img/articles/2-link-in-game.png)
 

@@ -1,15 +1,14 @@
-"use strict"
 
-var StarField = function(options) {
+var StarField = function(element, options) {
+    "use strict"
 
     var options         = options || {},
-        canvas          = document.getElementById('starfield'),
+        canvas          = element || (document.querySelector('#starfield') || document.querySelector('.starfield')),
         context         = canvas.getContext('2d'),
         canvas_width    = options.width     || window.innerWidth,
-        canvas_height   = options.height    || 130,
+        canvas_height   = options.height    || 80,
         scrollY         = 0,
         paused          = false,
-        clear_storage   = false,
         star_density    = options.star_density || 10,
         background_stars = new Array(),
         flickering_stars = new Array(),
@@ -33,43 +32,24 @@ var StarField = function(options) {
 
         // Does the browser support local storage? We can use it to speed up subsequent page loads by skipping the star array generation
         // and also keep star position consistent between pages. It's the little things.
-        if(window.localStorage) {
-            if( !clear_storage && localStorage.getItem('background_stars') ) {
-                background_stars = JSON.parse( localStorage.getItem('background_stars') );
-                flickering_stars = JSON.parse( localStorage.getItem('flickering_stars') );
-            }
-            else {
-                generate_stars();
-                // Store the arrays
-                localStorage.setItem('background_stars', JSON.stringify(background_stars));
-                localStorage.setItem('flickering_stars', JSON.stringify(flickering_stars));
-            }
+        if( localStorage.getItem('background_stars') ) {
+            background_stars = JSON.parse( localStorage.getItem('background_stars') );
+            flickering_stars = JSON.parse( localStorage.getItem('flickering_stars') );
+
+            stars_length = flickering_stars.length;
         }
         else {
             generate_stars();
         }
 
-        stars_length = flickering_stars.length;
+        populateStarfield();
 
-        canvas.width    = canvas_width;
-        canvas.height   = canvas_height;
+        // Events
+        window.addEventListener( 'resize', onWindowResize );
+        window.addEventListener( 'scroll', onScroll );
 
-        // set up the bg and static stars
-        // set the black BG
-        context.fillStyle = '#000';
-        context.fillRect(0, 0, canvas_width, canvas_height);
-
-        var l = background_stars.length,
-            i = 0;
-        
-        /* Just one loop */
-        for (; i < l; i++) {
-            context.fillStyle = 'rgb('+background_stars[i].brightness+','+background_stars[i].brightness+','+background_stars[i].brightness+')';
-            context.fillRect(background_stars[i].x, background_stars[i].y, 2, 2);
-        }
-
-        window.addEventListener( 'resize', onWindowResize, false );
-        window.addEventListener( 'scroll', onScroll, false );
+        // Start the animation!
+        animate();
     }
 
     /**
@@ -89,7 +69,31 @@ var StarField = function(options) {
         for (var i = 0; i < number_of_stars; i++) {
             // for the background stars, don't bother with opacity, instead we want a 'brightness' between full black and half-white (0-128) value.
             background_stars.push( { x: Math.round(Math.random() * canvas_width), y: Math.round(Math.random() * canvas_height), brightness: Math.round(Math.random() * 128) } );
-            flickering_stars.push( { x: Math.round(Math.random() * canvas_width), y: Math.round(Math.random() * canvas_height), brightness: Math.round(Math.random() * 255), state: ( Math.random() < 0.5 ? 'fading' : 'glowing' ) } );
+            flickering_stars.push( { x: Math.round(Math.random() * canvas_width), y: Math.round(Math.random() * canvas_height), brightness: Math.round(55 + Math.random() * 200), state: ( Math.random() < 0.5 ? 'fading' : 'glowing' ) } );
+        }
+
+        localStorage.setItem('background_stars', JSON.stringify(background_stars));
+        localStorage.setItem('flickering_stars', JSON.stringify(flickering_stars));
+
+        stars_length = flickering_stars.length;
+    }
+
+    function populateStarfield() {
+        canvas.width    = canvas_width;
+        canvas.height   = canvas_height;
+
+        // set up the bg and static stars
+        // set the black BG
+        context.fillStyle = '#000';
+        context.fillRect(0, 0, canvas_width, canvas_height);
+
+        var l = background_stars.length,
+            i = 0;
+        
+        /* Just one loop */
+        for (; i < l; i++) {
+            context.fillStyle = 'rgb('+background_stars[i].brightness+','+background_stars[i].brightness+','+background_stars[i].brightness+')';
+            context.fillRect(background_stars[i].x, background_stars[i].y, 2, 2);
         }
     }
 
@@ -97,8 +101,9 @@ var StarField = function(options) {
         // Only re-init on a width change.
         if( window.innerWidth != canvas_width ) {
             canvas_width = window.innerWidth;
-            clear_storage = true;
-            init();
+
+            generate_stars();
+            populateStarfield();
         }
     }
 
@@ -147,7 +152,7 @@ var StarField = function(options) {
                 }
             }
             else {
-                if(star.brightness > 2)
+                if(star.brightness > 55)
                     star.brightness -= speed;
                 else {
                     star.state = 'glowing';
@@ -162,7 +167,6 @@ var StarField = function(options) {
     }
 
     init();
-    animate();
 }
 
 StarField();

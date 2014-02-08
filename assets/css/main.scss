@@ -7,17 +7,22 @@
 /** Reset **/
 html, body, div, h1, h2, h3, h4, p, code, pre, strong, em, b, i, ul, ol, li, section, nav, canvas, article { margin:0; padding:0; font-size:100%; }
 
-* {
-    -webkit-box-sizing: border-box;
-            box-sizing: border-box;
+*, *:before, *:after {
+    box-sizing: border-box;
 }
 
 
 /** General Styles **/
-html { height: 100%; }
-body { font-family: 'ff-tisa-web-pro', 'times new roman', serif; line-height: 1.5; color: #444; }
-
-html, body { background-color: rgb(250,250,250) }
+html {
+    background-color: rgb(238, 238, 238);
+    height: 100%;
+}
+body {
+    font-family: 'ff-tisa-web-pro', 'times new roman', serif;
+    background-color: rgb(250,250,250);
+    line-height: 1.5;
+    color: #444;
+}
 
 h1  { margin: 10px 0 }
 p   { margin-bottom: 2rem }
@@ -28,38 +33,50 @@ li p { margin: 0 }
 ul ul { margin: 8px 0 20px 25px }
 
 /** Layout **/
-.container      { max-width: 720px; margin: 0 auto; padding: 0 15px; }
+.container {
+    min-width: 300px;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
 
-.starfield-bg   { background-color: #000; border-bottom: 1px solid #fff; min-height: 100px }
+.starfield-bg {
+    background-color: #000;
+    border-bottom: 1px solid #fff;
+    min-height: 80px;
+}
 
 /** Header **/
-.site-header    {
+.site-header {
     position: absolute;
     top: 0;
     width: 100%;
     padding: 20px 0;
 
-    .container { position: relative; }
+    .container {
+        position: relative;
+    }
 
     h1 {
-        background: url('../img/logo.png') 0 0 no-repeat;
+        background: url('/assets/img/logo.png') 0 0 no-repeat;
         max-width: 720px;
         height: 65px;
         margin: 0 auto;
     }
 
     .links {
-
         position: absolute;
         top: 0;
         right: 10px;
+        width: 50px;
 
         a {
             display: block;
-            background: url('../img/social-icons.png') 0 0 no-repeat;
+            float: left;
+            background: url('/assets/img/social-icons.png') 0 0 no-repeat;
             width: 20px;
             height: 22px;
-            margin-bottom: 5px;
+            margin: 0 0 5px 5px;
         }
 
         .twitter    { background-position: 0 0; }
@@ -77,64 +94,19 @@ ul ul { margin: 8px 0 20px 25px }
     }
 }
 
-
-/** Navigation **/
-.site-navigation {
-    margin: 0.6em 0;
-    ul { list-style: none }
-    li { float: left; margin-right: 0.8em }
-    a  { font-weight: 400 }
-}
-
-/** Content **/
-.main       { margin: 35px 0 40px 0 }
-.main h1    { font-size: 1.6rem; margin-bottom: 1rem; }
-.main h2    { font-size: 1.2rem; margin-bottom: 0.8em; }
-.main h3    { margin: 0.8em 0 }
-
-.main h1 + ul { margin-bottom: 2em }
-
-pre {
-    margin-bottom: 2rem;
-    overflow: auto;
-    border: 1px solid rgb(221, 221, 221);
-    box-shadow: 1px 1px 1px rgb(153, 153, 153);
-    padding: 0.5em;
-}
-
-.main img { display: block; margin: 10px auto }
-
-/** Comments **/
-
-.comments {
-    margin-top: 50px;
-
-    h3 { border-bottom: 1px solid rgb(200,200,200); margin-bottom: 25px; padding-bottom: 5px }
-}
-
-/** Footer **/
-.site-footer { background-color: rgb(238, 238, 238); border-top: 1px solid rgb(231, 230, 230); height: 8em; }
-
-/** Extras **/
-
-.cv {
-    .details span, time { display: block }  
-    time { font-weight: 600 }
-    .employment span { display: block; font-style: italic; color: rgb(150,150,150); margin-bottom: 1em }
-} 
-
-/** High Pixel Density Displays **/
-@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
-only screen and (-moz-min-device-pixel-ratio: 1.5),
-only screen and (-o-min-device-pixel-ratio: 3/2),
-only screen and (min-device-pixel-ratio: 1.5) {
-
-}
-
 /** 420px **/
 @media only screen and (min-width: 26.25em) {
-    .site-header .links a { float: left; margin: 0 0 0 5px; }
-    .site-header .links a:first-child { margin: 0; }
+    .site-header {
+        .links {
+            width: auto;
+
+            a {
+                &:first-child {
+                    margin: 0;
+                }
+            }
+        }
+    }
 }
 
 /** 800px **/
@@ -146,6 +118,81 @@ only screen and (min-device-pixel-ratio: 1.5) {
         .vimeo:active      { background-position: -69px bottom }
     }
 }
+
+
+/** Navigation **/
+.site-navigation {
+    margin: 0.6em 0;
+
+    ul { list-style: none }
+    li { float: left; margin-right: 0.8em }
+    a  { font-weight: 400 }
+}
+
+/** Content **/
+.main       {
+    margin: 35px 0 40px 0;
+
+    h1 { font-size: 1.6rem; margin-bottom: 1rem; }
+    h2 { font-size: 1.2rem; margin-bottom: 0.8em; }
+    h3 { margin: 0.8em 0 }
+
+    h1 + ul { margin-bottom: 2em }
+
+    ul {
+        margin-left: 1.4em;
+    }
+
+    img {
+        display: block;
+        margin: 10px auto;
+    }
+}
+
+pre {
+    border: 1px solid rgb(221, 221, 221);
+    overflow: auto;
+    line-height: 1.4;
+    margin-bottom: 2rem;
+    padding: 0.5em;
+}
+
+/** Comments **/
+
+.comments {
+    margin-top: 50px;
+
+    h3 {
+        border-bottom: 1px solid rgb(200,200,200);
+        margin-bottom: 25px;
+        padding-bottom: 5px;
+    }
+}
+
+/** Footer **/
+
+.site-footer {
+    background-color: rgb(238, 238, 238);
+    border-top: 1px solid rgb(231, 230, 230);
+    height: 8em;
+}
+
+/** Extras **/
+
+.cv {
+    .details span, time {
+        display: block;
+    }
+    time {
+        font-weight: 600;
+    }
+    .employment span {
+        display: block;
+        font-style: italic;
+        color: rgb(150,150,150);
+        margin-bottom: 1em;
+    }
+} 
 
 
 .ir {
@@ -171,7 +218,8 @@ only screen and (min-device-pixel-ratio: 1.5) {
     clear: both;
 }
 
-
+// Include syntax highlighting
+@import 'syntax';
 
 /* ==========================================================================
    Print styles.
