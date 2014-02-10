@@ -12,11 +12,15 @@ Running a game inside the browser is both a blessing and a curse. A typical PC/C
 
 The first issue we're going to come across is the keypress. So, for example, if you wanted to respond to a keypress in Javascript, you'd probably start by implementing a listener, just like you've done for your websites a million times before:
 
-    document.addEventListener('keydown', function(evt) {
-        // listen for the 'up' key
-        if( evt.keyCode == '38' )
-            player.positionTop += 1;
-    }, false);
+{% highlight js %}
+
+document.addEventListener('keydown', function(evt) {
+    // listen for the 'up' key
+    if( evt.keyCode == '38' )
+        player.positionTop += 1;
+}, false);
+
+{% endhighlight %}
 
 The problem here is that the OS has some default behaviour when it comes to holding down a key. It will first fire off an event for that key, pressing it once, then it will pause for a second before repeatedly firing off that same event. I'm not sure how fast this event fires, but it looks to be around 20-25 times a second. This is not fast enough or reactive enough for a game.
 
@@ -24,66 +28,94 @@ The solution to this is to not depend on the keydown event to fire repeatetedly,
 
 First we set another global variable, `key`
 
-    var canvas  = document.getElementById('super-js-adventure'),
-        ctx     = canvas.getContext('2d'),
-        width   = 256,
-        height  = 224,
-        key     = [0,0,0,0,0],
-        link    = new Image();
+{% highlight js %}
+
+var canvas  = document.getElementById('super-js-adventure'),
+    ctx     = canvas.getContext('2d'),
+    width   = 256,
+    height  = 224,
+    key     = [0,0,0,0,0],
+    link    = new Image();
+
+{% endhighlight %}
 
 It's an array of the five keys we're currently interested in, Up, Down, Left, Right and Space, all initialised at 0, for off. If we used the variable to only store which key was being pressed, then we couldn't react to simultaneous key presses, like Down and Right, preventing our character from moving diagonally. We _could_ use a variable per key, but this works well enough and keeps our code a little leaner.
 
 We then add a function to set the values of this array with the appropriate keys:
 
-    function changeKey(which, to) {
-        switch (which){
-            case 65: case 37: key[0]=to; break; // left
-            case 87: case 38: key[2]=to; break; // up
-            case 68: case 39: key[1]=to; break; // right
-            case 83: case 40: key[3]=to; break; // down
-            case 32: key[4]=to; break; // space bar;
-        }
+{% highlight js %}
+
+function changeKey(which, to) {
+    switch (which){
+        case 65: case 37: key[0]=to; break; // left
+        case 87: case 38: key[2]=to; break; // up
+        case 68: case 39: key[1]=to; break; // right
+        case 83: case 40: key[3]=to; break; // down
+        case 32: key[4]=to; break; // space bar;
     }
+}
+
+{% endhighlight %}
 
 Actually, this function also takes into account people who may want to use the WASD keys, typical to PC First Person Shooter games. So, keyCode 65 is 'a' and 37 is 'left'. Handy!
 
 Now we're free to add our event handlers to call this function:
 
-    document.onkeydown = function(e)  { changeKey((e||window.event).keyCode, 1); }
-    document.onkeyup = function(e)    { changeKey((e||window.event).keyCode, 0); }
+{% highlight js %}
+
+document.onkeydown = function(e)  { changeKey((e||window.event).keyCode, 1); }
+document.onkeyup = function(e)    { changeKey((e||window.event).keyCode, 0); }
+
+{% endhighlight %}
     
 `document.onkeydown` is just a shorthand way of writing `addEventListener()`. Feel free to use the W3C standard, if you like. Otherwise, all that's happening is when a user presses a key we get the event (e on non-IE browsers, window.event for IE) and sends the keyCode to the `changeKey()` function. From there we check which key is pressed and set the appropriate value in the array to 1.
 
 Putting all that together with our game, we'll get our little Link moving around. Currently, we have the Link image being statically drawn at 20px left and 20px down. First there needs to be a way of storing his position for us to manipulate. We can do that with a new global variable:
 
-    var player  = {
-        x : 0,
-        y : 0
-    };
+{% highlight js %}
+
+var player  = {
+    x : 0,
+    y : 0
+};
+
+{% endhighlight %}
 
 I'm using a JSON object so we can keep everything related to the player nice and enclosed. We can read/write their position with `player.x` and `player.y`
 
 We'll give Link a bit more space to begin with by setting his initial position to 100px left and 100px down in the `init()` function by adding:
 
-    // Place Link a little more central
-    player.x = 100;
-    player.y = 100;
+{% highlight js %}
+
+// Place Link a little more central
+player.x = 100;
+player.y = 100;
+
+{% endhighlight %}
 
 Now, remembering back to the Game Loop, one of its steps after clearing the screen is handling user input. So that's our next destination. On each loop of the game, we check to see if the user is pressing any keys by looking at the key array we set earlier, then we react. In this case, we look for the each of the direction keys being pressed, and alter the player's position until that key is released. For now, we'll move the player by 4px per frame in any given direction by adding this code to `main()`:
 
-    // Handle the Input
-    if (key[2]) // up
-        player.y -= 4;
-    if( key[3]) // down
-        player.y += 4;
-    if( key[0]) // left
-        player.x -= 4;
-    if( key[1]) // right
-        player.x += 4;
+{% highlight js %}
+
+// Handle the Input
+if (key[2]) // up
+    player.y -= 4;
+if( key[3]) // down
+    player.y += 4;
+if( key[0]) // left
+    player.x -= 4;
+if( key[1]) // right
+    player.x += 4;
+
+{% endhighlight %}
 
 Finally, we have to draw Link in the at the new coordinates on each frame, so taking the `drawImage()` function we had in the main loop, `ctx.drawImage(link, 20, 20)`, we replace it with the stored positions:
 
-    ctx.drawImage(link, player.x, player.y);
+{% highlight js %}
+
+ctx.drawImage(link, player.x, player.y);
+
+{% endhighlight %}
 
 And now we have a walking, well&hellip; _gliding_, Link!
 
@@ -101,171 +133,200 @@ If you want to explore the API a little further, there's a great article over on
 
 So, first thing's first. Let's move the code for all input handling out of the main Javascript and give it its own file and library. The Input library:
 
-    var Input = {
+{% highlight js %}
 
-    }
+var Input = {
+
+}
+
+{% endhighlight %}
 
 We'll give it an `init()` function to load the basics and also bring in the changeKey that we've already implemented for the keyboard:
 
-    var Input = {
+{% highlight js %}
 
-        init: function() {
-            // Set up the keyboard events
-            document.onkeydown  = function(e) { Input.changeKey((e||window.event).keyCode, 1); }
-            document.onkeyup    = function(e) { Input.changeKey((e||window.event).keyCode, 0); }
-        },
-
-        // called on key up and key down events
-        changeKey: function(which, to) {
-            switch (which){
-                case 65: case 37: key[0]=to; break; // left
-                case 87: case 38: key[2]=to; break; // up
-                case 68: case 39: key[1]=to; break; // right
-                case 83: case 40: key[3]=to; break;// down
-                case 32: key[4]=to; break; // attack (space bar)
-                case 91: key[5]=to; break; // use item (cmd)
-                case 88: key[6]=to; break; // start (x)
-                case 90: key[7]=to; break; // select (z)
-            }
-        }
-    }
-
-I've also added a few more buttons so we are in line with the controls for the original Zelda; attack, use item, start and select, and mapped them to some keys. The extra buttons won't do anything yet, but they're ready for when we need them.
-
-Okay, we've got the original functionality back in place. Now for the gamepad. We start with a few variables we'll need to track the gamepad:
-
-    var Input = {
-
-        gamepad: null,
-
-        ticking: false,
-
-        // Previous timestamps for gamepad state; used in Chrome to not bother with
-        // analyzing the polled data if nothing changed (timestamp is the same
-        // as last time).
-        prevTimestamp: null,
-
-
-We store the gamepad object when we find one. Ticking controls our polling so that we can start/stop polling as and when we need to. Holding the previous timestamp of the controller allows us to check if the user has disconnected their joystick.
-
-Let's upgrade our `init()` function to check for gamepad support and, if so, start the polling:
+var Input = {
 
     init: function() {
         // Set up the keyboard events
         document.onkeydown  = function(e) { Input.changeKey((e||window.event).keyCode, 1); }
         document.onkeyup    = function(e) { Input.changeKey((e||window.event).keyCode, 0); }
-
-        // Checks Chrome to see if the GamePad API is supported.
-        var gamepadSupportAvailable = !!navigator.webkitGetGamepads || !!navigator.webkitGamepads;
-
-        if(gamepadSupportAvailable) {
-            // Since Chrome only supports polling, we initiate polling loop straight
-            // away. For Firefox, we will only do it if we get a connect event.
-            if (!!navigator.webkitGamepads || !!navigator.webkitGetGamepads) {
-                Input.startPolling();
-            }
-        }
     },
 
+    // called on key up and key down events
+    changeKey: function(which, to) {
+        switch (which){
+            case 65: case 37: key[0]=to; break; // left
+            case 87: case 38: key[2]=to; break; // up
+            case 68: case 39: key[1]=to; break; // right
+            case 83: case 40: key[3]=to; break;// down
+            case 32: key[4]=to; break; // attack (space bar)
+            case 91: key[5]=to; break; // use item (cmd)
+            case 88: key[6]=to; break; // start (x)
+            case 90: key[7]=to; break; // select (z)
+        }
+    }
+}
+
+{% endhighlight %}
+
+I've also added a few more buttons so we are in line with the controls for the original Zelda; attack, use item, start and select, and mapped them to some keys. The extra buttons won't do anything yet, but they're ready for when we need them.
+
+Okay, we've got the original functionality back in place. Now for the gamepad. We start with a few variables we'll need to track the gamepad:
+
+{% highlight js %}
+
+var Input = {
+
+    gamepad: null,
+
+    ticking: false,
+
+    // Previous timestamps for gamepad state; used in Chrome to not bother with
+    // analyzing the polled data if nothing changed (timestamp is the same
+    // as last time).
+    prevTimestamp: null,
+
+{% endhighlight %}
+
+We store the gamepad object when we find one. Ticking controls our polling so that we can start/stop polling as and when we need to. Holding the previous timestamp of the controller allows us to check if the user has disconnected their joystick.
+
+Let's upgrade our `init()` function to check for gamepad support and, if so, start the polling:
+
+{% highlight js %}
+
+init: function() {
+    // Set up the keyboard events
+    document.onkeydown  = function(e) { Input.changeKey((e||window.event).keyCode, 1); }
+    document.onkeyup    = function(e) { Input.changeKey((e||window.event).keyCode, 0); }
+
+    // Checks Chrome to see if the GamePad API is supported.
+    var gamepadSupportAvailable = !!navigator.webkitGetGamepads || !!navigator.webkitGamepads;
+
+    if(gamepadSupportAvailable) {
+        // Since Chrome only supports polling, we initiate polling loop straight
+        // away. For Firefox, we will only do it if we get a connect event.
+        if (!!navigator.webkitGamepads || !!navigator.webkitGetGamepads) {
+            Input.startPolling();
+        }
+    }
+},
+
+{% endhighlight %}
 
 We'd best get that polling code in now!
 
-    /**
-     * Starts a polling loop to check for gamepad state.
-     */
-    startPolling: function() {
-        // Don’t accidentally start a second loop, man.
-        if (!Input.ticking) {
-            Input.ticking = true;
-            Input.tick();
-        }
-    },
+{% highlight js %}
 
-    /**
-     * Stops a polling loop by setting a flag which will prevent the next
-     * requestAnimationFrame() from being scheduled.
-     */
-    stopPolling: function() {
-        Input.ticking = false;
-    },
+/**
+ * Starts a polling loop to check for gamepad state.
+ */
+startPolling: function() {
+    // Don’t accidentally start a second loop, man.
+    if (!Input.ticking) {
+        Input.ticking = true;
+        Input.tick();
+    }
+},
 
-    /**
-     * A function called with each requestAnimationFrame(). Polls the gamepad
-     * status and schedules another poll.
-     */
-    tick: function() {
-        Input.pollStatus();
-        Input.scheduleNextTick();
-    },
+/**
+ * Stops a polling loop by setting a flag which will prevent the next
+ * requestAnimationFrame() from being scheduled.
+ */
+stopPolling: function() {
+    Input.ticking = false;
+},
 
-    scheduleNextTick: function() {
-        // Only schedule the next frame if we haven’t decided to stop via
-        // stopPolling() before.
-        if (Input.ticking) {
-            requestAnimationFrame(Input.tick);
-        }
-    },
+/**
+ * A function called with each requestAnimationFrame(). Polls the gamepad
+ * status and schedules another poll.
+ */
+tick: function() {
+    Input.pollStatus();
+    Input.scheduleNextTick();
+},
 
-    /**
-     * Checks for the gamepad status. Monitors the necessary data and notices
-     * the differences from previous state (buttons and connects/disconnects for Chrome). If differences are noticed, asks
-     * to update the display accordingly. Should run as close to 60 frames per second as possible.
-     */
-    pollStatus: function() {
-        // We're only interested in one gamepad, which is the first.
-        gamepad = navigator.webkitGetGamepads && navigator.webkitGetGamepads()[0];
+scheduleNextTick: function() {
+    // Only schedule the next frame if we haven’t decided to stop via
+    // stopPolling() before.
+    if (Input.ticking) {
+        requestAnimationFrame(Input.tick);
+    }
+},
 
-        if(!gamepad)
-            return;
+/**
+ * Checks for the gamepad status. Monitors the necessary data and notices
+ * the differences from previous state (buttons and connects/disconnects for Chrome). If differences are noticed, asks
+ * to update the display accordingly. Should run as close to 60 frames per second as possible.
+ */
+pollStatus: function() {
+    // We're only interested in one gamepad, which is the first.
+    gamepad = navigator.webkitGetGamepads && navigator.webkitGetGamepads()[0];
 
-        // Don’t do anything if the current timestamp is the same as previous
-        // one, which means that the state of the gamepad hasn’t changed.
-        // The first check makes sure we’re not doing anything if the timestamps are empty or undefined.
-        if (gamepad.timestamp && (gamepad.timestamp == Input.prevTimestamp)) {
-            return
-        }
+    if(!gamepad)
+        return;
 
-        Input.prevTimestamp = gamepad.timestamp;
+    // Don’t do anything if the current timestamp is the same as previous
+    // one, which means that the state of the gamepad hasn’t changed.
+    // The first check makes sure we’re not doing anything if the timestamps are empty or undefined.
+    if (gamepad.timestamp && (gamepad.timestamp == Input.prevTimestamp)) {
+        return
+    }
 
-        Input.updateKeys();
-    },
+    Input.prevTimestamp = gamepad.timestamp;
+
+    Input.updateKeys();
+},
+
+{% endhighlight %}
 
 Lots of code here. If you've ever dabbled with scrolling events in the browser, this polling idea is generally recommended so that you're not firing events on each scroll update. We can also pause the polling, which stops the loop, and thereby prevents unnecessary work. But the main point of the code is that `pollStatus()` function.
 
 On each frame we get the gamepad, if one is there. And remember, no gamepad exists until it's plugged in and a button is pressed. We also only care about one gamepad, which means we can grab the first element (\[0\]) of the `webkitGetGamepads()` function. If we find a gamepad, then check the timestamp to see whether anything has changed since the last update. Otherwise, do nothing. If something has changed, then we update the timestamp and update the `key[]` array which controls Link.
 
 Updating the keys is pretty simple:
-    
-    updateKeys: function() {
 
-        // console.log(gamepad.buttons)
+{% highlight js %}
 
-        // Map the d-pad
-        key[0] = gamepad.axes[0] <= -0.5 // left
-        key[1] = gamepad.axes[0] >= 0.5 // right
-        key[2] = gamepad.axes[1] <= -0.5  // up
-        key[3] = gamepad.axes[1] >= 0.5 // down
+updateKeys: function() {
 
-        // Map the Buttons
-        key[4] = gamepad.buttons[0]; // attack (A)
-        key[5] = gamepad.buttons[1]; // use item (B)
+    // console.log(gamepad.buttons)
 
-        key[6] = gamepad.buttons[10]; // start
-        key[7] = gamepad.buttons[9]; // select
-    }
+    // Map the d-pad
+    key[0] = gamepad.axes[0] <= -0.5 // left
+    key[1] = gamepad.axes[0] >= 0.5 // right
+    key[2] = gamepad.axes[1] <= -0.5  // up
+    key[3] = gamepad.axes[1] >= 0.5 // down
+
+    // Map the Buttons
+    key[4] = gamepad.buttons[0]; // attack (A)
+    key[5] = gamepad.buttons[1]; // use item (B)
+
+    key[6] = gamepad.buttons[10]; // start
+    key[7] = gamepad.buttons[9]; // select
+}
+
+{% endhighlight %}
 
 We only need a few buttons, so this _should_ be generic enough for most joysticks. However, I've been testing with a Microsoft Sidewinder control pad, and the button layout is not like current Xbox/PS controllers. We can update this with further testing.
 
 With this done, we just need to add the new file to our project:
 
-    <script src="js/input.js"></script>
-    <script src="js/main.js"></script>
+{% highlight html %}
+
+<script src="js/input.js"></script>
+<script src="js/main.js"></script>
+
+{% endhighlight %}
 
 and then initialise the Inputs in the `init()` function of our main code:
 
-    // Setup the Input
-    Input.init();
+{% highlight js %}
 
+// Setup the Input
+Input.init();
+
+{% endhighlight %}
 
 And now we have Zelda with a controller. The way it was meant to be. Wonderful.
 
@@ -273,3 +334,8 @@ And now we have Zelda with a controller. The way it was meant to be. Wonderful.
 
 And you can see v0.2 of the game with Gamepad support [here](http://gablaxian.com/experiments/super-js-adventure/0.2/)
 Or check out all the [source code](http://github.com/gablaxian/super-js-adventure) on Github.
+
+<div class="pagination clearfix">
+    <a class="left" href="/articles/creating-a-game-with-javascript/handling-user-input.html">&larr; Handling user input</a>
+    <a class="right" href="/articles/creating-a-game-with-javascript/scaling-the-canvas.html">Scaling the canvas &rarr;</a>
+</div>

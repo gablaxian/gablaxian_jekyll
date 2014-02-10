@@ -18,3 +18,7 @@ I've been wrestling with the idea of what to build. Initially it was to be a gen
 I leave this decision to you, dear anonymous internet folk. Either watch, comment and learn, as we reconstruct a classic, or crowd source the whole process and create something entirely new. However, bare in mind the following: I am not a designer. Reconstructing a classic has the added bonus that all the assets I would need are available online. Whereas, creating something from scratch would require art assets that would be beyond my abilities. This would lead to either the most horrendous graphics known to man, or you'd have to help me out in making them.
 
 Whichever route we take, all the [code](http://github.com/gablaxian/super-js-adventure) will be available on Github for you to peruse, or even use for some dastardly purpose. All decisions will be explained, and iterated upon as the project grows. This will be very much a brute force approach to game development. All part of the learning/teaching process.
+
+<div class="pagination clearfix">
+    <a class="right" href="/articles/creating-a-game-with-javascript/the-game-loop.html">The game loop &rarr;</a>
+</div>

@@ -56,23 +56,27 @@ Then I set up my 'app' in `/var/www/twitter_nodejs`. Inside that folder, install
 
 Then create a file called whatever you like – my_app.js or whatever. Inside which put the following code:
 
-    var http = require('http'),
-        jsdom = require("jsdom"),
-        twitter_feed = 'http://twitter.com/gablaxian/';
+{% highlight js %}
 
-    http.createServer(function( req, res ) {
-        res.writeHead(200, {'Content-Type': 'text/plain'});
+var http = require('http'),
+    jsdom = require("jsdom"),
+    twitter_feed = 'http://twitter.com/gablaxian/';
 
-        jsdom.env({
-            html: twitter_feed,
-            done: function (errors, window) {
-                var elm = window.document.querySelector('.stream-items li');
-                res.end( elm.querySelector('.content .tweet-text').innerHTML );
-            }
-        });
-    }).listen(3000, '127.0.0.1');
-    
-    console.log('Server running at http://127.0.0.1:3000');
+http.createServer(function( req, res ) {
+    res.writeHead(200, {'Content-Type': 'text/plain'});
+
+    jsdom.env({
+        html: twitter_feed,
+        done: function (errors, window) {
+            var elm = window.document.querySelector('.stream-items li');
+            res.end( elm.querySelector('.content .tweet-text').innerHTML );
+        }
+    });
+}).listen(3000, '127.0.0.1');
+
+console.log('Server running at http://127.0.0.1:3000');
+
+{% endhighlight %}
 
 Change the twitter feed variable to the feed of your choice. Then run the app with:
     

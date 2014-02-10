@@ -138,3 +138,7 @@ function main() {
 
 And there we have it. Link makes an appearance so we can now class our little app as a true Zelda game.
 
+<div class="pagination clearfix">
+    <a class="left" href="/articles/creating-a-game-with-javascript/drawing-to-the-screen.html">&larr; Drawing to the screen</a>
+    <a class="right" href="/articles/creating-a-game-with-javascript/handling-user-input.html">Handling user input &rarr;</a>
+</div>

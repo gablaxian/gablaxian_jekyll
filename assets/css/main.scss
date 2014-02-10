@@ -18,24 +18,24 @@ html {
     height: 100%;
 }
 body {
-    font-family: 'ff-tisa-web-pro', 'times new roman', serif;
-    background-color: rgb(250,250,250);
+    font-family: 'ff-tisa-sans-web-pro', 'Helvetica Neue', Arial, helvetica, sans-serif;
+    background-color: #fff;
     line-height: 1.5;
     color: #444;
 }
 
 h1  { margin: 10px 0 }
 p   { margin-bottom: 2rem }
-a   { color: rgb(255, 143, 0); font-weight: 600 }
+a   { color: rgb(255, 143, 0); }
 
 /* Yay Markdown and the annoying paragraph it adds when nesting lists! */
-li p { margin: 0 }
-ul ul { margin: 8px 0 20px 25px }
+li p    { margin: 0 }
+ul ul   { margin: 8px 0 20px 25px }
 
 /** Layout **/
 .container {
     min-width: 300px;
-    max-width: 720px;
+    max-width: 640px;
     margin: 0 auto;
     padding: 0 15px;
 }
@@ -51,7 +51,7 @@ ul ul { margin: 8px 0 20px 25px }
     position: absolute;
     top: 0;
     width: 100%;
-    padding: 20px 0;
+    padding-top: 20px;
 
     .container {
         position: relative;
@@ -130,7 +130,7 @@ ul ul { margin: 8px 0 20px 25px }
 }
 
 /** Content **/
-.main       {
+.main {
     margin: 35px 0 40px 0;
 
     h1 { font-size: 1.6rem; margin-bottom: 1rem; }
@@ -147,14 +147,30 @@ ul ul { margin: 8px 0 20px 25px }
         display: block;
         margin: 10px auto;
     }
+
+    p code {
+        border: 1px solid rgb(221, 221, 221);
+        background-color: #fafafa;
+        padding: 0.1em 0.2em;
+    }
 }
 
 pre {
     border: 1px solid rgb(221, 221, 221);
+    background-color: #fafafa;
     overflow: auto;
     line-height: 1.4;
     margin-bottom: 2rem;
     padding: 0.5em;
+}
+
+.pagination {
+    .left {
+        float: left;
+    }
+    .right {
+        float: right;
+    }
 }
 
 /** Comments **/

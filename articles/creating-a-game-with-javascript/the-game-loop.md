@@ -25,39 +25,47 @@ In PC & Console games, this loop is usually a while() loop and it will run indef
 
 So, let's get going! At the moment, our [game](https://github.com/gablaxian/super-js-adventure) is pretty simple. One HTML file with a basic HTML structure, a few styles and a canvas element:
 
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Super JS Adventure!</title>
-        
-        <style type="text/css" media="screen">
-            * { margin: 0; padding: 0 }
-            #container { width: 256px; height: 224px; border: 1px solid #999; margin: 20px auto 0 auto; }
-        </style>
-        
-    </head>
+{% highlight html %}
 
-    <body>
-        
-        <div id="container">
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Super JS Adventure!</title>
+    
+    <style type="text/css" media="screen">
+        * { margin: 0; padding: 0 }
+        #container { width: 256px; height: 224px; border: 1px solid #999; margin: 20px auto 0 auto; }
+    </style>
+    
+</head>
 
-            <canvas id="super-js-adventure" width="256" height="224"></canvas>
+<body>
+    
+    <div id="container">
 
-        </div>
-        
-        <script src="js/main.js"></script>
-    </body>
-    </html>
+        <canvas id="super-js-adventure" width="256" height="224"></canvas>
+
+    </div>
+    
+    <script src="js/main.js"></script>
+</body>
+</html>
+
+{% endhighlight %}
 
 The canvas element may look a bit small, but that's the native resolution of Zelda: A Link to the Past. Scary, huh? Obviously, it was scaled up when shown on TVs, and we'll get to that later.
 
 The JS file is even more simple:
 
-    var canvas  = document.getElementById('super-js-adventure'),
-        ctx     = canvas.getContext('2d'),
-        width   = 256,
-        height  = 224;
+{% highlight js %}
+
+var canvas  = document.getElementById('super-js-adventure'),
+    ctx     = canvas.getContext('2d'),
+    width   = 256,
+    height  = 224;
+
+{% endhighlight %}
 
 We first get hold of the canvas element which just sets up a drawing surface, then get its 'context', the actual surface we'll be manipulating. I've also stored the inital size of the canvas just in case.
 
@@ -67,14 +75,22 @@ So now we get some sort of loop going. For now, I'll be emulating the sort of th
 
 Historically, Javascript has provided two functions to use for looping: `setInterval()` and `setTimeout()`. These are actually timers, as opposed to loops. You can pass `setInterval()` a function and a time, x, in milliseconds and it will fire that function every x ms:
 
-    setInterval( function() { // I'm looping! }, 16 );
+{% highlight js %}
+
+setInterval( function() { // I'm looping! }, 16 );
+
+{% endhighlight %}
 
 This runs the anonymous function every 16 seconds, which is around 60fps (16.6 recurring, if you must know). Or, you could use `setTimeout()`, albeit a little differently, which runs a function after x ms:
 
-    setTimeout(function(){
-        /* Some long block of code... */
-        setTimeout(arguments.callee, 16);
-      }, 16);
+{% highlight js %}
+
+setTimeout(function(){
+    /* Some long block of code... */
+    setTimeout(arguments.callee, 16);
+  }, 16);
+
+{% endhighlight %}
 
 However, much has been written about the downsides of both these techniques. John Resig, of jQuery fame, wrote a technical but succint post [here](http://ejohn.org/blog/how-javascript-timers-work/). Thankfully, all the latest browsers support a new function: **requestAnimationFrame()**.
 It's a little odd to use, but is preferred because in essence it tells the browser that something wants animating. This is good because browsers are already drawing to the screen, so we're sort of piggy-backing off that. With the timers, the browser was unaware that an animation was taking place.
@@ -82,23 +98,26 @@ It also runs _up to_ 60fps, but no faster. And since the browser is aware of its
 
 So, let's get that added in along with functions for initialisation and the main loop:
 
-    function init() {
-        // Initialise the game!
-    }
+{% highlight js %}
 
-    function main() {
-        // Here's where we handle all the input, logic and drawing to the screen per frame.
+function init() {
+    // Initialise the game!
+}
 
-        // call itself by requesting the next animation frame, and so begin the endless loop
-        requestAnimationFrame(main);
-    }
+function main() {
+    // Here's where we handle all the input, logic and drawing to the screen per frame.
 
-
-    // Initialise
-    init();
-
-    // Start the loop!
+    // call itself by requesting the next animation frame, and so begin the endless loop
     requestAnimationFrame(main);
+}
+
+// Initialise
+init();
+
+// Start the loop!
+requestAnimationFrame(main);
+
+{% endhighlight %}
 
 Pretty simple, eh? We don't have much to show for it, but it you fire that up in your browser, you'll have a canvas ready to be drawn to, and a loop running at 60fps. Good job! Have a biscuit.
 
@@ -108,6 +127,8 @@ As I recently learned, Firefox doesn't yet support `requestAnimationFrame()` unp
 
 We simply add this code from Paul Irish's excellent [blog post](http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/), straight after the global variables for now:
 
+{% highlight js %}
+
     var vendors = ['webkit', 'moz'];
     for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
         window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
@@ -115,6 +136,13 @@ We simply add this code from Paul Irish's excellent [blog post](http://www.pauli
           window[vendors[x]+'CancelAnimationFrame'] || window[vendors[x]+'CancelRequestAnimationFrame'];
     }
 
+{% endhighlight %}
+
 This will create the required function to simply call the prefixed function instead.
 
 Join me next time when we deal with drawing to the screen!
+
+<div class="pagination clearfix">
+    <a class="left" href="/articles/creating-a-game-with-javascript/introduction.html">&larr; Introduction</a>
+    <a class="right" href="/articles/creating-a-game-with-javascript/drawing-to-the-screen.html">Drawing to the screen &rarr;</a>
+</div>

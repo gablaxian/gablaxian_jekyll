@@ -30,30 +30,36 @@
                 <a href="https://vimeo.com/gablaxian" class="vimeo ir" rel="external">vimeo</a>
             </div>
         </div>
-	</header>
-	
-	<div class="container">
-		
-		<nav class="site-navigation" role="navigation">
-			<ul class="clearfix">
-				<li><a href="/journal">Journal</a></li>
-				<li><a href="/articles">Articles</a></li>
-			</ul>
-		</nav>
-		
-		<div class="main" role="main">
-			
-			{{ content }}
-			
-		</div>
 
-		{% if page.disqus %}
-		<section class="comments">
-			<h3>The bit where I let you think I care</h3>
+	</header>
+
+    <nav class="site-navigation" role="navigation">
+
+        <div class="container">
+            <ul class="clearfix">
+                <li><a href="/journal">Journal</a></li>
+                <li><a href="/articles">Articles</a></li>
+            </ul>
+        </div>
+
+    </nav>
+
+    <main class="main" role="main">
+        
+        <div class="container">
+            {{ content }}
+        </div>
+
+    </main>
+	
+	{% if page.disqus %}
+    <section class="comments">
+
+        <div class="container">
+            <h3>The bit where I let you think I care</h3>
 
 			<div id="disqus_thread"></div>
-			<script type="text/javascript">
-			    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+			<script>
 			    var disqus_shortname = 'gablaxian'; // required: replace example with your forum shortname
 
 			    /* * * DON'T EDIT BELOW THIS LINE * * */
@@ -63,13 +69,15 @@
 			        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 			    })();
 			</script>
-			<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-			<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-		</section>
-		{% endif %}
-	</div>
+            <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    	</div>
 
-	<footer class="site-footer"></footer>
+    </section>
+    {% endif %}
+
+    <footer class="site-footer">
+        
+    </footer>
 
 	<script src="/assets/build/js/production.min.js"></script>
 </body>

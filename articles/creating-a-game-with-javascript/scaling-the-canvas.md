@@ -14,11 +14,19 @@ On an older generation console, the output is upscaled by the player's televisio
 
 So, what's the problem? Well, let's scale up the canvas by a factor of 3 with some CSS and find out:
 
-    <canvas style="zoom:300%" />
+{% highlight html %}
+
+<canvas style="zoom:300%" />
+
+{% endhighlight %}
 
 which works in Chrome, Safari and IE. Or,
 
-    <canvas style="-moz-transform:scale(3)" />
+{% highlight html %}
+
+<canvas style="-moz-transform:scale(3)" />
+
+{% endhighlight %}
 
 for Firefox.
 
@@ -38,13 +46,17 @@ Canvas only has the one algorithm which is enabled by default, which I think is 
 
 There is one hope for salvation. A bit of CSS we can deploy which will stop the browser from smoothing images and instead retain the blocky appearence:
 
-    img {
-        image-rendering: optimizeSpeed;
-        image-rendering: -moz-crisp-edges;
-        image-rendering: -webkit-optimize-contrast;
-        image-rendering: optimize-contrast;
-        -ms-interpolation-mode: nearest-neighbor;
-    }
+{% highlight css %}
+
+img {
+    image-rendering: optimizeSpeed;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: optimize-contrast;
+    -ms-interpolation-mode: nearest-neighbor;
+}
+
+{% endhighlight %}
 
 But it's here that I must point out: scaling images and scaling _the whole canvas_ is different. If we apply that CSS to the whole canvas and use `drawImage()` to draw the images at a larger size, the CSS will kick in removing the smoothing. The same CSS just doesn't work when scaling the whole canvas though. Bah.
 
@@ -62,14 +74,17 @@ It will, however, make the Wayne's World American Indian cry.
 
 Not the worst idea. It will permeate the whole game, so every time we draw something to the screen we will need to calculate sizes, positions and even speeds based on the scale. Our drawing code would look more like:
 
-    var x, y, scale = 2;
+{% highlight js %}
 
-    // Probably not as straightforward as this
-    x = x * scale;
-    y = y * scale;
+var x, y, scale = 2;
 
-    ctx.drawImage(img, x, y, width*scale, height*scale);
+// Probably not as straightforward as this
+x = x * scale;
+y = y * scale;
 
+ctx.drawImage(img, x, y, width*scale, height*scale);
+
+{% endhighlight %}
 
 Definitely more of a hassle. I can't comment on performance either, but I imagine there'd be a hit as we're now drawing larger images.
 
@@ -89,3 +104,6 @@ The short version is that, while we can write this function, and there are plent
 
 Okay, so there's no real conclusion yet. I'll probably go with option 1 for now and suck it up, simply to speed up devlopment. I'll revisit the situation later once we're properly building the graphics engine.
 
+<div class="pagination clearfix">
+    <a class="left" href="/articles/scaling-the-canvas.html">&larr; Scaling the canvas</a>
+</div>
