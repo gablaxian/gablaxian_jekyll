@@ -56,6 +56,11 @@ var StarField = function(element, options) {
 
     /**
         generate_stars
+
+        Setup the stars
+        Two types.
+        1. Background stars. Static, dark grey (between 0.1 - 0.5 transparency)
+        2. Flickering. Set up an array of randomly placed stars with random opacities.
     **/
     function generate_stars() {
         "use asm"
@@ -128,11 +133,6 @@ var StarField = function(element, options) {
     function render() {
 
         /*  
-            Setup the stars
-            Two types.
-            1. Background stars. Static, dark grey (between 0.1 - 0.5 transparency)
-            2. Flickering. Set up an array of randomly placed stars with random opacities.
-
             For flickering stars, on each loop increase the opacity by 0.1 until fully opaque then back to fully transparent. When fully transparent, set to a new random position
         */
 
@@ -145,6 +145,7 @@ var StarField = function(element, options) {
             // Flickering stars
             var star = flickering_stars[i];
 
+            // if the star is glowing
             if (star.s == 1) {
                 if(star.b < 255)
                     star.b += speed;
