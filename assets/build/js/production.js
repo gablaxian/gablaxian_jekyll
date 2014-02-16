@@ -10,20 +10,22 @@ var StarField = function(element, options) {
         scrollY         = 0,
         paused          = false,
         star_density    = options.star_density || 10,
+        speed           = options.speed || 6,
         background_stars = new Array(),
         flickering_stars = new Array(),
         stars_length    = 0;
 
 
-    // shim layer with setTimeout fallback
-    window.requestAnimFrame = (function(){
-      return  window.requestAnimationFrame       ||
-              window.webkitRequestAnimationFrame ||
-              window.mozRequestAnimationFrame    ||
-              function( callback ){
-                window.setTimeout(callback, 1000 / 60);
-              };
-    })();
+    // It was nice to play around with requestAnimationFrame, but honestly, for a starfield, 60fps isn't necessary and only used more CPU power.
+    // I also don't like the idea of having to add more code and time calculations simply to _reduce_ the frame rate.
+    // We're not doing critical animation here, and it doesn't matter if timing isnt exact. By dropping back to setTimeout and 24fps, overall CPU
+    // usage has reduced to around 10%, almost half of before.
+    // Once you move off the tab, you won't get the CPU savings of RAF, but we're still checking the animation is in view when on the page and pausing accordingly.
+    // window.requestAnimFrame = (function(){
+    //     return  function( callback ){
+    //                 window.setTimeout(callback, 1000 / 24);
+    //             };
+    // })();
 
     /**
         init
@@ -68,8 +70,8 @@ var StarField = function(element, options) {
         // Setup the star arrays
         for (var i = 0; i < number_of_stars; i++) {
             // for the background stars, don't bother with opacity, instead we want a 'brightness' between full black and half-white (0-128) value.
-            background_stars.push( { x: Math.round(Math.random() * canvas_width), y: Math.round(Math.random() * canvas_height), brightness: Math.round(Math.random() * 128) } );
-            flickering_stars.push( { x: Math.round(Math.random() * canvas_width), y: Math.round(Math.random() * canvas_height), brightness: Math.round(55 + Math.random() * 200), state: ( Math.random() < 0.5 ? 'fading' : 'glowing' ) } );
+            background_stars.push( { x: Math.round(Math.random() * canvas_width), y: Math.round(Math.random() * canvas_height), w: ( Math.random() < 0.5 ? 2 : 1 ), b: Math.round(Math.random() * 128) } );
+            flickering_stars.push( { x: Math.round(Math.random() * canvas_width), y: Math.round(Math.random() * canvas_height), w: ( Math.random() < 0.5 ? 2 : 1 ), b: Math.round(Math.random() * 255), s: ( Math.random() < 0.5 ? 0 : 1 ) } );
         }
 
         localStorage.setItem('background_stars', JSON.stringify(background_stars));
@@ -92,7 +94,7 @@ var StarField = function(element, options) {
         
         /* Just one loop */
         for (; i < l; i++) {
-            context.fillStyle = 'rgb('+background_stars[i].brightness+','+background_stars[i].brightness+','+background_stars[i].brightness+')';
+            context.fillStyle = 'rgb('+background_stars[i].b+','+background_stars[i].b+','+background_stars[i].b+')';
             context.fillRect(background_stars[i].x, background_stars[i].y, 2, 2);
         }
     }
@@ -117,9 +119,10 @@ var StarField = function(element, options) {
     }
 
     function animate() {
-        requestAnimFrame( animate );
         if( !paused )
             render();
+
+        window.setTimeout(animate, 1000 / 24);
     }
 
     function render() {
@@ -134,8 +137,7 @@ var StarField = function(element, options) {
         */
 
         // draw stars
-        var i       = stars_length,
-            speed   = 3;
+        var i = stars_length;
         
         /* Just one loop */
         while (i--) {
@@ -143,26 +145,26 @@ var StarField = function(element, options) {
             // Flickering stars
             var star = flickering_stars[i];
 
-            if (star.state == 'glowing') {
-                if(star.brightness < 255)
-                    star.brightness += speed;
+            if (star.s == 1) {
+                if(star.b < 255)
+                    star.b += speed;
                 else {
-                    star.state = 'fading';
-                    star.brightness -= speed;
+                    star.s = 0;
+                    star.b -= speed;
                 }
             }
             else {
-                if(star.brightness > 55)
-                    star.brightness -= speed;
+                if(star.b > 55)
+                    star.b -= speed;
                 else {
-                    star.state = 'glowing';
-                    star.brightness += speed;
+                    star.s = 1;
+                    star.b += speed;
                 }
             }
 
             // clear only the areas where stars appear. Just paint the affected area black.
-            context.fillStyle = 'rgb('+star.brightness+','+star.brightness+','+star.brightness+')';
-            context.fillRect(star.x, star.y, 2, 2);
+            context.fillStyle = 'rgb('+star.b+','+star.b+','+star.b+')';
+            context.fillRect(star.x, star.y, star.w, star.w);
         };
     }
 

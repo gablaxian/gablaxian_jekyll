@@ -4,8 +4,6 @@ title: Setting up a FreeNAS server
 disqus: true
 ---
 
-# Setting up a FreeNAS server
-
 - [Intro](#intro)
 - [The Hardware](#the_hardware)
 - [Installing FreeNAS](#installing_freenas)

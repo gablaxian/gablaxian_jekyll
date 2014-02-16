@@ -4,8 +4,6 @@ title: Scraping Twitter Feeds with NodeJS
 disqus: true
 ---
 
-# Scraping Twitter Feeds with NodeJS.
-
 Well, the time finally came. I had been using [Remy Sharp](https://twitter.com/rem)'s handy little [twitter.js](http://remysharp.com/2007/05/18/add-twitter-to-your-blog-step-by-step/) script to show one tweet on the homepage of my latest live site, [Pulse](http://pulseagency.co.uk), and Twitter's API changes finally caught up with it.
 
 Now, I'm not the sharpest cookie in the drawer (see?) so wrapping my head round Twitter's OAuth system in a short time is actually beyond me. Embedding a tweet with all of Twitter's forced styling is out of the question, really. My client simply wants to show one tweet, on the homepage, with basic formatting. Is that so much to ask? Apparently it is. The only option I could think of was to then 'scrape' the feed straight from their Twitter page, in effect, downloading the HTML and pulling out individual tweets. I could have done this straight in the site's PHP code with `curl`. I've done similar things in the past. However, once you get the HTML, you either have to parse the code with PHP's DOM functions or enter the land of regex nightmares.
