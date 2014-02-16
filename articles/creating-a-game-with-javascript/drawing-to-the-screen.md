@@ -136,6 +136,12 @@ function main() {
 
 And there we have it. Link makes an appearance so we can now class our little app as a true Zelda game.
 
+## Progress
+
+You can see v0.3 of the game with Gamepad support [here](/experiments/super-js-adventure/0.3/)
+
+Or check out all the [source code](http://github.com/gablaxian/super-js-adventure) on Github.
+
 <div class="pagination clearfix">
     <a class="left" href="/articles/creating-a-game-with-javascript/drawing-to-the-screen.html">&larr; Drawing to the screen</a>
     <a class="right" href="/articles/creating-a-game-with-javascript/handling-user-input.html">Handling user input &rarr;</a>

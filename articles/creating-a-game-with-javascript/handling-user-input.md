@@ -330,7 +330,8 @@ And now we have Zelda with a controller. The way it was meant to be. Wonderful.
 
 ## Progress
 
-And you can see v0.2 of the game with Gamepad support [here](http://gablaxian.com/experiments/super-js-adventure/0.2/)
+You can see v0.4 of the game with Gamepad support [here](/experiments/super-js-adventure/0.4/)
+
 Or check out all the [source code](http://github.com/gablaxian/super-js-adventure) on Github.
 
 <div class="pagination clearfix">
