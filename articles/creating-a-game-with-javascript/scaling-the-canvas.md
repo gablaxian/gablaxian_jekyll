@@ -4,8 +4,6 @@ title: Scaling the canvas
 disqus: true
 ---
 
-# Scaling the Canvas
-
 I didn't expect to dedicate a whole post to this. In the overall scheme of the project, this just didn't even factor in to 'things I'd have to deal with'.
 
 As you will have seen in earlier posts (I hope) we're initially rendering the game at the SNES's native resolution of 256x244. It works well for now, while we sort out the basics of the game engine, as all the sprites were drawn for this resolution with each sprite 'cell' being 8x8 pixels wide.

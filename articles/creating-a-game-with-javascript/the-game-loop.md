@@ -4,8 +4,6 @@ title: The Game Loop
 disqus: true
 ---
 
-# The Game Loop
-
 Coming from a Web Development background, you may be forgiven for expecting a game to be written in a kind of event driven fashion. User clicks a thing or user presses a key and then stuff happens. Reactionary, if you like. And you know what? In the grand sphere of games, there is absolutely no reason that can't be the case. In fact, word games like Letterpress, Wordfeud and Words for Friends work on this mechanic. Those games you play on your consoles, however, do not. Oh no. Games are, in essence, interactive movies. An movie that you can influence. And an movie is a sequence of frames. The Game Loop is effectively the process a game goes through each time it creates this frame.
 
 Our Zelda game will follow this simplified sequence each time it's loaded:

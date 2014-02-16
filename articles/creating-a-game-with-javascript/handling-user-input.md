@@ -4,8 +4,6 @@ title: Handling User Input
 disqus: true
 ---
 
-# Handling User Input
-
 Welcome back, trepid adventurer. Previously, we learnt about drawing to the screen with canvas' drawing functions. But, a game is not a game unless you can interact with it. So now we see how to handle user input.
 
 Running a game inside the browser is both a blessing and a curse. A typical PC/Console game runs on top of everything else (with a few exceptions), so clicking the mouse or tapping a key will do nothing unless you program in a reaction to this event. In the browser, we're already in the OS _and_ the browser, so both of these get first say in what those events do until you overwrite these defaults. And we're limited to what we can control.

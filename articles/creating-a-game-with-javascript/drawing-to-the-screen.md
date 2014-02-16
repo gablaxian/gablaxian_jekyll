@@ -4,8 +4,6 @@ title: Drawing to the Screen
 disqus: true
 ---
 
-# Drawing to the Screen
-
 In the last post, we looked at the Game Loop and how to run our game at the sweet spot of 60fps. Now, let's see some results, shall we? Time to make some pretty shapes.
 
 By using canvas, we're moving beyond the world of basic Javascript, and using a set of functions available only to the canvas 'context'. By it's very nature, the Canvas element is a platform for pixel manipulation. Once we've set up a context, we can access and edit any pixel in it. If we want to draw a line, we can easily loop through all the pixels an set a line of them to a colour of our choosing.

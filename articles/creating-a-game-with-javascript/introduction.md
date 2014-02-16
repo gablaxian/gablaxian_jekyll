@@ -1,9 +1,8 @@
 ---
 layout: template
+title: Super JS Adventure!
 disqus: true
 ---
-
-# Super JS Adventure!
 
 __UPDATE__
 
