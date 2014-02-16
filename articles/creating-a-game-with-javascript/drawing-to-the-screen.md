@@ -143,6 +143,6 @@ You can see v0.3 of the game with Gamepad support [here](/experiments/super-js-a
 Or check out all the [source code](http://github.com/gablaxian/super-js-adventure) on Github.
 
 <div class="pagination clearfix">
-    <a class="left" href="/articles/creating-a-game-with-javascript/drawing-to-the-screen.html">&larr; Drawing to the screen</a>
+    <a class="left" href="/articles/creating-a-game-with-javascript/the-game-loop.html">&larr; The game loop</a>
     <a class="right" href="/articles/creating-a-game-with-javascript/handling-user-input.html">Handling user input &rarr;</a>
 </div>

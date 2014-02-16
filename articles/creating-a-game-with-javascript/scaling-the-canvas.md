@@ -103,5 +103,5 @@ The short version is that, while we can write this function, and there are plent
 Okay, so there's no real conclusion yet. I'll probably go with option 1 for now and suck it up, simply to speed up devlopment. I'll revisit the situation later once we're properly building the graphics engine.
 
 <div class="pagination clearfix">
-    <a class="left" href="/articles/creating-a-game-with-javascript/scaling-the-canvas.html">&larr; Scaling the canvas</a>
+    <a class="left" href="/articles/creating-a-game-with-javascript/handling-user-input.html">&larr; Handling user input</a>
 </div>
