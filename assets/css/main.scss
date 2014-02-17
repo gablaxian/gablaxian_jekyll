@@ -37,7 +37,7 @@ h1  {
     color: #222;
     margin: 10px 0;
     -webkit-font-smoothing: none;
-       -moz-font-smoothing: none;
+    -moz-osx-font-smoothing: grayscale;
             font-smoothing: none;
 
     text-shadow: 0 2px 0 #999;
@@ -46,7 +46,7 @@ h2  {
     font-family: '04b03regular', 'ff-tisa-sans-web-pro', 'Helvetica Neue', Arial, sans-serif;
     text-transform: uppercase;
     -webkit-font-smoothing: none;
-       -moz-font-smoothing: none;
+    -moz-osx-font-smoothing: grayscale;
             font-smoothing: none;
 }
 h3  {
@@ -54,7 +54,7 @@ h3  {
     text-transform: uppercase;
     letter-spacing: -1px;
     -webkit-font-smoothing: none;
-       -moz-font-smoothing: none;
+    -moz-osx-font-smoothing: grayscale;
             font-smoothing: none;
 }
 p   { margin-bottom: 2rem }
