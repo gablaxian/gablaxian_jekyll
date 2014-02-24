@@ -144,5 +144,5 @@ Coming soon...
 
 
 <div class="pagination clearfix">
-    <a class="left" href="/articles/creating-a-game-with-javascript/scaling-the-canvas.html">&larr; The game loop</a>
+    <a class="left" href="/articles/creating-a-game-with-javascript/scaling-the-canvas.html">&larr; Scaling the canvas</a>
 </div>
