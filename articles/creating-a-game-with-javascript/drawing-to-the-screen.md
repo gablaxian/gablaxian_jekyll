@@ -138,7 +138,7 @@ And there we have it. Link makes an appearance so we can now class our little ap
 
 ## Progress
 
-You can see v0.3 of the game with Gamepad support [here](/experiments/super-js-adventure/0.3/)
+You can see v0.3 of the game [here](/experiments/super-js-adventure/0.3/)
 
 Or check out all the [source code](http://github.com/gablaxian/super-js-adventure) on Github.
 
