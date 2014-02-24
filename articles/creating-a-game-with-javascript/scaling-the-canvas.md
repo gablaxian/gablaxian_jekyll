@@ -104,4 +104,5 @@ Okay, so there's no real conclusion yet. I'll probably go with option 1 for now 
 
 <div class="pagination clearfix">
     <a class="left" href="/articles/creating-a-game-with-javascript/handling-user-input.html">&larr; Handling user input</a>
+    <a class="right" href="/articles/creating-a-game-with-javascript/animation.html">&larr; Animation</a>
 </div>

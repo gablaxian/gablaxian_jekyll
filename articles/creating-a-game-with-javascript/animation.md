@@ -136,6 +136,13 @@ That’s much better! Obviously, Link should only animate when the user interact
 
 Check out the progress on version 0.5 [here](/experiments/super-js-adventure/0.5/)
 
+Or check out all the [source code](//github.com/gablaxian/super-js-adventure) on Github.
+
 ## Computer generated animation
 
 Coming soon...
+
+
+<div class="pagination clearfix">
+    <a class="left" href="/articles/creating-a-game-with-javascript/scaling-the-canvas.html">&larr; The game loop</a>
+</div>
