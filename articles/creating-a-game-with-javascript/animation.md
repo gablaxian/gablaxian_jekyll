@@ -4,6 +4,9 @@ title: Animation
 disqus: true
 ---
 
+- [Sprite Animation](#sprite_animation)
+- [Computer Generated Animation](#computer_generated_animation)
+
 I’m not going to go into the theories of animation and all its forms. There are [Wikipedia articles](http://en.wikipedia.org/wiki/Animation) for that. What we’re interested in is how we go about creating animations programmatically.
 
 ## Animation techniques
@@ -140,7 +143,8 @@ Or check out all the [source code](//github.com/gablaxian/super-js-adventure) on
 
 ## Computer generated animation
 
-Coming soon...
+This is a wide area of animation. In games, where something isn’t sprite animated, it’s computer animated. Taking a fully 3D game like Quake, Gears of War, or Call of Duty, things like fire are often still sprite animation, but everything else in the game world is computer animated. From objects rotating or moving, to the skeletal animations
+
 
 
 <div class="pagination clearfix">
