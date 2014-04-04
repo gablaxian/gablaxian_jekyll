@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>{% if page.title %} {{ page.title }} | {% endif %} gablaxian.com</title>
+	
+	<meta name="viewport" content="width=device-width">
+	
+	<meta name="description" content="Home of one gablaxian">
+	<meta name="keywords" content="gablaxian,portfolio,web design,web development,website">
+	
+	<link rel="stylesheet" href="/assets/build/css/main.css">
+	
+	<script src="//use.typekit.net/waw1afc.js"></script>
+	<script>try{Typekit.load();}catch(e){}</script>
+</head>
+
+<body>
+	<div class="starfield-bg"><canvas id="starfield"></canvas></div>
+
+	<header class="site-header">
+
+        <div class="container">
+            <a href="/" class="logo"><h1 class="ir">gablaxian</h1></a>
+
+            <div class="links">
+                <a href="https://twitter.com/gablaxian" class="twitter ir" rel="external">Twitter</a>
+                <a href="http://www.flickr.com/photos/gablaxian/" class="flickr ir" rel="external">Flickr</a>
+                <a href="https://github.com/gablaxian" class="github ir" rel="external">github</a>
+                <a href="https://vimeo.com/gablaxian" class="vimeo ir" rel="external">vimeo</a>
+            </div>
+        </div>
+
+	</header>
+
+    <nav class="site-navigation" role="navigation">
+
+        <div class="container">
+            <ul class="clearfix">
+                <li><a href="/articles">Articles</a></li>
+            </ul>
+        </div>
+
+    </nav>
+
+    <main class="main" role="main">
+        
+        <div class="container">
+
+            <aside>
+                <nav>
+                    <ul>
+                        <li><a href="introduction.html">Introduction</a></li>
+                        <li><a href="the-game-loop.html">The Game Loop</a></li>
+                        <li><a href="drawing-to-the-screen.html">Drawing to the Screen</a></li>
+                        <li><a href="handling-user-input.html">Handling User Input</a></li>
+                        <li><a href="scaling-the-canvas.html">Scaling the Canvas</a></li>
+                        <li><a href="animation.html">Animation</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            {% if page.title %}
+                <h1>{{ page.title }}</h1>
+            {% endif %}
+
+            {{ content }}
+
+            
+            <div class="pagination clearfix">
+                <a class="left" href="/articles/creating-a-game-with-javascript/the-game-loop.html">&larr; The game loop</a>
+                <a class="right" href="/articles/creating-a-game-with-javascript/handling-user-input.html">Handling user input &rarr;</a>
+            </div>
+        </div>
+
+    </main>
+	
+    {% if page.disqus %}
+    <section class="comments">
+
+        <div class="container">
+            <h3>The bit where I pretend to listen</h3>
+
+            <div id="disqus_thread"></div>
+            <script>
+                var disqus_shortname = 'gablaxian'; // required: replace example with your forum shortname
+                var disqus_url       = 'http://gablaxian.com{{ page.url }}';
+
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </div>
+
+    </section>
+    {% endif %}
+
+    <footer class="site-footer">
+        
+    </footer>
+
+    <script src="/assets/build/js/production.min.js"></script>
+</body>
+</html>
