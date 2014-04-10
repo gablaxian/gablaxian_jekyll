@@ -34,7 +34,7 @@ h1  {
     font-family: '04b03regular', 'ff-tisa-sans-web-pro', 'Helvetica Neue', Arial, sans-serif;
     text-transform: uppercase;
     color: #222;
-    margin: 10px 0;
+    margin-bottom: 10px;
     -webkit-font-smoothing: none;
     -moz-osx-font-smoothing: grayscale;
 
@@ -159,7 +159,7 @@ ul ul   { margin: 8px 0 20px 25px }
 }
 
 /** Content **/
-[role="main"] {
+main {
     margin: 35px 0 60px 0;
 
     h1 { font-size: 24px; line-height: 1.2; margin-bottom: 1rem; }
@@ -191,6 +191,41 @@ ul ul   { margin: 8px 0 20px 25px }
         border: 1px solid rgb(221, 221, 221);
         background-color: #fafafa;
         padding: 0.1em 0.2em;
+    }
+}
+
+main.article {
+    aside {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 50em) {
+    main.article {
+        .container {
+            max-width: 800px;
+        }
+
+        aside {
+            display: block;
+            float: left;
+            width: 20%;
+
+            ul {
+                margin-left: 0;
+            }
+
+            li {
+                font-size: 0.9rem;
+                list-style: none;
+                margin-bottom: 0.2em;
+            }
+        }
+
+        article {
+            float: right;
+            width: 75%;
+        }
     }
 }
 

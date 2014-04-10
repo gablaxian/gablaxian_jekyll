@@ -1,5 +1,5 @@
 ---
-layout: template
+layout: article-game-dev
 title: Drawing to the Screen
 disqus: true
 ---

@@ -43,9 +43,9 @@
 
     </nav>
 
-    <main class="main" role="main">
+    <main class="article" role="main">
         
-        <div class="container">
+        <div class="container clearfix">
 
             <aside>
                 <nav>
@@ -60,17 +60,13 @@
                 </nav>
             </aside>
 
-            {% if page.title %}
-                <h1>{{ page.title }}</h1>
-            {% endif %}
+            <article>
+                {% if page.title %}
+                    <h1>{{ page.title }}</h1>
+                {% endif %}
 
-            {{ content }}
-
-            
-            <div class="pagination clearfix">
-                <a class="left" href="/articles/creating-a-game-with-javascript/the-game-loop.html">&larr; The game loop</a>
-                <a class="right" href="/articles/creating-a-game-with-javascript/handling-user-input.html">Handling user input &rarr;</a>
-            </div>
+                {{ content }}
+            </article>
         </div>
 
     </main>

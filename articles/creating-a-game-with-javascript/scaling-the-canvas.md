@@ -1,5 +1,5 @@
 ---
-layout: template
+layout: article-game-dev
 title: Scaling the canvas
 disqus: true
 ---
