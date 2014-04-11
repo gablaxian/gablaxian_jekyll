@@ -4,24 +4,24 @@ title: The Game Loop
 disqus: true
 ---
 
-Coming from a Web Development background, you may be forgiven for expecting a game to be written in a kind of event driven fashion. User clicks a thing or user presses a key and then stuff happens. Reactionary, if you like. And you know what? In the grand sphere of games, there is absolutely no reason that can't be the case. In fact, word games like Letterpress, Wordfeud and Words for Friends work on this mechanic. Those games you play on your consoles, however, do not. Oh no. Games are, in essence, interactive movies. An movie that you can influence. And an movie is a sequence of frames. The Game Loop is effectively the process a game goes through each time it creates this frame.
+Coming from a Web Development background, you may be forgiven for expecting a game to be written in a kind of event driven fashion. User clicks a thing/presses a key and then stuff happens. Reactionary, if you like. And you know what? In the grand sphere of games, there is absolutely no reason that can’t be the case. In fact, word games like Letterpress, Wordfeud and Words for Friends work on this mechanic. Those games you play on your consoles, however, do not. Oh no. Games are, in essence, interactive movies. But one that you can influence. And an movie is a sequence of frames. The Game Loop is, simply, the process a game goes through each time it creates this frame.
 
-Our Zelda game will follow this simplified sequence each time it's loaded:
+Our Zelda game will follow this simplified sequence each time it’s loaded:
 
-* Initialisation
-    * Load assets
-* Game Loop
-	* Clear the screen
-	* Retrieve Player Input
-	* Process AI & Logic
-	* Draw graphics
-	* Update the screen
+- Initialisation
+    - Load assets
+- Game Loop
+	- Clear the screen
+	- Retrieve Player Input
+	- Process AI & Logic
+	- Draw graphics
+	- Update the screen
 
-The loop continues until the user breaks out of it by either Pausing or Quitting. As we'll learn throughout the development of this game, however, since we're inside a browser, JS allows–and even forces–us to do things a bit differently.
+The loop continues until the user breaks out of it by either Pausing or Quitting. As we’ll learn throughout the development of this game, however, since we’re inside a browser, JS allows–and even forces–us to do things a bit differently.
 
-In PC & Console games, this loop is usually a while() loop and it will run indefinitely and as fast as the processor will allow. We can't do that with Javascript in the browser. It usually crashes. It's probably a blessing then that, not only are games typically complicated enough that running above 60fps is hard to maintain, but beyond 60fps our eyes can no longer keep up, so any frames beyond that are effectively wasted, making 60fps the sweet spot. And, luckily, Javascript gives us a few options to achieve a loop at that speed. Whether or not we'll actually be _able_ to run our game at that speed is another matter.
+In PC & Console games, this loop is usually a while(true) loop and it will run indefinitely and as fast as the processor will allow. We can’t exactly do that with Javascript in the browser. Running an endless loop will probably hang the browser/tab or at least prevent any further input. Not ideal. There are ways to get the framerate as high as the browser will allow, as documented nicely [here](http://www.chandlerprall.com/2011/06/beating-60fps-in-javascript/). There are pros and cons to each method, but honestly, games are typically complicated enough that running above 60fps is hard to maintain, and beyond 60fps our eyes can no longer keep up, so any frames beyond that are effectively wasted, making 60fps the sweet spot. And, luckily, Javascript gives us a few options to achieve a loop at that speed. Whether or not we’ll actually be _able_ to run our game at that speed is another matter.
 
-So, let's get going! At the moment, our [game](https://github.com/gablaxian/super-js-adventure) is pretty simple. One HTML file with a basic HTML structure, a few styles and a canvas element:
+So, let’s get going! At the moment, our [game](https://github.com/gablaxian/super-js-adventure) is pretty simple. One HTML file with a basic HTML structure, a few styles and a canvas element:
 
 {% highlight html %}
 
@@ -52,7 +52,7 @@ So, let's get going! At the moment, our [game](https://github.com/gablaxian/supe
 
 {% endhighlight %}
 
-The canvas element may look a bit small, but that's the native resolution of Zelda: A Link to the Past. Scary, huh? Obviously, it was scaled up when shown on TVs, and we'll get to that later.
+The canvas element may look a bit small, but that’s the native resolution of Zelda: A Link to the Past. Scary, huh? Obviously, it was scaled up when shown on TVs, and we’ll get to that later.
 
 The JS file is even more simple:
 
@@ -67,7 +67,7 @@ var canvas  = document.getElementById('super-js-adventure'),
 
 We first get hold of the canvas element which just sets up a drawing surface, then get its 'context', the actual surface we'll be manipulating. I've also stored the inital size of the canvas just in case.
 
-So now we get some sort of loop going. For now, I'll be emulating the sort of the loop you'd see in a basic PC Game. It'll likely evolve over time.
+So now we get some sort of loop going. For now, I’ll be emulating the sort of the loop you’d see in a basic PC Game. It’ll likely evolve over time.
 
 ## Javascript Timers
 
@@ -91,10 +91,10 @@ setTimeout(function(){
 {% endhighlight %}
 
 However, much has been written about the downsides of both these techniques. John Resig, of jQuery fame, wrote a technical but succint post [here](http://ejohn.org/blog/how-javascript-timers-work/). Thankfully, all the latest browsers support a new function: **requestAnimationFrame()**.
-It's a little odd to use, but is preferred because in essence it tells the browser that something wants animating. This is good because browsers are already drawing to the screen, so we're sort of piggy-backing off that. With the timers, the browser was unaware that an animation was taking place.
-It also runs _up to_ 60fps, but no faster. And since the browser is aware of its existence, if we minimise the browser, it can slow down the loop so that your CPU isn't working unnecessarily.
+It’s preferred because in essence it tells the browser that something wants animating, which is good because browsers are already drawing to the screen, so we’re sort of piggy-backing off that. With the timers, the browser was unaware that an animation was taking place.
+It also runs _up to_ 60fps, but no faster. And since the browser is aware of its existence, if we minimise the browser, it can slow down the loop so that your CPU isn’t working unnecessarily, making it the most efficient method.
 
-So, let's get that added in along with functions for initialisation and the main loop:
+So, let’s get that added in along with functions for initialisation and the main loop:
 
 {% highlight js %}
 
@@ -117,13 +117,13 @@ requestAnimationFrame(main);
 
 {% endhighlight %}
 
-Pretty simple, eh? We don't have much to show for it, but it you fire that up in your browser, you'll have a canvas ready to be drawn to, and a loop running at 60fps. Good job! Have a biscuit.
+Pretty simple, eh? We don't have much to show for it, but it you fire that up in your browser, you’ll have a canvas ready to be drawn to, and a loop running at 60fps. Good job! Have a biscuit.
 
 **Update**
 
-As I recently learned, Firefox doesn't yet support `requestAnimationFrame()` unprefixed. The spec for this feature was still in flux intil pretty recently. Even now it's not _really_ finalised, but it doesn't look like it'll change again. Regardless, we need to fix it so that Firefox can use the function. To the polyfill!
+As I recently learned, Firefox doesn’t yet support `requestAnimationFrame()` unprefixed. The spec for this feature was still in flux intil pretty recently. Even now it’s not _really_ finalised, but it doesn’t look like it’ll change again. Regardless, we need to fix it so that Firefox can use the function. To the polyfill!
 
-We simply add this code from Paul Irish's excellent [blog post](http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/), straight after the global variables for now:
+We simply add this code from Paul Irish’s excellent [blog post](http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/), straight after the global variables for now:
 
 {% highlight js %}
 
