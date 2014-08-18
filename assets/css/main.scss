@@ -35,22 +35,22 @@ h1  {
     text-transform: uppercase;
     color: #222;
     margin-bottom: 10px;
-    -webkit-font-smoothing: none;
+    -webkit-font-smoothing: antialisaed;
     -moz-osx-font-smoothing: grayscale;
 
-    text-shadow: 0 2px 0 #999;
+    text-shadow: 0 2px 0 #d3d3d3;
 }
 h2  {
     font-family: '04b03regular', 'ff-tisa-sans-web-pro', 'Helvetica Neue', Arial, sans-serif;
     text-transform: uppercase;
-    -webkit-font-smoothing: none;
+    -webkit-font-smoothing: antialisaed;
     -moz-osx-font-smoothing: grayscale;
 }
 h3  {
     font-family: '04b03regular', 'ff-tisa-sans-web-pro', 'Helvetica Neue', Arial, sans-serif;
     text-transform: uppercase;
     letter-spacing: -1px;
-    -webkit-font-smoothing: none;
+    -webkit-font-smoothing: antialisaed;
     -moz-osx-font-smoothing: grayscale;
 }
 p   { margin-bottom: 1.6rem }
