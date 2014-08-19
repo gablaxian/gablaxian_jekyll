@@ -8,7 +8,7 @@ I didn’t expect to dedicate a whole post to this. In the overall scheme of the
 
 As you will have seen in earlier posts (I hope) we’re initially rendering the game at the SNES’s native resolution of 256x244. It works well for now, while we sort out the basics of the game engine, as all the sprites were drawn for this resolution with each sprite ‘cell’ being 8x8 pixels wide.
 
-On an older generation console, the output is upscaled by the player’s television, which doesn’t use anything particularly fancy, so the images were large enough and retained all that hand-drawn sprite detail. However, when I begun to scale the canvas, canvas decided to do something I wasn’t expecting.
+On an older generation console, the output is upscaled by the player’s television, which, being CRT, handled it pretty well, so the images were large enough and retained all that hand-drawn sprite detail. However, when I began to scale the canvas, it decided to do something I wasn’t expecting...
 
 So, what’s the problem? Well, let’s scale up the canvas by a factor of 3 with some CSS and find out:
 
@@ -28,11 +28,11 @@ which works in Chrome, Safari and IE. Or,
 
 for Firefox.
 
-Which results in the following:
+This results in the following:
 
 ![Scaled Canvas](/assets/img/articles/4-scaled-canvas.png)
 
-Hey! What happened to all that lovely detail? The problem lies with the browser. All browsers employ an algorithm when resizing images which does not favour our retro look one bit.
+Hey! What happened to all that lovely detail? Most current browsers employ an algorithm when resizing images which does not favour our retro look one bit. Though, this is slowly changing.
 
 ## Interpolation
 
@@ -42,7 +42,7 @@ Canvas only has the one algorithm which is enabled by default, which I think is 
 
 ## How do we fix it?
 
-There is one hope for salvation. A bit of CSS we can deploy which will stop the browser from smoothing images and instead retain the blocky appearence:
+There is one hope for salvation. A bit of CSS we can deploy which will stop the browser from smoothing images and instead retain the blocky appearance:
 
 {% highlight css %}
 
@@ -56,7 +56,7 @@ img {
 
 {% endhighlight %}
 
-But it’s here that I must point out: scaling images and scaling _the whole canvas_ is different. If we apply that CSS to the whole canvas and use `drawImage()` to draw the images at a larger size, the CSS will kick in removing the smoothing. The same CSS just doesn’t work when scaling the whole canvas though. Bah.
+If we apply that CSS to the whole canvas and use `drawImage()` to draw each image at a larger size, the CSS will remove the smoothing. However, that CSS currently only works in Firefox when scaling the whole canvas though. Bah.
 
 ## What are our options?
 
@@ -86,11 +86,7 @@ ctx.drawImage(img, x, y, width*scale, height*scale);
 
 Definitely more of a hassle. I can’t comment on performance either, but I imagine there’d be a hit as we’re now drawing larger images.
 
-3 - Re-draw all sprites.
-
-Yeeaaahhhh... No. Resize/draw all sprites at the scale we’ll be outputting at and then have no way to scale the game at all.
-
-4 - Use a ‘back buffer’.
+3 - Use a ‘back buffer’.
 
 This is actually a common practice for PC/Console games. I say common... it’s rare if a game doesn’t use it. The principal is simple: Create a canvas ‘context’ in memory, which is not shown on screen. Write all drawing commands to this context first, then once the ‘screen’ has been filled, copy all that info to the actual screen, thereby creating one whole frame and presenting that frame to the player as one discreet image. This prevents things looking like they’re being drawn at different times and also allows the back buffer to be filled while the previous frame is still being drawn.
 
@@ -98,9 +94,17 @@ Lower level languages, such as C, have lovely functions like `memcopy()` which a
 
 The short version is that, while we can write this function, and there are plenty around to use, it can impact our performance by around 3ms per frame, maybe more. Doesn’t sound like much, I’ll admit. However, in order to achieve our optimal framerate of 60fps, the budget per frame is 16.6ms. That’s 18% of our rendering time lost on simply scaling the image. We already have the graphics, logic, AI, controls and whatever else fighting for that 16ms, so 3ms may just be too high a price.
 
+## The secret fourth option
+
+4 - Re-draw all sprites.
+
+I came across this one during my research into current HTML5 games, and once again, [Mr Inman](http://shauninman.com) comes to the rescue. He uses a technique on his Ludum Dare project, [Sinkhole](http://www.shauninman.com/archive/2011/12/21/sinkhole_postmortem), where, during game initialisation, he detects the browser’s viewport size and calculates a scale value which just small enough to fit into the viewport. Then, when loading in the game assets, uses hidden canvas elements to scale up each image and store them in the cache.
+
+Very clever. It essentially takes the best part of the back buffer method and turns it into an infrequent operation, as opposed to per-frame. Win-win!
+
 ## Conclusion
 
-Okay, so there’s no real conclusion yet. I'll probably go with option 1 for now and suck it up, simply to speed up devlopment. I’ll revisit the situation later once we’re properly building the graphics engine.
+After finding out about the secret fourth option, there’s little reason not to go for that. Option 1 is preferable, provided all the current browser support the image scaling CSS styles, but until we’re there, this is a good fallback. I won’t cover the scaling and caching technique until we start building the game engine proper, however.
 
 <div class="pagination clearfix">
     <a class="left" href="/articles/creating-a-game-with-javascript/handling-user-input.html">&larr; Handling user input</a>

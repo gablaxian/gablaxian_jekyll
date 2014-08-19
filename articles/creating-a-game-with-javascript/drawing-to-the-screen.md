@@ -6,9 +6,9 @@ disqus: true
 
 In the last post, we looked at the Game Loop and how to run our game at the sweet spot of 60fps. Now, let’s see some results, shall we? Time to make some pretty shapes.
 
-By using canvas, we’re moving beyond the world of basic Javascript, and using a set of functions available only to the canvas 'context'. By its very nature, the Canvas element is a platform for pixel manipulation. Once we’ve set up a context, we can access and edit any pixel in it. If we want to draw a line, we can easily loop through all the pixels an set a line of them to a colour of our choosing.
+By using canvas, we’re moving beyond the world of basic Javascript, and using a set of functions available only to the canvas 'context'. By its very nature, the `canvas` element is a platform for pixel manipulation. Once we’ve set up a context, we can access and edit any pixel in it. If we want to draw a line, we could, should we want to, easily loop through all the pixels an set a line of them to a colour of our choosing.
 
-Luckily for us, the context provides us with an object in JS with a few more functions to speed that sort of stuff up, such as `lineTo()`. You can see a full list of functions available to us over on this handy [cheat sheet](http://www.nihilogic.dk/labs/canvas_sheet/HTML5_Canvas_Cheat_Sheet.png).
+Luckily for us, the context provides us with a number of functions to speed that sort of stuff up, such as `lineTo()`. You can see a full list of those functions available to us over on this handy [cheat sheet](http://www.nihilogic.dk/labs/canvas_sheet/HTML5_Canvas_Cheat_Sheet.png).
 
 Diving straight in, looking at our `main()` function from last time:
 
@@ -38,13 +38,15 @@ function main() {
 
 {% endhighlight %}
 
-And there we have it. A 60fps red rectangle!
+And there we have it. A 60fps red rectangle! Look at it go!
 
 ![Red Rectangle](/assets/img/articles/2-red-rectangle.png)
 
-The ctx object is the canvas context which we set in the last post as a global variable. With that, we define a colour which is set for all following drawing operations. Were we to then draw a line or another rectangle, it would also be red, up until we set a new fillStyle. The `fillRect()` function is called with the x and y coordinates first (0, 0), and then we set the width and height, both at 50px.
+Okay, that’s just an image, but you get the idea.
 
-The canvas element works a lot like a paint program. Each time something is drawn to the screen, it stays there until you erase it. So, if we introduce some animation, say, moving the rectangle 1px to the right on each frame, we’re going to slowly animate drawing a line:
+The ctx object is the canvas context which we set in the last post as a global variable. With that, we define a colour which is set for all following drawing operations. Were we to then draw a line or another rectangle, it would also be red, up until we set a new fillStyle. The `fillRect()` function is called with the `x` and `y` coordinates first `(0, 0)`, and then we set the width and height, both at 50px.
+
+The canvas element works a lot like a paint program. Each time something is drawn to the screen, it stays there until you erase it. So, if we introduce some animation, say, moving the rectangle 1px to the right on each frame, we’re going to slowly animate drawing a pretty big line:
 
 {% highlight js %}
 var x = 0;
@@ -63,7 +65,7 @@ function main() {
 
 ![Animated Rectangle](/assets/img/articles/2-animated-rectangle.png)
 
-If we want to make it look like the rectangle is moving, we clear the canvas before drawing to it again with `clearRect()`;
+If we want to make it look like the rectangle is moving, we need to clear the canvas before drawing to it again on each frame with `clearRect()`;
 
 {% highlight js %}
 
@@ -85,9 +87,11 @@ function main() {
 
 The `clearRect()` function works like `fillRect()`. Give it x and y coordinates and a width and height. In this case we’re clearing the whole canvas. The canvas element is transparent by default, though, if you know what the background color will always be–in this case white–then we don’t actually have to `clearRect()`, but instead we could set the `fillStyle` to `#fff` and use `fillRect()` again at the start or end of the loop.
 
-It’s important to note that you don’t need to clear the whole canvas all the time. There may be times when clearing only a section of the canvas makes sense. Curiously, for such basic operations as `clearRect()` and `fillRect()`, they are fairly expensive in terms of processing power. We won’t worry about this just yet, but later on we can improve performance by only clearing what we _need_ to and _when_, if at all.
+It’s important to note that you don’t need to clear the whole canvas all the time. There may be times when clearing only a section of the canvas makes sense. Curiously, for such basic operations, `clearRect()` and `fillRect()` are fairly expensive in terms of processing power. We won’t worry about this just yet, but later on we can improve performance by only clearing what we _need_ to and _when_, if at all.
 
 Okay! Well, drawing us some rudimentary shapes is all well and good, but we’re writing a game, dammit, and it is _not_ attack of the red blocks. It’ll have images and sprites and stuff. So, we’re going to need an image and a way to put it on the canvas. This is where we discover the wonders of [Spriters Resource](http://www.spriters-resource.com/snes/zeldalinkpast).
+
+## Drawing images
 
 Say hello to Link!
 
@@ -134,7 +138,7 @@ function main() {
 
 ![Red Rectangle](/assets/img/articles/2-link-in-game.png)
 
-And there we have it. Link makes an appearance so we can now class our little app as a true Zelda game. Just, umm... don’t tell Nintendo.
+And there we have it. Link makes an appearance so we can now class our little app as a true Zelda game. Just, uhh... don’t tell Nintendo.
 
 ## Progress
 
