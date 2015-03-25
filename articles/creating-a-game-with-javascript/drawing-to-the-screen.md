@@ -109,7 +109,7 @@ var canvas  = document.getElementById('super-js-adventure'),
 
 {% endhighlight %}
 
-Images like this, which would probably be used everywhere in the game, should be initialised on game load. Wait, we have a function for that: `init()`! So we’ll load the image in the `init()` function:
+Images like this, which would probably be used everywhere in the game, should be initialised on game load. It just so happens we have a function for that: `init()`! So we’ll load the image in the `init()` function:
 
 {% highlight js %}
 

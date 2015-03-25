@@ -1,5 +1,5 @@
 ---
-layout: template
+layout: default
 title: Setting up a FreeNAS server
 disqus: true
 ---

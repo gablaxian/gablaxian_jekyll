@@ -98,9 +98,9 @@ The short version is that, while we can write this function, and there are plent
 
 4 - Re-draw all sprites.
 
-I came across this one during my research into current HTML5 games, and once again, [Mr Inman](http://shauninman.com) comes to the rescue. He uses a technique on his Ludum Dare project, [Sinkhole](http://www.shauninman.com/archive/2011/12/21/sinkhole_postmortem), where, during game initialisation, he detects the browser’s viewport size and calculates a scale value which just small enough to fit into the viewport. Then, when loading in the game assets, uses hidden canvas elements to scale up each image and store them in the cache.
+I came across this one during my research into current HTML5 games, and, as will happen a lot during this project, [Mr Inman](http://shauninman.com) comes to the rescue. He uses a technique on his Ludum Dare project, [Sinkhole](http://www.shauninman.com/archive/2011/12/21/sinkhole_postmortem), where, during game initialisation, he detects the browser’s viewport size and calculates a scale value which just small enough to fit into the viewport. Then, upon loading in the game assets, scales up each image and stores them in the cache.
 
-Very clever. It essentially takes the best part of the back buffer method and turns it into an infrequent operation, as opposed to per-frame. Win-win!
+Very clever. It essentially takes the best part of the back buffer method and turns it into an infrequent operation as opposed to per-frame. Win-win!
 
 ## Conclusion
 

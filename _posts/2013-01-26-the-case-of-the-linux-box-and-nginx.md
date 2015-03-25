@@ -1,5 +1,5 @@
 ---
-layout: template
+layout: default
 title: The Case of the Linux Box and nginx
 ---
 	
