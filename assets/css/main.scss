@@ -57,6 +57,11 @@ p   { margin-bottom: 1.6rem }
 a   { color: rgb(255, 143, 0); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
+pre code {
+    font-family: 'Monaco', 'Consolas', 'Menlo', monospace;
+    font-size: 0.6rem;
+}
+
 /* Yay Markdown and the annoying paragraph it adds when nesting lists! */
 li p    { margin: 0 }
 ul ul   { margin: 8px 0 20px 25px }
