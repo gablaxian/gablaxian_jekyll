@@ -1,66 +1,80 @@
 module.exports = function(grunt) {
 
+    require('jit-grunt')(grunt, {
+        'cssmetrics': 'grunt-css-metrics',
+        'sass': 'grunt-sass'
+    });
+
     // 1. All configuration goes here 
     grunt.initConfig({
+        env: 'dist',
         pkg: grunt.file.readJSON('package.json'),
+        clean: {},
 
-        concat: {
-            dist: {
-                src: [
-                    'assets/js/*.js', // All JS in the libs folder
-                ],
-                dest: 'assets/build/js/production.js',
-            }
+        watch: {
+            options: {
+                livereload: false,
+            },
+            css: {
+                files: ['assets/sass/**/*.scss'],
+                tasks: ['css', 'js']
+            },
+            js: {
+                files: ['assets/js/*.js'],
+                tasks: ['css', 'js']
+            },
         },
 
+        // concat: {
+        //     dist: {
+        //         src: [
+        //             'assets/js/*.js', // All JS in the libs folder
+        //         ],
+        //         dest: 'assets/build/js/production.js',
+        //     }
+        // },
+
+        clean: ['assets/build/css', 'assets/build/js'],
+
         uglify: {
-            build: {
-                src: 'assets/build/js/production.js',
+            dist: {
+                src: ['assets/js/*.js'],
                 dest: 'assets/build/js/production.min.js'
             }
         },
 
         sass: {
             dist: {
+                options: {
+                    outputStyle: 'compressed',
+                    sourceMap: false
+                },
                 files: {
-                    'assets/build/css/main.css': 'assets/css/main.scss'
+                    'assets/build/css/all.css': 'assets/sass/build.scss'
                 }
             } 
         },
 
-        watch: {
+        autoprefixer: {
             options: {
-                livereload: true,
+                browsers: ['last 2 versions','> 5%']
             },
-            css: {
-                files: ['assets/css/*.scss'],
-                tasks: ['css']
+            dist: {
+                src: 'assets/build/css/all.css',
+                dest: 'assets/build/css/all.css'
             },
-            js: {
-                files: ['assets/js/*.js'],
-                tasks: ['js'],
-                options: {
-                    spawn: false,
-                },
-            },
-            grunt: {
-                files: ['gruntfile.js'],
-                tasks: ['default']
-            } 
+          },
+
+        concurrent: {
+            first: ['css', 'js']
         }
 
     });
 
-    // 3. Where we tell Grunt we plan to use this plug-in.
-    grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-sass');
-    grunt.loadNpmTasks('grunt-contrib-watch');
+    // Where we tell Grunt what to do when we type "grunt" into the terminal.
+    grunt.registerTask('css', ['sass', 'autoprefixer']);
+    grunt.registerTask('js', ['uglify']);
 
-    // 4. Where we tell Grunt what to do when we type "grunt" into the terminal.
-    grunt.registerTask('css', ['sass']);
-    grunt.registerTask('js', ['concat', 'uglify']);
-
-    grunt.registerTask('default', ['css', 'js']);
+    grunt.registerTask('default', ['concurrent:first']);
 
 };
