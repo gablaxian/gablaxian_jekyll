@@ -3,17 +3,19 @@ var StarField = function(element, options) {
     "use strict"
 
     var options         = options || {},
-        canvas          = element || (document.querySelector('#starfield') || document.querySelector('.starfield')),
+        canvas          = element || (document.querySelector('#Starfield') || document.querySelector('.Starfield')),
         context         = canvas.getContext('2d'),
         canvas_width    = options.width     || window.innerWidth,
         canvas_height   = options.height    || 80,
         scrollY         = 0,
         paused          = false,
-        star_density    = options.star_density || 10,
-        speed           = options.speed || 6,
+        star_density    = options.star_density || 3,
+        speed           = options.speed || 4,
+        force_populate  = options.force_populate || false,
         background_stars = new Array(),
         flickering_stars = new Array(),
         stars_length    = 0;
+
 
 
     // It was nice to play around with requestAnimationFrame, but honestly, for a starfield, 60fps isn't necessary and only used more CPU power.
@@ -34,7 +36,7 @@ var StarField = function(element, options) {
 
         // Does the browser support local storage? We can use it to speed up subsequent page loads by skipping the star array generation
         // and also keep star position consistent between pages. It's the little things.
-        if( localStorage.getItem('background_stars') ) {
+        if( !force_populate && localStorage.getItem('background_stars') ) {
             background_stars = JSON.parse( localStorage.getItem('background_stars') );
             flickering_stars = JSON.parse( localStorage.getItem('flickering_stars') );
 
@@ -74,9 +76,9 @@ var StarField = function(element, options) {
 
         // Setup the star arrays
         for (var i = 0; i < number_of_stars; i++) {
-            // for the background stars, don't bother with opacity, instead we want a 'brightness' between full black and half-white (0-128) value.
-            background_stars.push( { x: Math.round(Math.random() * canvas_width), y: Math.round(Math.random() * canvas_height), w: ( Math.random() < 0.5 ? 2 : 1 ), b: Math.round(Math.random() * 128) } );
-            flickering_stars.push( { x: Math.round(Math.random() * canvas_width), y: Math.round(Math.random() * canvas_height), w: ( Math.random() < 0.5 ? 2 : 1 ), b: Math.round(Math.random() * 255), s: ( Math.random() < 0.5 ? 0 : 1 ) } );
+            // for the background stars, don't bother with opacity, instead we want a 'brightness' between off-black and half-white (28-128) value.
+            background_stars.push( { x: Math.round(Math.random() * canvas_width), y: Math.round(Math.random() * canvas_height), w: ( Math.random() < 0.5 ? 2 : 1 ), b: Math.round( (28 + Math.random() * 100) ) } );
+            flickering_stars.push( { x: Math.round(Math.random() * canvas_width), y: Math.round(Math.random() * canvas_height), w: ( Math.random() < 0.5 ? 2 : 1 ), b: Math.round( (5 + Math.random() * 255) ), s: ( Math.random() < 0.5 ? 0 : 1 ) } );
         }
 
         localStorage.setItem('background_stars', JSON.stringify(background_stars));
@@ -88,11 +90,6 @@ var StarField = function(element, options) {
     function populateStarfield() {
         canvas.width    = canvas_width;
         canvas.height   = canvas_height;
-
-        // set up the bg and static stars
-        // set the black BG
-        context.fillStyle = '#000';
-        context.fillRect(0, 0, canvas_width, canvas_height);
 
         var l = background_stars.length,
             i = 0;
@@ -107,7 +104,8 @@ var StarField = function(element, options) {
     function onWindowResize() {
         // Only re-init on a width change.
         if( window.innerWidth != canvas_width ) {
-            canvas_width = window.innerWidth;
+            canvas_width    = window.innerWidth;
+            canvas_height   = parseInt(window.getComputedStyle(document.querySelector('.Page-masthead'))['height']);
 
             generate_stars();
             populateStarfield();
@@ -172,5 +170,6 @@ var StarField = function(element, options) {
     init();
 }
 
-StarField();
+var h = parseInt(window.getComputedStyle(document.querySelector('.Page-masthead'))['height']);
+StarField(null, { height: h, force_populate: true });
 

@@ -1,90 +1,74 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<title>{% if page.title %} {{ page.title }} | {% endif %} gablaxian.com</title>
-	
-	<meta name="viewport" content="width=device-width">
-	
-    <meta name="author" content="Graham Smith" />
-	<meta name="description" content="Home of one gablaxian">
-	<meta name="keywords" content="gablaxian,portfolio,web design,web development,website">
-	
-	<link rel="stylesheet" href="/assets/build/css/main.css">
-	
-	<script src="//use.typekit.net/waw1afc.js"></script>
-	<script>try{Typekit.load();}catch(e){}</script>
-</head>
 
-<body>
-	<div class="starfield-bg"><canvas id="starfield"></canvas></div>
+{% include header.html %}
 
-	<header class="site-header">
-
-        <div class="container">
-            <a href="/" class="logo"><h1 class="ir">gablaxian</h1></a>
-
-            <div class="links">
-                <a href="https://twitter.com/gablaxian" class="twitter ir" rel="external">Twitter</a>
-                <a href="http://www.flickr.com/photos/gablaxian/" class="flickr ir" rel="external">Flickr</a>
-                <a href="https://github.com/gablaxian" class="github ir" rel="external">github</a>
-                <a href="https://vimeo.com/gablaxian" class="vimeo ir" rel="external">vimeo</a>
-            </div>
-        </div>
-
-	</header>
-
-    <nav class="site-navigation" role="navigation">
-
-        <div class="container">
-            <ul class="clearfix">
-                <li><a href="/">Home</a></li>
-                <li><a href="/articles">Articles</a></li>
-            </ul>
-        </div>
-
-    </nav>
-
-    <main class="main" role="main">
+    <div class="Page">
         
-        <div class="container">
-            {% if page.title %}
-                <h1>{{ page.title }}</h1>
+        {% include masthead.html %}
+
+        <div class="Page-body">
+            
+            <main class="SiteBody SiteBody--home" role="main">
+                
+                <div class="SiteBody-container">
+
+                    <article class="Article Article--long">
+                        {% if page.title %}
+                        <header class="Article-header">
+                            <h1 class="Article-headerText">{{ page.title }}</h1>
+                            <time datetime="{{ page.date | date_to_xmlschema }}" class="Article-date">{{ page.date | date: "%d %b %Y" }}</time>
+                        </header>
+                        {% endif %}
+
+                        {{ content }}
+                    </article>
+                </div>
+
+            </main>
+
+            {% if page.disqus %}
+            <section class="Comments">
+
+                <div class="Comments-container">
+                    <header class="Comments-header">
+                        <h3 class="Comments-headerText">The bit where I pretend to listen</h3>
+                    </header>
+
+                    <div id="disqus_thread"></div>
+                    <script>
+                        var disqus_shortname = 'gablaxian'; // required: replace example with your forum shortname
+                        var disqus_url       = 'http://gablaxian.com{{ page.url }}';
+
+                        /* * * DON'T EDIT BELOW THIS LINE * * */
+                        (function() {
+                            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                        })();
+                    </script>
+                    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                </div>
+
+            </section>
             {% endif %}
 
-            {{ content }}
+        </div>
+    
+        <div class="Page-footer">
+            
+            <footer class="SiteFooter">
+                <div class="SiteFooter-links">
+                    <a href="https://twitter.com/gablaxian" class="twitter ir" rel="external">Twitter</a>
+                    <a href="https://www.flickr.com/photos/gablaxian/sets/" class="flickr ir" rel="external">Flickr</a>
+                    <a href="https://github.com/gablaxian" class="github ir" rel="external">github</a>
+                    <a href="https://vimeo.com/gablaxian" class="vimeo ir" rel="external">vimeo</a>
+                </div>        
+            </footer>
+            
         </div>
 
-    </main>
-	
-    {% if page.disqus %}
-    <section class="comments">
-
-        <div class="container">
-            <h3>The bit where I pretend to listen</h3>
-
-            <div id="disqus_thread"></div>
-            <script>
-                var disqus_shortname = 'gablaxian'; // required: replace example with your forum shortname
-                var disqus_url       = 'http://gablaxian.com{{ page.url }}';
-
-                /* * * DON'T EDIT BELOW THIS LINE * * */
-                (function() {
-                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                })();
-            </script>
-            <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-        </div>
-
-    </section>
-    {% endif %}
-
-    <footer class="site-footer">
-        
-    </footer>
+    </div>
 
     <script src="/assets/build/js/production.min.js"></script>
+
 </body>
 </html>

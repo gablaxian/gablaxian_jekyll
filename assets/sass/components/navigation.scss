@@ -1,0 +1,25 @@
+
+.Navigation {
+    position: relative;
+    max-width: 640px;
+    margin: 0 auto;
+}
+.Navigation-items {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.Navigation-item {
+    flex: 1;
+}
+.Navigation-itemLink {
+    display: block;
+    font-family: '04b03regular';
+    font-size: 0.625rem;
+    width: 100%;
+    padding: 0.875rem 0;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}

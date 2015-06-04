@@ -1,0 +1,59 @@
+
+.Article-header {
+    padding-bottom: 1rem;
+
+    a {
+        display: block;
+    }
+}
+.Article-headerLink {
+    color: #222;
+
+    &:hover {
+        color: #0498AB;
+    }
+}
+.Article-headerText {
+    font-family: '04b03regular';
+    font-size: 1.25rem;
+    margin: 0;
+    line-height: 1;
+    text-transform: uppercase;
+}
+.Article-date {
+    color: #bbb;
+    font-size: 0.75rem;
+}
+
+.Article--short {
+    margin-bottom: 1.875rem;
+}
+
+.Article--long {
+    .Article-headerText {
+        font-size: 1.5rem;
+        text-shadow: 0 1px 0 #fff, 1px 2px 0 #BDBDBD;
+    }
+}
+
+.Article--tutorial {
+    .Article-headerText {
+        font-size: 1.5rem;
+        text-shadow: 0 1px 0 #fff, 1px 2px 0 #BDBDBD;
+    }
+    h2 {
+        font-family: '04b03regular';
+        font-size: 1.25rem;
+        color: #222;
+        margin: 0;
+        padding-top: 2.4rem;
+        padding-bottom: 1rem;
+        line-height: 1;
+        text-transform: uppercase;
+        text-shadow: 0 1px 0 #fff, 1px 2px 0 #BDBDBD;
+    }
+    pre {
+        margin: 2rem 0;
+        box-shadow: 4px 4px #eee;
+    }
+}

@@ -1,0 +1,40 @@
+
+{% include header.html %}
+
+    <div class="Page">
+        
+        {% include masthead.html navigation="home" %}
+
+        <div class="Page-body">
+            
+            <main class="SiteBody SiteBody--home" role="main"><!-- Probably don't need a role="main" on a main element, but seriously, *you* try reading through the W3C ARIA documents. -->
+                
+                <div class="SiteBody-container">
+
+                    {{ content }}
+
+                </div>
+
+            </main>
+
+        </div>
+
+        <div class="Page-footer">
+            
+            <footer class="SiteFooter">
+                <div class="SiteFooter-links">
+                    <a href="https://twitter.com/gablaxian" class="twitter ir" rel="external">Twitter</a>
+                    <a href="https://www.flickr.com/photos/gablaxian/sets/" class="flickr ir" rel="external">Flickr</a>
+                    <a href="https://github.com/gablaxian" class="github ir" rel="external">github</a>
+                    <a href="https://vimeo.com/gablaxian" class="vimeo ir" rel="external">vimeo</a>
+                </div>        
+            </footer>
+            
+        </div>
+
+    </div>
+
+    <script src="/assets/build/js/production.min.js"></script>
+
+</body>
+</html>
