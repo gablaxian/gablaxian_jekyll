@@ -4,7 +4,7 @@ title: Handling User Input
 disqus: true
 ---
 
-Welcome back, trepid adventurer. Previously, we learnt about drawing to the screen with canvas’ drawing functions. But, a game is not a game unless you can interact with it. So now we see how to handle user input.
+Welcome back, trepid adventurer. Previously, we learnt about drawing to the screen with `canvas`’ drawing functions. But a game is not a game unless you can interact with it. So now we see how to handle user input.
 
 Running a game inside the browser is both a blessing and a curse. A typical PC/Console game runs on top of everything else (with a few exceptions), so clicking the mouse or tapping a key will do nothing unless you program in a reaction to this event. In the browser, we’re already in the OS _and_ the browser, so both of these get first say in what those events do until you overwrite these defaults. And we’re limited to what we can control.
 
@@ -28,12 +28,12 @@ First we set another global variable, `key`
 
 {% highlight js %}
 
-var canvas  = document.getElementById('super-js-adventure'),
-    ctx     = canvas.getContext('2d'),
-    width   = 256,
-    height  = 224,
-    key     = [0,0,0,0,0],
-    link    = new Image();
+var canvas  = document.getElementById('super-js-adventure');
+var ctx     = canvas.getContext('2d');
+var width   = 256;
+var height  = 224;
+var key     = [0,0,0,0,0];
+var link    = new Image();
 
 {% endhighlight %}
 
@@ -61,12 +61,12 @@ Now we’re free to add our event handlers to call this function:
 
 {% highlight js %}
 
-document.onkeydown = function(e)  { changeKey((e||window.event).keyCode, 1); }
-document.onkeyup = function(e)    { changeKey((e||window.event).keyCode, 0); }
+document.addEventListener('keydown', function(e) { Input.changeKey(e.keyCode, 1) });
+document.addEventListener('keyup',   function(e) { Input.changeKey(e.keyCode, 0) });
 
 {% endhighlight %}
     
-`document.onkeydown` is just an old shorthand way of writing `addEventListener()`. Feel free to use the W3C standard, if you like. Otherwise, all that’s happening is when a user presses a key we get the event (e on non-IE browsers, window.event for IE) and sends the keyCode to the `changeKey()` function. From there we check which key is pressed and set the appropriate value in the array to 1.
+Here, when a user presses a key we get the event and send the keyCode to the `changeKey()` function. From there we check which key is pressed and set the appropriate value in the array to 1.
 
 Putting all that together with our game, we’ll get our little Link moving around. Currently, we have the Link image being statically drawn at 20px left and 20px down. First there needs to be a way of storing his position for us to manipulate. We can do that with a new global variable:
 
@@ -79,7 +79,7 @@ var player  = {
 
 {% endhighlight %}
 
-I’m using a JSON object so we can keep everything related to the player nice and enclosed. We can read/write their position with `player.x` and `player.y`
+I’m using a Javascript object so we can keep everything related to the player nice and enclosed. We can read/write their position with `player.x` and `player.y`
 
 We’ll give Link a bit more space to begin with by setting his initial position to 100px left and 100px down in the `init()` function by adding:
 
@@ -119,17 +119,17 @@ And now we have a walking, well&hellip; _gliding_, Link!
 
 ## Using a Gamepad
 
-We’re not done yet, though. The keyboard’s great and all, but _I_ certainly didn’t play any Zelda games with a keyboard. Wouldn’t it be great to play with a controller, just like the old days? GamePad API to the rescue!
+We’re not done yet, though. The keyboard’s great and all, but I certainly didn’t play any Zelda games with a keyboard. Wouldn’t it be great to play with a controller, just like the old days? GamePad API to the rescue!
 
 The GamePad API isn't quite finished, which does explain some of the more curious aspects of the various browsers' implementations. This code may need to be changed in future.
 
 Chrome supports the GamePad API even in public builds. Firefox does _technically_ support the GamePad API, but only in the ‘nightlies’ which are pre-beta builds for experimental features that few people use. So we’ll be limiting our code to Chrome only in this case.
 
-In Chrome there are no events like we get with the keyboard or mouse. There is no ‘gamepad connected’ event, or a ‘button pressed’ event. For Chrome, we have to poll every frame just to see if the joystick is still there! Even in Firefox, which does have a connected and disconnected event, you still need to actually press a button furst for them to even trigger. Apprently, this is a security feature to prevent ‘finger printing’, whatever that might be. So, to re-iterate, we are definitely in beta territory. Proceed at your own peril.
+In Chrome there are no events like we get with the keyboard or mouse. There is no ‘gamepad connected’ event, or a ‘button pressed’ event. For Chrome, we have to poll every frame just to see if the joystick is still there! Even in Firefox, which does have a connected and disconnected event, you still need to actually press a button first for them to even trigger. Apprently, this is a security feature to prevent ‘finger printing’, whatever that might be. So, to re-iterate, we are definitely in beta territory. Proceed at your own peril.
 
 If you want to explore the API a little further, there’s a great article over on [html5rocks](http://www.html5rocks.com/en/tutorials/doodles/gamepad/) which I’ve been using to implement the gamepad in this project.
 
-So, first thing’s first. Let's move the code for all input handling out of the main Javascript and give it its own file and library. The Input library:
+So, first thing’s first. Let's move the code for all input handling out of the main Javascript and give it its own file and library, The `Input` library:
 
 {% highlight js %}
 
@@ -147,8 +147,8 @@ var Input = {
 
     init: function() {
         // Set up the keyboard events
-        document.onkeydown  = function(e) { Input.changeKey((e||window.event).keyCode, 1); }
-        document.onkeyup    = function(e) { Input.changeKey((e||window.event).keyCode, 0); }
+        document.addEventListener('keydown', function(e) { Input.changeKey(e.keyCode, 1) });
+        document.addEventListener('keyup',   function(e) { Input.changeKey(e.keyCode, 0) });
     },
 
     // called on key up and key down events
@@ -195,8 +195,8 @@ Let’s upgrade our `init()` function to check for gamepad support and, if so, s
 
 init: function() {
     // Set up the keyboard events
-    document.onkeydown  = function(e) { Input.changeKey((e||window.event).keyCode, 1); }
-    document.onkeyup    = function(e) { Input.changeKey((e||window.event).keyCode, 0); }
+    document.addEventListener('keydown', function(e) { Input.changeKey(e.keyCode, 1) });
+    document.addEventListener('keyup',   function(e) { Input.changeKey(e.keyCode, 0) });
 
     // Checks Chrome to see if the GamePad API is supported.
     var gamepadSupportAvailable = !!navigator.webkitGetGamepads || !!navigator.webkitGamepads;
@@ -280,7 +280,7 @@ pollStatus: function() {
 
 Lots of code here. If you’ve ever dabbled with scrolling events in the browser, this polling idea is generally recommended so that you’re not firing events on each scroll update. We can also pause the polling, which stops the loop, and thereby prevents unnecessary work. But the main point of the code is that `pollStatus()` function.
 
-On each frame we get the gamepad, if one is there. And remember, no gamepad exists until it’s plugged in and a button is pressed. We also only care about one gamepad, which means we can grab the first element (\[0\]) of the `webkitGetGamepads()` function. If we find a gamepad, then check the timestamp to see whether anything has changed since the last update. Otherwise, do nothing. If something has changed, then we update the timestamp and update the `key[]` array which controls Link.
+On each frame we get the gamepad, if one is there. And remember, no gamepad exists until it’s plugged in and a button is pressed. We also only care about one gamepad, which means we can grab the first element (`[0]`) of the `webkitGetGamepads()` function. If we find a gamepad, then check the timestamp to see whether anything has changed since the last update. Otherwise, do nothing. If something has changed, then we update the timestamp and update the `key[]` array which controls Link.
 
 Updating the keys is pretty simple:
 

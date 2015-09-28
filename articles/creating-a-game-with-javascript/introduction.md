@@ -6,7 +6,7 @@ disqus: true
 
 __UPDATE__
 
-Following on from the previous post below, wherein I posed what sort of game people would like to see made, frankly, no one gave a shit–as expected from people living in the internet. So, my fallback option, re-creating The Legend of Zelda but with SNES graphics, is go!
+Following on from the previous post below, wherein I posed what sort of game people would like to see made, frankly, no one gave a shit–as; expected from people living in the internet. So my fallback option, re-creating The Legend of Zelda but with SNES graphics, is a go!
 
 ## Introduction
 
