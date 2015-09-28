@@ -369,5 +369,5 @@ Or see all the [source code](//github.com/gablaxian/super-js-adventure) on Githu
 
 <div class="pagination clearfix">
     <a class="left" href="/articles/creating-a-game-with-javascript/scaling-the-canvas.html">&larr; Scaling the canvas</a>
-    <a class="right" href="/articles/creating-a-game-with-javascript/levels.html">Levels &rarr;</a>
+    <a class="right" href="/articles/creating-a-game-with-javascript/levels-collision.html">Levels &amp; Collision - part 1 &rarr;</a>
 </div>
