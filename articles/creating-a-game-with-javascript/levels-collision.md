@@ -37,7 +37,9 @@ function drawBackground() {
 
 Okay, it’s a bit rough but it helps us get a picture of how a background is drawn. For every frame of the game, we are breaking down the width of the game screen into 8 for the total rows, then for each row, we break down the height of the game screen into 8 again. For each cell we draw an 8x8 rectangle (with stroke for definition) the move down 8px and draw another. When a column is complete we move to the next row and start again.
 
+<aside>
 Aside: Don’t worry too much about those +0.5s on the `strokeRect`. Canvas has a habit of aliasing lines so they appear blurry. This is just a small hack to get the lines to appear clean. We’ll be removing all strokes when we start using real imagery anyway.
+</aside>
 
 Slap that into the `main()` function, just after we clear the screen:
 
@@ -263,7 +265,7 @@ this.height = 25;
 
 to the Link object.
 
-Now we get to the trickier part of calculating collisions between Link and the red tiles. The fun bit is that Link’s dimensions are bigger than a cell. Link is, in fact, 2 cells wide and almost 3 cells tall. At first glance you would expect, then, to check two cells above and below and three cells left and right. But given that this is an isometric game, it is supposed to give the illusion that we are looking down at an angle, so you would expect that Link’s head would pass over objects, but his body would not which, in LTTP, it does. Contrary to Link’s image height of 25px, his collision height will be the same as his width. For the purposes of tile collision, then, Link is really a 16x16 block.
+Now we get to the trickier part of calculating collisions between Link and the red tiles. The fun bit is that Link’s dimensions are bigger than a cell. Link is, in fact, 2 cells wide and just over 3 cells tall. At first glance you would expect, then, to check two cells above and below and three cells left and right. But given that this is an isometric game, it is supposed to give the illusion that we are looking down at an angle, so you would expect that Link’s head would pass over objects, but his body would not which, in LTTP, it does. Contrary to Link’s image height of 25px, his collision height will be the same as his width. For the purposes of tile collision, then, Link is really a 16x16 block.
 
 The way I have currently implemented tile-based collision is probably horribly inefficient, and/or stupid. But that’s what this process is all about. The idea is as follows:
 
