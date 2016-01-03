@@ -1,7 +1,13 @@
 .DS_Store
 npm-debug.log
+.jekyll-metadata
 .sass-cache
+
+node_modules
+
 _site
 public
-node_modules
-.jekyll-metadata
+
+# ignore compiled CSS/JS files
+source/assets/css
+source/assets/js
