@@ -1,10 +1,17 @@
+source:         ./source
+destination:    ./public
+permalink:      /:categories/:title
+
 defaults:
   -
     scope:
       path: "" # an empty string here means all files in the project
-      type: "posts" # previously `post` in Jekyll 2.2.
+      type: "posts"
     values:
-      layout: "default"
-
-exclude: [ '.sass-cache', 'node_modules', 'README.md', 'main.scss', 'package.json', 'gruntfile.js', 'npm-debug.log', 'assets/sass']
-# highlighter: pygments
+      layout: "post"
+  -
+    scope:
+      path: "articles/creating-a-game-with-javascript" # an empty string here means all files in the project
+      type: "pages"
+    values:
+      layout: "article-game-dev.html"

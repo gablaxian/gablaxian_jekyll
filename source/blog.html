@@ -1,0 +1,24 @@
+---
+layout: default
+permalink: /blog/
+---
+
+    {% for post in site.categories['blog'] reversed %}
+
+    <article class="Article Article--short">
+
+        <header class="Article-header">
+            <a href="{{ post.url }}" class="Article-headerLink">
+                <h1 class="Article-headerText">{{ post.title }}</h1>
+            </a>
+            <time datetime="{{ post.date | date_to_xmlschema }}" class="Article-date">{{ post.date | date: "%d %b %Y" }}</time>
+        </header>
+
+        {% if forloop.index == 1 %}
+        <div class="Article-excerpt">
+            {{ post.excerpt }}
+        </div>
+        {% endif %}
+    </article>
+
+    {% endfor %}

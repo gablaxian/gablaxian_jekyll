@@ -1,0 +1,21 @@
+---
+layout: default
+---
+
+    {% assign latest_post = site.posts.first %}
+
+    <h1>Latest Post</h1>
+
+    <article class="Article Article--short">
+
+        <header class="Article-header">
+            <a href="{{ latest_post.url }}" class="Article-headerLink">
+                <h1 class="Article-headerText">{{ latest_post.title }}</h1>
+            </a>
+            <time datetime="{{ latest_post.date | date_to_xmlschema }}" class="Article-date">{{ latest_post.date | date: "%d %b %Y" }}</time>
+        </header>
+
+        <div class="Article-excerpt">
+            {{ latest_post.excerpt }}
+        </div>
+    </article>

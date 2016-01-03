@@ -1,0 +1,14 @@
+---
+layout: default
+---
+
+    <article class="Article Article--long">
+        {% if page.title %}
+        <header class="Article-header">
+            <h1 class="Article-headerText">{{ page.title }}</h1>
+            <time datetime="{{ page.date | date_to_xmlschema }}" class="Article-date">{{ page.date | date: "%d %b %Y" }}</time>
+        </header>
+        {% endif %}
+
+        {{ content }}
+    </article>
