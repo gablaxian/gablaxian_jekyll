@@ -1,11 +1,11 @@
 
 .SiteFooter {
-    max-width: #{(1024/16)}rem;
+    display: flex;
+    max-width: #{(720/16)}rem;
     margin: 0 auto;
 }
 .SiteFooter-links {
-    max-width: 800px;
-    margin: 0 auto;
+    flex: 50%;
     padding: 1rem;
 
     a {
