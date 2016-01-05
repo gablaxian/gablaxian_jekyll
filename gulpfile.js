@@ -1,5 +1,7 @@
 var gulp        = require('gulp');
+var concat      = require('gulp-concat');
 var uglify      = require('gulp-uglify');
+var sourcemaps  = require('gulp-sourcemaps');
 var sass        = require('gulp-sass');
 var autoprefix  = require('gulp-autoprefixer');
 var watch       = require('gulp-watch');
@@ -8,16 +10,29 @@ var del         = require('del');
 
 gulp.task('sass', function () {
     del(['./source/assets/css/*']);
+
     gulp.src('./assets/sass/build.scss')
         .pipe(autoprefix('last 2 version'))
-        .pipe(sass().on('error', sass.logError))
+        .pipe(
+            sass({outputStyle: 'compressed'})
+            .on('error', sass.logError)
+        )
         .pipe(gulp.dest('./source/assets/css'));
 });
 
 gulp.task('js', function () {
     del(['./source/assets/js/*']);
-    gulp.src('./assets/js/main.js')
-        .pipe(uglify())
+    gulp.src([
+
+            './assets/js/core.js',
+            './assets/js/main.js'
+        ])
+
+        .pipe(sourcemaps.init())
+            .pipe(concat('main.js'))
+            .pipe(uglify())
+        .pipe(sourcemaps.write('./'))
+
         .pipe(gulp.dest('./source/assets/js'))
 });
 
