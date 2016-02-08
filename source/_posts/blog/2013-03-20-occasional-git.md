@@ -1,6 +1,7 @@
 ---
 title: Occasional Git
 categories: blog
+tags: git
 ---
 
 Welcome to Occasional Git! For when you're working on your own, on small-ish sites. These are the things I encounter sometimes only once a month, if that. I'll be supplementing the commands with examples I've used personally.

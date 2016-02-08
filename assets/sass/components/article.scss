@@ -1,4 +1,14 @@
 
+.Article {
+    figure.highlight {
+        margin: 0;
+
+        pre {
+            margin: 2rem 0;
+            box-shadow: 4px 4px #eee;
+        }
+    }
+}
 .Article-header {
     padding-bottom: 1rem;
 
@@ -15,32 +25,36 @@
 }
 .Article-headerText {
     font-family: '04b03regular';
-    font-size: 1.25rem;
+    font-size: #{(26/16)}rem;
+    font-weight: 400;
+    text-shadow: 0 1px 0 #fff, 1px 2px 0 #BDBDBD;
     margin: 0;
     line-height: 1;
     text-transform: uppercase;
 }
 .Article-date {
-    color: #bbb;
-    font-size: 0.75rem;
+    color: #aaa;
+    font-size: #{(13/16)}rem;
+}
+.Article-tags {
+    a {
+        display: inline-block;
+        font-size: #{(13/16)}rem;
+    }
 }
 
 .Article--short {
-    margin-bottom: 1.875rem;
-}
+    margin-bottom: #{(40/16)}rem;
 
-.Article--long {
-    .Article-headerText {
-        font-size: 1.5rem;
-        text-shadow: 0 1px 0 #fff, 1px 2px 0 #BDBDBD;
+    .Article-excerpt {
+        p {
+            margin-top: 0;
+            font-size: #{(14/16)}rem;
+        }
     }
 }
 
 .Article--tutorial {
-    .Article-headerText {
-        font-size: 1.5rem;
-        text-shadow: 0 1px 0 #fff, 1px 2px 0 #BDBDBD;
-    }
     h2 {
         font-family: '04b03regular';
         font-size: 1.25rem;
@@ -51,12 +65,5 @@
         line-height: 1;
         text-transform: uppercase;
         text-shadow: 0 1px 0 #fff, 1px 2px 0 #BDBDBD;
-    }
-    figure {
-        margin: 0;
-    }
-    pre {
-        margin: 2rem 0;
-        box-shadow: 4px 4px #eee;
     }
 }

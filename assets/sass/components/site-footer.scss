@@ -1,38 +1,8 @@
 
 .SiteFooter {
-    display: flex;
     max-width: #{(720/16)}rem;
     margin: 0 auto;
 }
 .SiteFooter-links {
-    flex: 50%;
     padding: 1rem;
-
-    a {
-        display: inline-block;
-        background: url('/assets/img/social-icons.png') 0 0 no-repeat;
-        width: 20px;
-        height: 22px;
-        margin: 0 5px 5px 0;
-
-        image-rendering: -moz-crisp-edges;         /* Firefox */
-        image-rendering: -webkit-optimize-contrast;/* Webkit (non-standard naming) */
-        image-rendering: pixelated;
-        -ms-interpolation-mode: nearest-neighbor;  /* IE (non-standard property) */
-    }
-
-    .twitter    { background-position: 0 0; }
-    .flickr     { background-position: -23px 0; }
-    .github     { background-position: -46px 0; }
-    .vimeo      { background-position: -69px 0; }
-}
-
-/** 800px **/
-@media only screen and (min-width: 50em) {
-    .SiteFooter-links {
-        .twitter:active    { background-position: 0 bottom }
-        .flickr:active     { background-position: -23px bottom }
-        .github:active     { background-position: -46px bottom }
-        .vimeo:active      { background-position: -69px bottom }
-    }
 }

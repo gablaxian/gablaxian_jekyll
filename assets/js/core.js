@@ -4,7 +4,6 @@
 
     var Core = {
         init: function() {
-
             window.addEventListener('load', Core.loop);
         },
 

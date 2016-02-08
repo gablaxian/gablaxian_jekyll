@@ -1,5 +1,16 @@
 
 .AboutMe {
-    flex: 50%;
+    font-size: #{(14/16)}rem;
     color: #fff;
+    padding: 1rem;
+
+    h2 {
+        font-family: '04b03regular';
+        font-size: #{(22/16)}rem;
+        font-weight: 400;
+        text-transform: uppercase;
+        margin: 0;
+        padding: 0.5rem 0;
+        line-height: 1;
+    }
 }

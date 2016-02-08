@@ -1,12 +1,23 @@
-var gulp        = require('gulp');
-var concat      = require('gulp-concat');
-var uglify      = require('gulp-uglify');
-var sourcemaps  = require('gulp-sourcemaps');
-var sass        = require('gulp-sass');
-var autoprefix  = require('gulp-autoprefixer');
-var watch       = require('gulp-watch');
-var del         = require('del');
 
+/*************************************
+ *  Packages
+ *************************************/
+
+const gulp        = require('gulp');
+const concat      = require('gulp-concat');
+const uglify      = require('gulp-uglify');
+const babel       = require('gulp-babel');
+const sourcemaps  = require('gulp-sourcemaps');
+const sass        = require('gulp-sass');
+const autoprefix  = require('gulp-autoprefixer');
+const watch       = require('gulp-watch');
+const del         = require('del');
+
+/*************************************
+ *  Tasks
+ *************************************/
+
+// SASS
 
 gulp.task('sass', function () {
     del(['./source/assets/css/*']);
@@ -20,6 +31,8 @@ gulp.task('sass', function () {
         .pipe(gulp.dest('./source/assets/css'));
 });
 
+// JS
+
 gulp.task('js', function () {
     del(['./source/assets/js/*']);
     gulp.src([
@@ -29,12 +42,17 @@ gulp.task('js', function () {
         ])
 
         .pipe(sourcemaps.init())
+            .pipe(babel({
+                presets: ['es2015']
+            }))
             .pipe(concat('main.js'))
             .pipe(uglify())
         .pipe(sourcemaps.write('./'))
 
         .pipe(gulp.dest('./source/assets/js'))
 });
+
+// Watchers
 
 gulp.task('sass:watch', function () {
     gulp.watch('./assets/sass/**/*.scss', ['sass']);
@@ -44,6 +62,9 @@ gulp.task('js:watch', function () {
     gulp.watch('./assets/js/**/*.js', ['js']);
 });
 
-// main tasks
+/*************************************
+ *  Grouped Tasks
+ *************************************/
+
 gulp.task('watch', ['sass:watch','js:watch']);
 gulp.task('default', ['sass','js']);

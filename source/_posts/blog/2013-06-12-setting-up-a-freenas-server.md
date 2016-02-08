@@ -1,6 +1,7 @@
 ---
 title: Setting up a FreeNAS server
 categories: blog
+tags: tech freenas servers
 ---
 
 - [Intro](#intro)

@@ -1,7 +1,7 @@
 
 .SiteBody {
-    margin-bottom: 60px;
-    padding: 2rem 1rem 0 1rem;
+    margin-bottom: 5rem;
+    padding: 4rem 1rem 5rem 1rem;
 
     h2 {
         line-height: 1.1;
@@ -31,8 +31,8 @@
     }
 }
 
-@media only screen and (min-width: #{(480)/16}em) {
+@media only screen and (min-width: #{(720/16)}em) {
     .SiteBody {
-        padding-top: 4rem;
+        padding-top: 6rem;
     }
 }

@@ -3,7 +3,7 @@ layout: default
 permalink: /blog/
 ---
 
-    {% for post in site.categories['blog'] reversed %}
+    {% for post in site.categories['blog'] %}
 
     <article class="Article Article--short">
 
@@ -11,14 +11,24 @@ permalink: /blog/
             <a href="{{ post.url }}" class="Article-headerLink">
                 <h1 class="Article-headerText">{{ post.title }}</h1>
             </a>
+
             <time datetime="{{ post.date | date_to_xmlschema }}" class="Article-date">{{ post.date | date: "%d %b %Y" }}</time>
+
+            <div class="Article-tags">
+            {% for tag in post.tags %}
+                <a href="/tags/{{ tag }}">#{{ tag }}</a>
+            {% endfor %}
+            </div>
         </header>
 
         {% if forloop.index == 1 %}
         <div class="Article-excerpt">
             {{ post.excerpt }}
         </div>
+
+        <a href="{{ latest_post.url }}">Read more&hellip;</a>
         {% endif %}
+
     </article>
 
     {% endfor %}

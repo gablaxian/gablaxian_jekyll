@@ -74,10 +74,10 @@ audio:not([controls]) {
  * Hide the `template` element in IE 8/9/10/11, Safari, and Firefox < 22.
  */
 
-[hidden],
-template {
-  display: none;
-}
+// [hidden],
+// template {
+//   display: none;
+// }
 
 /* Links
    ========================================================================== */
@@ -141,11 +141,11 @@ h1 {
 /**
  * Address styling not present in IE 8/9.
  */
-
-mark {
-  background: #ff0;
-  color: #000;
-}
+//
+// mark {
+//   background: #ff0;
+//   color: #000;
+// }
 
 /**
  * Address inconsistent and variable font size in all browsers.
@@ -208,11 +208,11 @@ figure {
 /**
  * Address differences between Firefox and other browsers.
  */
-
-hr {
-  box-sizing: content-box;
-  height: 0;
-}
+//
+// hr {
+//   box-sizing: content-box;
+//   height: 0;
+// }
 
 /**
  * Contain overflow in all browsers.
@@ -289,7 +289,7 @@ select {
 
 button,
 html input[type="button"], /* 1 */
-input[type="reset"],
+// input[type="reset"],
 input[type="submit"] {
   -webkit-appearance: button; /* 2 */
   cursor: pointer; /* 3 */
@@ -298,12 +298,12 @@ input[type="submit"] {
 /**
  * Re-set default cursor for disabled elements.
  */
-
-button[disabled],
-html input[disabled] {
-  cursor: default;
-}
-
+//
+// button[disabled],
+// html input[disabled] {
+//   cursor: default;
+// }
+//
 /**
  * Remove inner padding and border in Firefox 4+.
  */
@@ -383,11 +383,11 @@ fieldset {
  * 1. Correct `color` not being inherited in IE 8/9/10/11.
  * 2. Remove padding so people aren't caught out if they zero out fieldsets.
  */
-
-legend {
-  border: 0; /* 1 */
-  padding: 0; /* 2 */
-}
+//
+// legend {
+//   border: 0; /* 1 */
+//   padding: 0; /* 2 */
+// }
 
 /**
  * Remove default vertical scrollbar in IE 8/9/10/11.
@@ -401,10 +401,10 @@ textarea {
  * Don't inherit the `font-weight` (applied by a rule above).
  * NOTE: the default cannot safely be changed in Chrome and Safari on OS X.
  */
-
-optgroup {
-  font-weight: bold;
-}
+// 
+// optgroup {
+//   font-weight: bold;
+// }
 
 /* Tables
    ========================================================================== */

@@ -1,6 +1,7 @@
 ---
 title: Scraping Twitter Feeds with NodeJS
 categories: blog
+tags: tech backend nodejs
 ---
 
 Well, the time finally came. I had been using [Remy Sharp](https://twitter.com/rem)'s handy little [twitter.js](http://remysharp.com/2007/05/18/add-twitter-to-your-blog-step-by-step/) script to show one tweet on the homepage of my latest live site, [Pulse](http://pulseagency.co.uk), and Twitter's API changes finally caught up with it.

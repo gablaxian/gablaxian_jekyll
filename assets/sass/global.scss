@@ -1,16 +1,11 @@
 
 /** General Styles **/
-html {
-    background-color: #fff;
-    height: 100%;
-}
 body {
     position: relative;
+    background-color: #fff;
     font-family: 'Open Sans', sans-serif;
-    color: #444;
-    font-size: 0.875rem;
-    line-height: 1.7;
-    // border-top: 8px solid #00B3E7;
+    color: #333;
+    line-height: 1.6;
 }
 
 a {
@@ -29,7 +24,6 @@ img {
 pre {
     border: 1px solid rgb(221, 221, 221);
     background-color: #fafafa;
-    overflow: auto;
     line-height: 1.4;
     margin-bottom: 2rem;
     padding: 0.5em;
@@ -37,7 +31,7 @@ pre {
 
 pre code {
     font-family: 'Monaco', 'Consolas', 'Menlo', monospace;
-    font-size: 0.75rem;
+    font-size: 0.875rem;
 }
 
 /* Yay Markdown and the annoying paragraph it adds when nesting lists! */
@@ -69,6 +63,7 @@ ul ul   { margin: 8px 0 20px 25px }
 
 .Tutorial-chapters {
     margin-bottom: 1.5rem;
+
     ul {
         list-style: none;
         margin: 0;
@@ -80,9 +75,10 @@ ul ul   { margin: 8px 0 20px 25px }
         display: flex;
     }
     .Tutorial-chapters {
-        flex: 0 0 25%;
+        flex: 1 25%;
     }
     .Article--tutorial {
-        flex: 0 0 75%;
+        flex: 1 75%;
+        width: 75%;
     }
 }

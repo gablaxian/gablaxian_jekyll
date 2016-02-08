@@ -1,6 +1,7 @@
 ---
 title: The Case of the Linux Box and nginx
 categories: blog
+tags: tech servers linux nginx
 ---
 
 Following on from the last post which laid the landscape covering the whys, we now get on to the hows.
