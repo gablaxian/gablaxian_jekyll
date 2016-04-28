@@ -42,9 +42,7 @@ More pertinent to our mission, from the great Zelda sprite sheet we collected ea
 
 ![Link walking](/assets/img/articles/5-link-walking.png)
 
-A modest 7 frames. We can work with that. So how do we get Link walking in our game engine? Maybe create an animated gif, like above? We could simply load in the animated gif whenever a user pressed down, maybe? Unfortunately, that’s not very interactive. Admittedly, I have not tested using a series of animated gifs, but I assume it will end up being more of a pain to control than putting in the modest up-front effort building our own animation engine for the increased flexibility.
-
-Why is flexibility important? So often in games, animations are interrupted - either by user interaction, or as a by-product of the game world. A character could be half-way though their walking animation when they are attacked, at which point a number of different actions could be taken. Maybe the character swings their sword. Maybe they take damage. You could alter how the character begun those animations based on how far through the walking sequence they were at the time. Or, crucially, you could rewind animations or slow them down.
+A modest 7 frames. We can work with that. So how do we get Link walking in our game engine?
 
 Performing sprite animation in code isn’t overly complex. It mostly comes down to preference rather than performance. Given the PNG sprite above, we _could_ simply loop through each slice and once we reach the end, loop backwards through (the walk animation needs to swing like a pendulum so that the feet don’t suddenly jump from one foot to the next). But a nicer solution is to list sprite positions as an array and loop through that instead. We’re trading a minor increase in space (storing the sequence) for much simpler code.
 
@@ -113,7 +111,7 @@ Give Link an array of grid positions to transition between with, `player.sequenc
     Link
 </iframe>
 
-Okay, so that looks pretty fast and initially I thought it was _too_ fast, however upon closer inspection of Zelda:ALTTP, it turns out that Link does animate that quickly (he’s just not always walking or that small...). But this is still a good time to deal with a common issue: the _game_ renders at 60fps, but we don’t always want our animations to render that fast, too. To alleviate this we have to build in a way to run sub-systems of the main game loop at their own framerate. While the game runs at 60fps, we may want an enemy to animate at, say, 15fps, while the loop continues at 60. There are a number of different ways to do this, but they’re mostly variations on a theme.
+Okay, so that looks pretty fast and initially I thought it was _too_ fast, however upon closer inspection of Zelda:LttP, it turns out that Link does animate that quickly (he’s just not always walking or that small&hellip;). But this is still a good time to deal with a common issue: framerate. The _game_ renders at 60fps, but we don’t always want our animations to render that fast, too. To alleviate this we have to build in a way to run sub-systems of the main game loop at their own framerate. While the game runs at 60fps, we may want an enemy to animate at, say, 15fps, while the loop continues at 60. There are a number of different ways to do this, but they’re mostly variations on a theme.
 
 It’s commonly called ‘Frame Rate Independence’. I don’t think there’s an acronym. For once. It’s one of the most important parts in our game as there are a great many game objects which will animate slower than the main loop.
 
@@ -158,6 +156,7 @@ timeSinceLastFrameSwap += elapsed;
 
 // has enough time passed since the last frame was displayed?
 if( timeSinceLastFrameSwap > player.animationUpdateTime ) {
+
     // enough time has passed. display the next frame.
     if( player.sequenceIdx < player.sequence.length - 1 )
         player.sequenceIdx += 1;
@@ -190,7 +189,7 @@ function Link(x, y) {
 
 {% endhighlight %}
 
-“A function?”, I hear you cry (you probably didn’t). Yeah, it’s a little something I picked up from an [HTML5 Games workshop](//seb.ly/training) I was lucky to attend by [Seb Lee Delisle](http://seb.ly). In Javascript, everything is object-like anyway, but with a few twists. And it turns out that functions are a simpler way to set up class-like object which we can instantiate later with the `new` operator while also passing in values, e.g. `new Link(100,100)`. We may use objects later, but for now, functions are a simpler construct which quickly give us the flexibility we need.
+I’ve gone with the functional style for now as it gives us the class-like object mechanism we want. We can ‘instantiate’ it later with the `new` operator while also passing in values, e.g. `new Link(100,100)`. We may use objects later, but for now, functions are a simpler construct which quickly give us the flexibility we need.
 
 Now we can start moving some of the Link-specific code and variables from `main()`, `init()` and even the global variables into that function, including some setup code like, loading in his image file:
 
@@ -226,7 +225,7 @@ function Link(x, y) {
 
 {% endhighlight %}
 
-When we create our Link object, it’ll create an image and assign itself the new sprite we created, positions itself with the values passed in, calculates and stores the FPS which it will run at and, finally, store the sequences of frames for each animation. As you can see, I’ve added a few more than before. Once again, I’ve taked a page out of [Shaun Inman’s](//shauninman.com) book and Link handles standing and walking in three directions. A few more variables were needed to store which way Link faces and whether he needs animating.
+When we create our Link object, it’ll create an image and assign itself the new sprite we created, positions itself with the values passed in, calculates and stores the FPS which it will run at and, finally, store the sequences of frames for each animation. As you can see, I’ve added a few more than before. Once again, I’ve taken a page out of [Shaun Inman’s](//shauninman.com) book and Link handles standing and walking in three directions. A few more variables were needed to store which way Link faces and whether he needs animating.
 
 It’s a good start, and we’ve streamlined `main()` and `init()` a bit too. But we can do a bit more. Link should also handle updating his animation and drawing to the canvas. For that, two functions will come in handy, `update()` and `draw()`. It’s good to break up some of that logic into two functions in case we need to update Link but not draw him to the canvas for whatever reason:
 
@@ -295,7 +294,7 @@ While it’s good to know these techniques, the reason we’re using them right 
 
 <strong>Aside:</strong> Since writing the flipping technique used above, I have made two discoveries. Firstly, until I added a second translate (and I have no idea why it was necessary yet), there was an issue around Link’s `x` value not being his true `x` value because the image needs to be drawn half width to the left which led to weird hacks. And, secondly, it turns out that the performance of these transformation functions is pretty bad at about 50% worse than just drawing an image to the screen. So, expect this flipping technique to be removed in future. If we’re going to take a performance hit, I’d prefer it to be somewhere actually useful.
 
-During all this, I’ve reappropriated the `link` variable as we no longer need it as the link image, it will now be our player object. Creating objects is typically a job for `init()`, so it’s been given a cleanup:
+During all this, I’ve re-appropriated the `link` variable as we no longer need it as the link image, it will now be our player object. Creating objects is typically a job for `init()`, so it’s been given a cleanup:
 
 {% highlight js %}
 
@@ -365,6 +364,6 @@ We are still handling input here for now, so we set Link to standing still unles
 
 Phew! We got through a lot here. And, it’s only just getting started. But I’m pretty happy we have Link wandering round the screen looking like a proper game character.
 
-Check out the progress on version 0.5.5 [here](/experiments/super-js-adventure/0.5.5/)
+Check out the progress on [version 0.5.5](/experiments/super-js-adventure/0.5.5/)
 
 Or see all the [source code](//github.com/gablaxian/super-js-adventure) on Github.

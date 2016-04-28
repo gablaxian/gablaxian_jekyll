@@ -10,13 +10,13 @@ This area of game development has given me the most grief of all. And it’s mos
 
 Levels are your game’s database. They hold the geometry, enemy positions, entity positions, events and triggers and also tie the background to the image assets.
 
-The isometric RPG style of game, like Zelda, comes under the banner of ‘tile-based’. They are top down and so the background of each screen is essentially the floor, whereas, in a side-scrolling game, the background would often be the scenery in the far distance. In a tile-based game the screen is split up into a grid of cells which are used to draw the backgrounds and provide the basis for collisions and entity positions. Zelda:LTTP used cells of 8px by 8px.
+The isometric RPG style of game, like Zelda, comes under the banner of ‘tile-based’. They are top down and so the background of each screen is essentially the floor, whereas, in a side-scrolling game, the background would often be the scenery in the far distance. In a tile-based game the screen is split up into a grid of cells which are used to draw the backgrounds and provide the basis for collisions and entity positions. Zelda:LttP used cells of 8px by 8px.
 
 There are a few ways we could store this information, but let’s jump right in and get a rudimentary level layout drawn on screen. The way we do that is with big blocks of colour. Assets usually come later on in a game’s development and how they’re built can be dependent on how the engine is going to handle them (also, why design assets for elements of the game that don’t make it into the final build?). So, in the short term, to test a game’s viability, either flat (bordered or shaded) colours, or simple placeholder images are often used. We shall start there.
 
 I’ve made a few minor modifications to the code since the last update. The game is now scaled up by a factor of 2 (and uses Chrome’s new CSS property) and I decided to stop using comma-separated variable declarations e.g. `var a, b, c;`. They now have their own `var` and ending `;`. Comma-separated style just leads to broken code way too often.
 
-With those tweaks added we move onto the background by adding the new function... `drawBackground()`! So inventive. Anyway, in this function we can get a feel for how our screens are going to be drawn. As I mentioned above, Zelda:LTTP is a tile-based game of 8x8 cells. For now, drawing the background will be a loop which draws an 8x8 rectangle or ‘tile’ which we can visualise as a brown square with a darker brown border.
+With those tweaks added we move onto the background by adding the new function&hellip; `drawBackground()`! So inventive. Anyway, in this function we can get a feel for how our screens are going to be drawn. As I mentioned above, Zelda:LttP is a tile-based game of 8x8 cells. For now, drawing the background will be a loop which draws an 8x8 rectangle or ‘tile’ which we can visualise as a brown square with a darker brown border.
 
 {% highlight js %}
 
@@ -267,7 +267,7 @@ this.height = 25;
 
 to the Link object.
 
-Now we get to the trickier part of calculating collisions between Link and the red tiles. The fun bit is that Link’s dimensions are bigger than a cell. Link is, in fact, 2 cells wide and just over 3 cells tall. At first glance you would expect, then, to check two cells above and below and three cells left and right. But given that this is an isometric game, it is supposed to give the illusion that we are looking down at an angle, so you would expect that Link’s head would pass over objects, but his body would not which, in LTTP, it does. Contrary to Link’s image height of 25px, his collision height will be the same as his width. For the purposes of tile collision, then, Link is really a 16x16 block.
+Now we get to the trickier part of calculating collisions between Link and the red tiles. The fun bit is that Link’s dimensions are bigger than a cell. Link is, in fact, 2 cells wide and just over 3 cells tall. At first glance you might expect to check the two cells above, the two cells below and the three cells left and right. But given that this is an isometric game, it is supposed to give the illusion that we are looking down at an angle, so you would expect that Link’s head would pass over objects, but his body would not. Contrary to Link’s image height of 25px, his collision height will be the same as his width. For the purposes of tile collision, then, Link is really a 16x16 block.
 
 The way I have currently implemented tile-based collision is probably horribly inefficient, and/or stupid. But that’s what this process is all about. The idea is as follows:
 

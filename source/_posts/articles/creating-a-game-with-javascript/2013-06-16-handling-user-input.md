@@ -6,11 +6,11 @@ categories:
     creating-a-game-with-javascript
 ---
 
-Welcome back, trepid adventurer. Previously, we learnt about drawing to the screen with `canvas`’ drawing functions. But a game is not a game unless you can interact with it. So now we see how to handle user input.
+Welcome back, intrepid adventurer. Previously, we learnt about drawing to the screen with `canvas`’s drawing functions. But a game is not a game unless you can interact with it. So now we see how to handle user input.
 
 Running a game inside the browser is both a blessing and a curse. A typical PC/Console game runs on top of everything else (with a few exceptions), so clicking the mouse or tapping a key will do nothing unless you program in a reaction to this event. In the browser, we’re already in the OS _and_ the browser, so both of these get first say in what those events do until you overwrite these defaults. And we’re limited to what we can control.
 
-The first issue we’re going to come across is the keypress. Let’s say you wanted to respond to a keypress in Javascript. You’d probably start by implementing a listener with `addEventListener`, or, if jQuery is your poison, a `$elm.on('keypress', function() {})`, just like you’ve done for your websites a million times before:
+The first issue we’re going to come across is the keypress. Let’s say you wanted to respond to a keypress in Javascript. You’d probably start by implementing a listener with `addEventListener` just like you’ve done for your websites a million times before:
 
 {% highlight js %}
 
@@ -24,7 +24,7 @@ document.addEventListener('keydown', function(evt) {
 
 The problem with this is that the OS has some default behaviour when it comes to holding down a key. It will first fire off an event for that key, pressing it once, then it will pause for a second before repeatedly firing off that same event. I’m not sure how fast this event fires, but it looks to be around 20-25 times a second. This is not fast enough or reactive enough for a game.
 
-The solution to this is to not depend on the keydown event to fire repeatetedly, but instead use it, along with keyup, to act as a sort of trigger. We know that when a key is pressed an event fires immediately, and the same with releasing a key. So, we set a listener for both those events and simply use a variable to store a sort of on or off value to represent whether it is being pressed or not. On each loop of the game loop, we just check those variables. I actually came across this technique when viewing the source for Ben Joffe's [Canvascape Demo](http://www.benjoffe.com/code/demos/canvascape/textures), so all credit goes to him for this solution.
+The solution to this is to not depend on the keydown event to fire repeatedly, but instead use it, along with keyup, to act as a sort of trigger. We know that when a key is pressed an event fires immediately, and the same with releasing a key. So, we set a listener for both those events and simply use a variable to store a sort of on or off value to represent whether it is being pressed or not. On each loop of the game loop, we just check those variables. I actually came across this technique when viewing the source for Ben Joffe's [Canvascape Demo](http://www.benjoffe.com/code/demos/canvascape/textures), so all credit goes to him for this solution.
 
 First we set another global variable, `key`
 
@@ -39,19 +39,42 @@ var link    = new Image();
 
 {% endhighlight %}
 
-It’s an array of the five keys we’re currently interested in, Up, Down, Left, Right and Space, all initialised at 0, for off. If we used the variable to only store which key was being pressed, then we couldn’t react to simultaneous key presses, like Down and Right, preventing our character from moving diagonally. We _could_ use a variable per key, but this works well enough and keeps our code a little leaner.
+It’s an array of the five keys we’re currently interested in, Up, Down, Left, Right and Space, all initialised at 0 for off. If we used the variable to only store which key was being pressed, then we couldn’t react to simultaneous key presses, like Down and Right, preventing our character from moving diagonally. We _could_ use a variable per key, but this works well enough and keeps our code a little leaner.
 
 We then add a function to set the values of this array with the appropriate keys:
 
 {% highlight js %}
 
 function changeKey(which, to) {
-    switch (which){
-        case 65: case 37: key[0]=to; break; // left
-        case 87: case 38: key[2]=to; break; // up
-        case 68: case 39: key[1]=to; break; // right
-        case 83: case 40: key[3]=to; break; // down
-        case 32: key[4]=to; break; // space bar;
+    switch (which) {
+        // left
+        case 65:
+        case 37:
+          key[0] = to;
+          break;
+
+        // up
+        case 87:
+        case 38:
+          key[2] = to;
+          break;
+
+        // right
+        case 68:
+        case 39:
+          key[1] = to;
+          break;
+
+        // down
+        case 83:
+        case 40:
+          key[3] = to;
+          break;
+
+        // space bar;
+        case 32:
+          key[4] = to;
+          break;
     }
 }
 
@@ -70,18 +93,18 @@ document.addEventListener('keyup',   function(e) { Input.changeKey(e.keyCode, 0)
 
 Here, when a user presses a key we get the event and send the keyCode to the `changeKey()` function. From there we check which key is pressed and set the appropriate value in the array to 1.
 
-Putting all that together with our game, we’ll get our little Link moving around. Currently, we have the Link image being statically drawn at 20px left and 20px down. First there needs to be a way of storing his position for us to manipulate. We can do that with a new global variable:
+Now we put all that together with our game. Currently, we have the Link image being statically drawn at 20px left and 20px down. First there needs to be a way of storing his position for us to manipulate. We can do that with a new global variable:
 
 {% highlight js %}
 
 var player  = {
-    x : 0,
-    y : 0
+    x: 0,
+    y: 0
 };
 
 {% endhighlight %}
 
-I’m using a Javascript object so we can keep everything related to the player nice and enclosed. We can read/write their position with `player.x` and `player.y`
+I’m using a Javascript object for now so we can keep everything related to the player nice and enclosed. We can read/write their position with `player.x` and `player.y`
 
 We’ll give Link a bit more space to begin with by setting his initial position to 100px left and 100px down in the `init()` function by adding:
 
@@ -127,7 +150,7 @@ The GamePad API isn't quite finished, which does explain some of the more curiou
 
 Chrome supports the GamePad API even in public builds. Firefox does _technically_ support the GamePad API, but only in the ‘nightlies’ which are pre-beta builds for experimental features that few people use. So we’ll be limiting our code to Chrome only in this case.
 
-In Chrome there are no events like we get with the keyboard or mouse. There is no ‘gamepad connected’ event, or a ‘button pressed’ event. For Chrome, we have to poll every frame just to see if the joystick is still there! Even in Firefox, which does have a connected and disconnected event, you still need to actually press a button first for them to even trigger. Apprently, this is a security feature to prevent ‘finger printing’, whatever that might be. So, to re-iterate, we are definitely in beta territory. Proceed at your own peril.
+In Chrome there are no events like we get with the keyboard or mouse. There is no ‘gamepad connected’ event, or a ‘button pressed’ event. For Chrome, we have to poll every frame just to see if the joystick is still there! Even in Firefox, which does have a connected and disconnected event, you still need to actually press a button first for them to even trigger. Apparently, this is a security feature to prevent ‘finger printing’, whatever that might be. So, to re-iterate, we are definitely in beta territory. Proceed at your own peril.
 
 If you want to explore the API a little further, there’s a great article over on [html5rocks](http://www.html5rocks.com/en/tutorials/doodles/gamepad/) which I’ve been using to implement the gamepad in this project.
 

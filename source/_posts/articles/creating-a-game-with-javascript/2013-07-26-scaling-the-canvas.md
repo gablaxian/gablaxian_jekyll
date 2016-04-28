@@ -26,7 +26,7 @@ Hey! What happened to all that lovely detail? Most current browsers employ an al
 
 ## Interpolation
 
-Upscaling or ‘interpolation’ is a technique for resizing an image. If you take an image that’s 8x8 and make it 16x16, the software has to figure out what to put in those extra 192 pixels that weren’t provided. There are [quite a few ways](https://en.wikipedia.org/wiki/Image_scaling) to do it, and many written specifically for these older generation of games when played on newer hardware.
+__Interpolation__ is a technique used when, amongst other things, resizing an image. If you take an 8x8 image and make it 16x16, the software has to figure out what to put in those extra 192 pixels that weren’t provided. There are [quite a few ways](https://en.wikipedia.org/wiki/Image_scaling) to do it, and many written specifically for these older generation of games when played on newer hardware.
 
 Canvas only has the one algorithm which is enabled by default, which I think is bilinear filtering. If you use Photoshop at all, you’re probably already familiar with it. What we _want_ is something like ‘nearest neighbour’.
 
