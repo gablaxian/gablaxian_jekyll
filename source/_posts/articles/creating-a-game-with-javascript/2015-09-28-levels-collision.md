@@ -37,10 +37,10 @@ function drawBackground() {
 
 {% endhighlight %}
 
-Okay, it’s a bit rough but it helps us get a picture of how a background is drawn. For every frame of the game, we are breaking down the width of the game screen into 8 for the total rows, then for each row, we break down the height of the game screen into 8 again. For each cell we draw an 8x8 rectangle (with stroke for definition) the move down 8px and draw another. When a column is complete we move to the next row and start again.
+It’s a bit rough but it helps us get a picture of how a background is drawn. For every frame of the game, we are breaking down the width of the game screen into 8 for the total rows, then for each row, we break down the height of the game screen into 8 again. For each cell we draw an 8x8 rectangle (with stroke for definition) the move down 8px and draw another. When a column is complete we move to the next row and start again.
 
 <aside>
-Aside: Don’t worry too much about those +0.5s on the `strokeRect`. Canvas has a habit of aliasing lines so they appear blurry. This is just a small hack to get the lines to appear clean. We’ll be removing all strokes when we start using real imagery anyway.
+<strong>Aside:</strong> Don’t worry too much about those +0.5s on the `strokeRect`. Canvas has a habit of aliasing lines so they appear blurry. This is just a small hack to get the lines to appear clean. We’ll be removing all strokes when we start using real imagery anyway.
 </aside>
 
 Slap that into the `main()` function, just after we clear the screen:
@@ -72,7 +72,7 @@ Excellent! It is, however, the next steps that start making it interesting. The 
 
 The question, then, is how do we go about storing this information? Considering we’re just using placeholder tiles for now, the quickest and simplest solution is to create a big array. We’re also going to use a multidimensional array (`array[0][0]`) just so traversing the array is a bit cleaner. The array size is going to be the number of row cells by the number of column cells, or `height/8` by `width/8` which, in our case, is 32 x 28. The values of each of the cells will be a number which represents a cell type. For now this will be 0 for empty (black), 1 for dirt/sand and 2 for a wall.
 
-This is going to be a lot easier to work with both as a separate file and as a Javascript object. We’ll create this new file in the `js` folder and call it `world.js` as it will storing our game’s world. In it we create the var `world` and then within that, the var `level`. This gives us scope to create other variables inside `world` to handle other aspect of our game in the future, like enemy placements.
+This is going to be a lot easier to work with as a separate object. For now we’ll create this variable at the top of the file, called `world` and then within that, the var `level`. This gives us scope to create other variables inside `world` to handle other aspect of our game in the future, like enemy placements.
 
 The file looks like so:
 
@@ -114,7 +114,7 @@ var world = {
 
 Each cell is populated with the value `1` which sets each tile to ‘dirt’. Instantly you can see the appeal to using this approach and layout, which is you can now visualise the screen almost Matrix style. In the short term we can paint with code, so-to-speak, and construct the starting area to our game.
 
-It’s worth noting that the original Zelda firstly not only had a different resolution and therefore a different, lower count of tiles, but also used a fair chunk of the top part of the screen for its <abbr>HUD</abbr>. Zelda:LTTP  used an overlay for its HUD and then a modal overlay for its inventory management. We’re going to have to take some liberties in the reconstruction of Zelda into its LTTP remaster. At some point we’re going to have to decide how to handle this difference between the two games, but not just yet. Here is the NES Zelda’s starting area:
+It’s worth noting that the original Zelda firstly not only had a different resolution and therefore a different, lower count of tiles, but also used a fair chunk of the top part of the screen for its <abbr title="Heads up display">HUD</abbr>. Zelda:LTTP  used an overlay for its HUD and then a modal overlay for its inventory management. We’re going to have to take some liberties in the reconstruction of Zelda into its LTTP remaster. At some point we’re going to have to decide how to handle this difference between the two games, but not just yet. Here is the NES Zelda’s starting area:
 
 ![Legend of Zelda, NES](/assets/img/articles/6-legend-of-zelda-nes.png)
 
@@ -159,52 +159,43 @@ var world = {
 
 {% endhighlight %}
 
-In our `index.html` file we need to load the level which we’ll do before all the other JS with
-
-    <script src="js/world.js"></script>
-
 We then update our `drawBackground()` function to take into account this new `world` and level array. Empty cells will be drawn black, dirt as the previous brown and walls as red.
 
 {% highlight js %}
 
 function drawBackground() {
 
-    // check that the world exists.
-    if( world ) {
+    var level = world.level;
 
-        var level = world.level;
+    for (var row = 0; row < (height/8); row++) {
+        for (var col = 0; col < (width/8); col++) {
+            var tile = level[row][col];
+            var x = (col * 8);
+            var y = (row * 8);
 
-        for (var row = 0; row < (height/8); row++) {
-            for (var col = 0; col < (width/8); col++) {
-                var tile = level[row][col];
-                var x = (col * 8);
-                var y = (row * 8);
-
-                if( tile == 0 ) {
-                    ctx.fillStyle = '#000';
-                    ctx.strokeStyle = '#000';
-                }
-                else if( tile == 1 ) {
-                    ctx.fillStyle = '#85724E';
-                    ctx.strokeStyle = '#68583A';
-                }
-                else if( tile == 2 ) {
-                    ctx.fillStyle = '#f88';
-                    ctx.strokeStyle = '#f00';
-                }
-
-                ctx.fillRect(x, y, 8, 8);
-                ctx.strokeRect(x+0.5, y+0.5, 8, 8);
+            if( tile == 0 ) {
+                ctx.fillStyle = '#000';
+                ctx.strokeStyle = '#000';
             }
-        }
+            else if( tile == 1 ) {
+                ctx.fillStyle = '#85724E';
+                ctx.strokeStyle = '#68583A';
+            }
+            else if( tile == 2 ) {
+                ctx.fillStyle = '#f88';
+                ctx.strokeStyle = '#f00';
+            }
 
+            ctx.fillRect(x, y, 8, 8);
+            ctx.strokeRect(x+0.5, y+0.5, 8, 8);
+        }
     }
 
 }
 
 {% endhighlight %}
 
-Just check that there is a world to be loaded, then set the level array to a local variable. Run our cell drawing loops and use the `row` and `col` variables to grab the cell type in the level array, store that to make the checks more readable, then set the fill colour and stroke colours depending on which cell it is. Finish by drawing the cell. And here’s what it looks like!
+First set the level array to a local variable. Run our cell drawing loops and use the `row` and `col` variables to grab the cell type in the level array, store that to make the checks more readable, then set the fill colour and stroke colours depending on which cell it is. Finish by drawing the cell. And here’s what it looks like!
 
 ![Link in starting area](/assets/img/articles/6-three-filled-tiles.png)
 
@@ -256,18 +247,9 @@ function checkCollisions() {
 
 {% endhighlight %}
 
-Simpler than the bounding box collision checking, but you can see some of the principles in action. We have, however, in the course of writing that simple set of checks, uncovered that we were not storing the width or height of our intrepid hero. This is fixed by adding
+Simpler than the bounding box collision checking, but you can see some of the principles in action.
 
-{% highlight js %}
-
-this.width = 16;
-this.height = 25;
-
-{% endhighlight %}
-
-to the Link object.
-
-Now we get to the trickier part of calculating collisions between Link and the red tiles. The fun bit is that Link’s dimensions are bigger than a cell. Link is, in fact, 2 cells wide and just over 3 cells tall. At first glance you might expect to check the two cells above, the two cells below and the three cells left and right. But given that this is an isometric game, it is supposed to give the illusion that we are looking down at an angle, so you would expect that Link’s head would pass over objects, but his body would not. Contrary to Link’s image height of 25px, his collision height will be the same as his width. For the purposes of tile collision, then, Link is really a 16x16 block.
+Now we get to the trickier part of calculating collisions between Link and the red tiles. The fun bit is that Link’s dimensions are bigger than a cell. Link, at 17px by 25px is, in fact, over 2 cells wide and over 3 cells tall. At first glance you might expect to check the two cells above, the two cells below and the three cells left and right. But given that this is an isometric game, it is supposed to give the illusion that we are looking down at an angle, so you would expect that Link’s head would pass over objects, but his body would not. Contrary to Link’s image height of 25px, his collision height will be the same as his width. For the purposes of tile collision, then, Link is really a 17x16 block.
 
 The way I have currently implemented tile-based collision is probably horribly inefficient, and/or stupid. But that’s what this process is all about. The idea is as follows:
 

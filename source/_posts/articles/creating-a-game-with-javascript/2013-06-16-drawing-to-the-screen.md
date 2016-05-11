@@ -8,7 +8,7 @@ categories:
 
 In the last post, we looked at the Game Loop and how to run our game at the sweet spot of 60fps. Now, let’s see some results, shall we? Time to make some pretty shapes.
 
-By using `canvas`, we’re moving beyond the world of basic Javascript, and using a set of functions available only to the canvas ‘context’. By its very nature, the `canvas` element is a platform for pixel manipulation. Once we’ve set up a context, we can access and edit any pixel in it. If we want to draw a line we could, should we want to, loop through all the pixels and set a line of them to a colour of our choosing. But doing that is very inefficient in JavaScript and, instead, the context provides us with a number of functions to speed those operations up, such as `lineTo()`. You can see a full list of those functions available to us over on this [handy cheat sheet](https://simon.html5.org/dump/html5-canvas-cheat-sheet.html).
+By using `canvas`, we’re moving beyond the world of basic JavaScript, and using a set of functions available only to the canvas ‘context’. By its very nature, the `canvas` element is a platform for pixel manipulation. Once we’ve set up a context, we can access and edit any pixel in it. If we want to draw a line we could, should we want to, loop through a line of pixels and set them to a colour of our choosing. But doing that is very inefficient in JavaScript and, instead, the context provides us with a number of functions to speed those operations up, such as `lineTo()`. You can see a full list of those functions available to us over on this [handy cheat sheet](https://simon.html5.org/dump/html5-canvas-cheat-sheet.html).
 
 Diving straight in, let’s look at our `main()` function from last time:
 
@@ -23,7 +23,7 @@ function main() {
 
 {% endhighlight %}
 
-It’s looping at 60fps. Now let’s draw ourselves a red rectangle. Think of this as the Hello World of drawing applications.
+It’s looping at 60fps. Now let’s draw ourselves a red rectangle with the function, `fillRect(x, y, width, height)`. Think of this as the Hello World of drawing applications.
 
 {% highlight js %}
 
@@ -42,9 +42,9 @@ And there we have it. A 60fps red rectangle! Look at it go!
 
 ![Red Rectangle](/assets/img/articles/2-red-rectangle.png)
 
-Okay, that’s just an image, but you get the idea.
+Okay, that’s just an image. But you get the idea.
 
-The `ctx` object is the canvas context which we set in the last post as a global variable. Using that, we define a colour which is set for all following drawing operations. Were we to then draw a line or another rectangle, it would also be red, up until we set a new `fillStyle`. The `fillRect()` function is called with the `x` and `y` coordinates first `(0, 0)`, and then we set the width and height, both at 50px.
+The `ctx` object is the canvas context which we set in the last post as a global variable. Using that, we define a colour which is set for all following drawing operations. If we then draw another rectangle, it would also be red, up until we set a new `fillStyle`.
 
 The canvas element works a lot like a paint program. Each time something is drawn to the screen, it stays there until you erase it. So, if we introduce some animation, say, moving the rectangle 1px to the right on each frame, we’re going to slowly animate drawing a pretty big line:
 
@@ -99,7 +99,7 @@ Say hello to Link!
 
 He says hello.
 
-I’ve created a link.png file and a new images folder to our folder structure. Adding Link to our game requires us to first load in the image. Let’s add a new global variable for our link image.
+I’ve created a `link.png` file and a new images folder to our folder structure. Adding Link to our game requires us to first load in the image. Let’s add a new global variable for our link image.
 
 {% highlight js %}
 

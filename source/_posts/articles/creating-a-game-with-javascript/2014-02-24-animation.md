@@ -18,7 +18,7 @@ __Sprite animation__ - Much like the hand-drawn animated films, each keyframe is
 
 Sprite animation is always cosmetic. After the line and pixel-based graphics of the earlier games, such as Pong or Space Invaders, but before today’s 3D rendered models, the way to enhance the graphics of our games was to draw the characters and backgrounds, separately, then load them in. But this would only be to, say, animate a character’s running animation. Moving the character around the screen, however, is still done programmatically.
 
-Computer generated animation is a wide area of animation. In games, where something isn’t sprite animated, it’s computer animated. Taking a fully 3D game like Quake, Gears of War, or Call of Duty, effects like fire are often still sprite animation, but everything else in the game world is computer animated. From objects rotating or moving, to the keyframed skeletal animations.
+Computer generated animation is a wide area of animation. In games, where something isn’t sprite animated, it’s computer animated. Taking a fully 3D game like Quake, Gears of War, or GTA, effects like fire are often still sprite animation, but everything else in the game world is computer animated. From objects rotating or moving, to the keyframed skeletal animations.
 
 I think a lot falls under the animation umbrella. If anything moves on screen, it’s animation. It ties in with the Physics and AI, as they are just factors which affect an object’s animation. We’ll return to CG animation in part 2.
 
@@ -44,7 +44,7 @@ More pertinent to our mission, from the great Zelda sprite sheet we collected ea
 
 A modest 7 frames. We can work with that. So how do we get Link walking in our game engine?
 
-Performing sprite animation in code isn’t overly complex. It mostly comes down to preference rather than performance. Given the PNG sprite above, we _could_ simply loop through each slice and once we reach the end, loop backwards through (the walk animation needs to swing like a pendulum so that the feet don’t suddenly jump from one foot to the next). But a nicer solution is to list sprite positions as an array and loop through that instead. We’re trading a minor increase in space (storing the sequence) for much simpler code.
+Performing sprite animation in code isn’t overly complex. It mostly comes down to preference rather than performance. Given the PNG sprite above, we _could_ simply loop through each slice and once we reach the end, loop backwards through (the walk animation needs to swing like a pendulum so that the feet don’t suddenly jump from one foot to the next). But a nicer solution is to list sprite positions as an array and loop through that instead.
 
 Before we get into the mechanics of our spriting engine, we need to take another look at our `drawImage()` function. In the last iteration, we drew Link to the screen with:
 
@@ -89,13 +89,12 @@ function main() {
     // ...
 
     // loop through the walking sequence
-    var gutter      = 2;
-    var spritePos   = ( player.sequence[player.sequenceIdx] * gutter ) + ( player.sequence[player.sequenceIdx] * 16 );
+    var spritePos = player.sequence[player.sequenceIdx] * 16;
 
     ctx.drawImage(link, spritePos, 0, 16, 25, player.x, player.y, 16, 25);
 
     if( player.sequenceIdx < player.sequence.length - 1 )
-        player.sequenceIdx += 1;
+        player.sequenceIdx++;
     else
         player.sequenceIdx = 0;
 
@@ -105,7 +104,7 @@ function main() {
 
 {% endhighlight %}
 
-Give Link an array of grid positions to transition between with, `player.sequence`, starting with the grid position of Link standing. During the loop, we calculate where each grid position corresponds to and move the slice area, taking into account the 2px gutter between each drawing.
+Give Link an array of grid positions to transition between with, `player.sequence`, starting with the grid position of Link standing. During the loop, we calculate where each grid position corresponds to and move the slice area.
 
 <iframe src="//gablaxian.com/experiments/super-js-adventure/0.4.5/index.html" width="258" height="226" style="border: none">
     Link
@@ -115,12 +114,12 @@ Okay, so that looks pretty fast and initially I thought it was _too_ fast, howev
 
 It’s commonly called ‘Frame Rate Independence’. I don’t think there’s an acronym. For once. It’s one of the most important parts in our game as there are a great many game objects which will animate slower than the main loop.
 
-The maths and code behind it is fairly simple. Our main loop is running at 60fps: 60 frames in one second. That’s 1000 / 60, so 16.6 recurring milliseconds per frame. To demonstrate, we’ll get Link running at 16fps. To do that, give Link two more properties:
+The maths and code behind it is fairly simple. Our main loop is running at 60fps: 60 frames in one second. That’s 1000 / 60, or 16.6 recurring milliseconds per frame. To demonstrate, we’ll get Link running at 16fps. To do that, give Link two more properties:
 
 {% highlight js %}
 
 player.fps = 16;
-player.animationUpdateTime = 1 / player.fps;
+player.animationUpdateTime = 1000 / player.fps;
 
 {% endhighlight %}
 
@@ -140,8 +139,8 @@ function init() {
 function main() {
     // ...
 
-    var now     = window.performance.now(), // the time in ms on each loop.
-        elapsed = (now - lastTime) / 1000; // how many ms since the last time the loop ran.
+    var now     = window.performance.now(); // the time in ms on each loop.
+    var elapsed = (now - lastTime) / 1000; // how many ms since the last time the loop ran.
 
     lastTime = now; // store the current ms to use next time!
 }
@@ -159,7 +158,7 @@ if( timeSinceLastFrameSwap > player.animationUpdateTime ) {
 
     // enough time has passed. display the next frame.
     if( player.sequenceIdx < player.sequence.length - 1 )
-        player.sequenceIdx += 1;
+        player.sequenceIdx++;
     else
         player.sequenceIdx = 0;
 
@@ -169,13 +168,21 @@ if( timeSinceLastFrameSwap > player.animationUpdateTime ) {
 
 {% endhighlight %}
 
-That’s much better! Obviously, Link should only animate when the user interacts, so let’s do a bit of code maintenance and get Link walking around a bit more convincingly.
+A 16fps Link!
+
+Obviously, Link should only animate when the user interacts, so let’s do a bit of code maintenance and get Link walking around a bit more convincingly.
 
 Check out the progress on version 0.5 [here](/experiments/super-js-adventure/0.5/)
 
 ## Finishing Up
 
-First thing to do is update our Link sprite and add in his other frames for facing right and up but _not_ left. A common space-saving technique for older games was to only draw frames for left or right and just flip the image for the opposing direction, and according to our sprite sheet, Nintendo did just that. It does mean that a left-handed Link becomes temporarily right-handed when facing right. But no one seemed to notice.
+First thing to do is update our Link sprite and add in his other frames for facing the other directions. But before that, a trip down development techniques lane. A common space-saving technique for older games was to only draw frames for left or right and just flip the image for the opposing direction, and according to our sprite sheet, Nintendo did just that. It does mean that a left-handed Link becomes temporarily right-handed when facing right. But no one seemed to notice. In addition, a lot of games went further and cut up the most varied character images into smaller pieces like heads, bodies, legs, weapons, etc... And built them up in-game instead. Some incredibly clever techniques were devised when attempting to push these older, more constrained systems to their limits.
+
+<aside>
+<strong>Aside:</strong> I originally used the flipping technique to stay true to the original games, but since, I have made two discoveries. Firstly, until I added a second translate (and I have no idea why it was necessary yet), there was an issue around Link’s `x` value not being his true `x` value because the image needs to be drawn half width to the left which led to weird hacks. And, secondly, it turns out that the performance of these transformation functions is _really_ bad at about 50% worse than just drawing an image to the screen. So it has been removed. If we’re going to take a performance hit, I’d prefer it to be somewhere actually useful.
+</aside>
+
+Instead I created and added the left sequence to give us our current Link spritesheet:
 
 ![Link walking full](/assets/img/articles/5-link-walking-full.png)
 
@@ -215,7 +222,8 @@ function Link(x, y) {
 
         'walk-down':    [3,4,5,6,5,4,3,2,1,0,1,2],
         'walk-up':      [10,11,12,13,12,11,10,9,8,7,8,9],
-        'walk-right':   [17,18,19,20,19,18,17,16,15,14,15,16]
+        'walk-right':   [17,18,19,20,19,18,17,16,15,14,15,16],
+        'walk-left':    [24,25,26,27,26,25,24,23,22,21,22,23]
     }
     this.sequenceIdx = 0;
     this.moving = false;
@@ -225,7 +233,7 @@ function Link(x, y) {
 
 {% endhighlight %}
 
-When we create our Link object, it’ll create an image and assign itself the new sprite we created, positions itself with the values passed in, calculates and stores the FPS which it will run at and, finally, store the sequences of frames for each animation. As you can see, I’ve added a few more than before. Once again, I’ve taken a page out of [Shaun Inman’s](//shauninman.com) book and Link handles standing and walking in three directions. A few more variables were needed to store which way Link faces and whether he needs animating.
+When we create our Link object, it’ll create an image and assign itself the new sprite we created, positions itself with the values passed in, calculates and stores the FPS which it will run at and, finally, store the sequences of frames for each animation. As you can see, I’ve added a few more than before. I’ve taken a page out of [Shaun Inman’s](//shauninman.com) book and Link handles standing and walking in three directions. A few more variables were needed to store which way Link faces and whether he needs animating.
 
 It’s a good start, and we’ve streamlined `main()` and `init()` a bit too. But we can do a bit more. Link should also handle updating his animation and drawing to the canvas. For that, two functions will come in handy, `update()` and `draw()`. It’s good to break up some of that logic into two functions in case we need to update Link but not draw him to the canvas for whatever reason:
 
@@ -265,17 +273,7 @@ function Link(x, y) {
     }
 
     this.draw = function() {
-
-        var scaleX = this.facing == 'left' ? -1 : 1;
-
-        ctx.save();
-
-        ctx.translate(this.x, this.y);
-        ctx.translate(8, 0);
-        ctx.scale(scaleX, 1);
-        ctx.drawImage(this.img, this.sliceX, this.sliceY, 16, 25, -8, 0, 16, 25);
-
-        ctx.restore();
+        ctx.drawImage(this.img, this.offsetX, this.offsetY, this.width, this.height, this.x, this.y, this.width, this.height);
     }
 
 }
@@ -284,15 +282,7 @@ function Link(x, y) {
 
 We need to use `this` so that those functions can be used outside of the Link object, e.g. `link.update()`. You may have noticed a few more alterations to the code which handles the animation and draws to the canvas. When a frame is ready to be updated, according to Link’s independant framerate, what we now do is check which way he is facing, along with whether or not he is moving. Both of these attributes are currently determined in `main()`. Once this is established, we find the appropriate sequence array and then calculate which frame to show according to the sprite grid.
 
-The grid is 7x3 at 16px by 25px with a slight gutter between each. Each cell is numbered from 0 at top left to 20 at bottom right. By dividing by 7 we can calculate the row, then using a modulus (%) of 7 we can get our column number.
-
-The real trick came with the updated `draw()` code. Instead of using `drawImage()` to position the sprite on the canvas, we are putting it at the origin, `0px 0px` and using `translate` to position the player.
-
-Drawing APIs such as canvas, DirectX, OpenGL and WebGL all typically use a stacking system for their drawing operations. Functions like `ctx.save()` start a stack and allow you to collect multiple operations together and apply them without affecting anything else. So you could rotate Link without also rotating the background or other characters. Canvas operations, when used, affect everything after them until it sees a `ctx.restore()` returning the state to whatever it was before `save()`. You are free to stack within stacks too for total flexibility.
-
-While it’s good to know these techniques, the reason we’re using them right now is to flip Link around with `scale()`. As mentioned earlier, we only have the frames for Link running to the right. No, it would not have been much effort to flip those frames around in something like Photoshop and provided them with all the others. It’s not like we’re struggling for space, memory or processing power. But, well, the challenge was there. And I accepted! So, what we do instead, is when we detect motion to the left, we load in the frames for right and set the x scale to -1 which flips the canvas about the vertical axis. And so now we have Link running left, too! Magical.
-
-<strong>Aside:</strong> Since writing the flipping technique used above, I have made two discoveries. Firstly, until I added a second translate (and I have no idea why it was necessary yet), there was an issue around Link’s `x` value not being his true `x` value because the image needs to be drawn half width to the left which led to weird hacks. And, secondly, it turns out that the performance of these transformation functions is pretty bad at about 50% worse than just drawing an image to the screen. So, expect this flipping technique to be removed in future. If we’re going to take a performance hit, I’d prefer it to be somewhere actually useful.
+The grid is 7x4 cells at an annoying 17px by 25px. Each cell is numbered from 0 at top left to 27 at bottom right. By dividing by 7 we can calculate the row, then using a modulus (%) of 7 we can get our column number.
 
 During all this, I’ve re-appropriated the `link` variable as we no longer need it as the link image, it will now be our player object. Creating objects is typically a job for `init()`, so it’s been given a cleanup:
 
@@ -316,8 +306,8 @@ And, looking at `main()`, there’s been some more streamlining:
 
 function main() {
     /** Here's where we handle all the input, logic and drawing to the screen per frame. **/
-    var now     = window.performance.now(),
-        elapsed = (now - lastTime);
+    var now     = window.performance.now();
+    vae elapsed = (now - lastTime);
 
     lastTime = now;
 
@@ -354,7 +344,7 @@ function main() {
 
     link.draw();
 
-    // call itself by requesting the next animation frame, and so begin the endless loop
+    // loop it!
     requestAnimationFrame(main);
 }
 
