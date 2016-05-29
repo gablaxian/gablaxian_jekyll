@@ -31,12 +31,12 @@ pre {
 
 pre code {
     font-family: 'Monaco', 'Consolas', 'Menlo', monospace;
-    font-size: 0.875rem;
+    font-size: #{(12/16)}rem;
 }
 
 /* Yay Markdown and the annoying paragraph it adds when nesting lists! */
 li p    { margin: 0 }
-ul ul   { margin: 8px 0 20px 25px }
+ul ul   { margin: 0.5rem 0 1rem 0 }
 
 .ir {
     background-color: transparent;
@@ -62,6 +62,7 @@ ul ul   { margin: 8px 0 20px 25px }
 }
 
 .Tutorial-chapters {
+    font-size: #{(14/16)}rem;
     margin-bottom: 1.5rem;
 
     ul {
@@ -75,10 +76,9 @@ ul ul   { margin: 8px 0 20px 25px }
         display: flex;
     }
     .Tutorial-chapters {
-        flex: 1 25%;
+        flex: 25%;
     }
     .Article--tutorial {
-        flex: 1 75%;
         width: 75%;
     }
 }

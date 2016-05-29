@@ -8,6 +8,13 @@
             box-shadow: 4px 4px #eee;
         }
     }
+
+    aside {
+        position: absolute;
+        width: #{(200/16)}rem;
+        font-size: #{(12/16)}rem;
+        transform: translateX(-110%);
+    }
 }
 .Article-header {
     padding-bottom: 1rem;

@@ -4,17 +4,19 @@ layout: default
 
     <div class="Tutorial">
 
+    {% assign page_id = page.url | split: "/" | last %}
+
         <aside class="Tutorial-chapters">
             <nav>
                 <ul>
-                    <li><a href="introduction">Introduction</a></li>
-                    <li><a href="the-game-loop">The Game Loop</a></li>
-                    <li><a href="drawing-to-the-screen">Drawing to the Screen</a></li>
-                    <li><a href="handling-user-input">Handling User Input</a></li>
-                    <li><a href="scaling-the-canvas">Scaling the Canvas</a></li>
-                    <li><a href="animation">Animation - Part 1</a></li>
-                    <li><a href="levels-collision">Levels &amp; Collision - part 1</a></li>
-                    <li>Levels - part 2</li>
+                    <li>{% if page_id == "introduction"             %}Introduction{% else %}<a href="introduction">Introduction</a>{% endif %}</li>
+                    <li>{% if page_id == "the-game-loop"            %}The Game Loop{% else %}<a href="the-game-loop">The Game Loop</a>{% endif %}</li>
+                    <li>{% if page_id == "drawing-to-the-screen"    %}Drawing to the Screen{% else %}<a href="drawing-to-the-screen">Drawing to the Screen</a>{% endif %}</li>
+                    <li>{% if page_id == "handling-user-input"      %}Handling User Input{% else %}<a href="handling-user-input">Handling User Input</a>{% endif %}</li>
+                    <li>{% if page_id == "scaling-the-canvas"       %}Scaling the Canvas{% else %}<a href="scaling-the-canvas">Scaling the Canvas</a>{% endif %}</li>
+                    <li>{% if page_id == "animation"                %}Animation - Part 1{% else %}<a href="animation">Animation - Part 1</a>{% endif %}</li>
+                    <li>{% if page_id == "levels-collision"         %}Levels &amp; Collision - part 1{% else %}<a href="levels-collision">Levels &amp; Collision - part 1</a>{% endif %}</li>
+                    <li>{% if page_id == "levels-part2"             %}Levels - part 2{% else %}<a href="levels-part2">Levels - part 2</a>{% endif %}</li>
 
                     <!--
                         Possible next steps

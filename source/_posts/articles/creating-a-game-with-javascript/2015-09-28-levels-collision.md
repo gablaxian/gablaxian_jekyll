@@ -37,11 +37,11 @@ function drawBackground() {
 
 {% endhighlight %}
 
-It’s a bit rough but it helps us get a picture of how a background is drawn. For every frame of the game, we are breaking down the width of the game screen into 8 for the total rows, then for each row, we break down the height of the game screen into 8 again. For each cell we draw an 8x8 rectangle (with stroke for definition) the move down 8px and draw another. When a column is complete we move to the next row and start again.
-
 <aside>
 <strong>Aside:</strong> Don’t worry too much about those +0.5s on the `strokeRect`. Canvas has a habit of aliasing lines so they appear blurry. This is just a small hack to get the lines to appear clean. We’ll be removing all strokes when we start using real imagery anyway.
 </aside>
+
+It’s a bit rough but it helps us get a picture of how a background is drawn. For every frame of the game, we are breaking down the width of the game screen into 8 for the total rows, then for each row, we break down the height of the game screen into 8 again. For each cell we draw an 8x8 rectangle (with stroke for definition) the move down 8px and draw another. When a column is complete we move to the next row and start again.
 
 Slap that into the `main()` function, just after we clear the screen:
 
@@ -365,6 +365,6 @@ Have a play:
 
 ## Progress
 
-Check out the progress on version 0.6 [here](/experiments/super-js-adventure/0.6/)
+Check out the [progress on version 0.6](/experiments/super-js-adventure/0.6/)
 
 Or see all the [source code](//github.com/gablaxian/super-js-adventure) on Github.
