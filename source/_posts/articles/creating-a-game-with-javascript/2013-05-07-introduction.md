@@ -4,6 +4,7 @@ title: Super JS Adventure!
 categories:
     articles
     creating-a-game-with-javascript
+tags: super-js-adventure javascript
 ---
 
 ## Introduction

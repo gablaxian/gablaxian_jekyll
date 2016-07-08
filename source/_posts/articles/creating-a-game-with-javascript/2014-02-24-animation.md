@@ -4,6 +4,7 @@ title: Animation - Part 1
 categories:
     articles
     creating-a-game-with-javascript
+tags: super-js-adventure javascript
 ---
 
 I’m not going to go into the theories of animation and all its forms. There are [Wikipedia articles](http://en.wikipedia.org/wiki/Animation) for that. What we’re interested in is how we go about creating animations programmatically.

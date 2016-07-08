@@ -4,11 +4,12 @@ title: The Game Loop
 categories:
     articles
     creating-a-game-with-javascript
+tags: super-js-adventure javascript
 ---
 
-If you’ve learnt JavaScript through making Websites, you may be forgiven for expecting a game to be written in a kind of event driven fashion. The browser world consists mostly of event handlers and callbacks. The user clicks a thing or presses a key and then stuff happens. Reactionary, if you like. Simpler games like Letterpress, Wordfeud, Words for Friends, Sudoku, etc&hellip; can work on this mechanic. The GTAs and CODs of the world, however, do not. As soon as you want more advanced elements like animation, physics and artificial intelligence, then you’re going to need a better system. That system is the Game Loop.
+If you’ve learnt JavaScript through making Websites, you may be forgiven for expecting a game to be written in a kind of event driven fashion. The browser world consists mostly of event handlers and callbacks. The user clicks a thing or presses a key and then stuff happens. Reactionary, if you like. Simpler games like Letterpress, Wordfeud, Words for Friends, Sudoku, etc&hellip; can work on this mechanic. The <abbr title="Grand Theft Auto">GTA</abbr>s and <abbr title="Call of Duty">COD</abbr>s of the world, however, do not. As soon as you want more advanced elements like animation, physics and artificial intelligence, then you’re going to need a better system. That system is the “game loop”.
 
-The Game Loop is the process a game goes through each time it creates each frame of animation. Our Zelda game will follow this simplified sequence each time it’s loaded:
+The game loop is the process a game goes through each time it creates each frame of animation. Our Zelda game will follow this simplified sequence each time it’s loaded:
 
 - Initialisation
     - Load assets

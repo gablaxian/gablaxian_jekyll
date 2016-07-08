@@ -4,6 +4,7 @@ title: Levels - Part 2
 categories:
     articles
     creating-a-game-with-javascript
+tags: super-js-adventure javascript
 ---
 
 In the last part I talked about structuring the data of a tile-based game along with managing collision detection between the player and a tile. Now, we connect that up with spritesheets and map-loading logic and get this looking and working like a real game.
@@ -725,7 +726,7 @@ function init() {
 }
 {% endhighlight %}
 
-And with that we have the basic structure for a game! Enough to get building our level editor, at any rate. Yes, it’s getting pretty hacky about now, but that’s fine. Have a play on the latest version below. It is prone to crashing if you walk aout of the map’s bounds, but having proper level structure in place will solve that. Next time we’ll be looking at creating the level editor and getting this world fleshed out! Until next yea--...err... time!
+And with that we have the basic structure for a game! Enough to get building our level editor, at any rate. Yes, it’s getting pretty hacky about now, but that’s fine. Have a play on the latest version below. It is prone to crashing if you walk aout of the map’s bounds, but having proper level structure in place will solve that. Next time we’ll be looking at creating the level editor and getting this world fleshed out! Until next yea--uhh... time!
 
 ## Progress
 

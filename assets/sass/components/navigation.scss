@@ -3,6 +3,7 @@
     position: relative;
     max-width: 640px;
     margin: 0 auto;
+    z-index: 10;
 }
 .Navigation-items {
     display: flex;
@@ -16,7 +17,7 @@
 .Navigation-itemLink {
     display: block;
     font-family: '04b03regular';
-    font-size: 0.625rem;
+    font-size: #{(14/16)}rem;
     width: 100%;
     padding: 0.875rem 0;
     text-align: center;

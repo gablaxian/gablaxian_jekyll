@@ -21,13 +21,11 @@ permalink: /blog/
             </div>
         </header>
 
-        {% if forloop.index == 1 %}
         <div class="Article-excerpt">
             {{ post.excerpt }}
         </div>
 
         <a href="{{ latest_post.url }}">Read more&hellip;</a>
-        {% endif %}
 
     </article>
 

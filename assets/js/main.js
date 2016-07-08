@@ -2,34 +2,30 @@
 ;(function(window) {
     "use strict"
 
-    var Star = {
-        x: 0,
-        y: 0,
-        width: 0,
-        brightness: 0,
-        direction: 0
+    // mustard cuttah
+    if( !('visibilityState' in document) ) {
+        return;
     }
 
     var Fez = {
 
-        init: function(options) {
-            var options         = options || {};
+        init(options={}) {
 
-            this.canvas         = options.element || document.querySelector('.Starfield');
-            this.context        = this.canvas.getContext('2d');
+            this.canvas                 = options.element || document.querySelector('.Starfield');
+            this.context                = this.canvas.getContext('2d');
 
             this.fps                    = 24;
             this.animationUpdateTime    = 1000 / this.fps;
             this.timeSinceLastFrameSwap = 0;
 
-            this.canvas_width   = options.width         || window.innerWidth;
-            this.canvas_height  = options.height        || 80;
-            this.star_density   = options.star_density  || 3;
-            this.speed          = options.speed         || 4;
-            this.stars_length   = 0;
-            this.paused         = false;
+            this.canvas_width           = options.width         || window.innerWidth;
+            this.canvas_height          = options.height        || 80;
+            this.star_density           = options.star_density  || 3;
+            this.speed                  = options.speed         || 4;
+            this.stars_length           = 0;
+            this.paused                 = false;
 
-            this.scrollY        = 0;
+            this.scrollY                = 0;
             this._resizeID;
 
             //
@@ -53,7 +49,7 @@
             1. Background stars. Static, dark grey (between 0.1 - 0.5 transparency)
             2. Flickering. Set up an array of randomly placed stars with random opacities.
         **/
-        generateStars: function() {
+        generateStars() {
             "use asm"
 
             // number of stars is determined by a star density. Break up the canvas into a grid of 100x100px. Density is the number of stars per block. So, parts per thousand, effectively.
@@ -82,7 +78,7 @@
 
         },
 
-        populateStarfield: function() {
+        populateStarfield() {
             this.canvas.width    = this.canvas_width;
             this.canvas.height   = this.canvas_height;
 
@@ -93,25 +89,23 @@
             }
         },
 
-        onResize: function() {
+        onResize() {
             clearTimeout(this._resizeID);
-            var self = this;
 
-            this._resizeID = setTimeout(function() {
-                self.canvas_width = window.innerWidth;
+            this._resizeID = setTimeout(() => {
+                this.canvas_width = window.innerWidth;
 
-                self.generateStars();
-                self.populateStarfield();
+                this.generateStars();
+                this.populateStarfield();
             }, 100);
         },
 
-        onScroll: function() {
-            this.scrollY = window.pageYOffset;
-
-            this.paused = ( this.scrollY > this.canvas_height ) ? true : false;
+        onScroll() {
+            this.scrollY    = window.pageYOffset;
+            this.paused     = ( this.scrollY > this.canvas_height ) ? true : false;
         },
 
-        render: function() {
+        render() {
 
             /* For flickering stars, on each loop increase the opacity by 0.1 until fully opaque then back to fully transparent. When fully transparent, set to a new random position */
 
@@ -146,7 +140,7 @@
         },
 
 
-        animate: function() {
+        animate() {
             var now     = window.performance.now();
             var elapsed = (now - this.lastTime);
 
@@ -167,13 +161,13 @@
         }
     }
 
-    window.addEventListener('load', function() {
-        requestAnimationFrame(function() {
-            var h = parseInt( window.getComputedStyle(document.querySelector('.Page-masthead'))['height'] );
+    window.addEventListener('load', () => {
+        requestAnimationFrame(() => {
+            var height = parseInt( window.getComputedStyle( document.querySelector('.Page-masthead') )['height'] );
 
             Fez.init({
                 element: document.querySelector('.Starfield'),
-                height: h
+                height: height
             });
         });
     });

@@ -36,7 +36,3 @@ This will stop Git noticing any additions to the folder. Then go about making gi
 Add both the new .gitignore change and the git rm to staging and commit:
 
     git commit -am "No more photos! Woo!"
-
-## Retrieving old files
-
-Coming soon...

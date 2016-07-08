@@ -4,6 +4,7 @@ title: Handling User Input
 categories:
     articles
     creating-a-game-with-javascript
+tags: super-js-adventure javascript
 ---
 
 Welcome back, intrepid adventurer. Previously, we learnt about drawing to the screen with `canvas`’s drawing functions. But a game is not a game unless you can interact with it. So now we see how to handle user input.

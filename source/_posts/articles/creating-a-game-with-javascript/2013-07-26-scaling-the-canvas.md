@@ -4,6 +4,7 @@ title: Scaling the canvas
 categories:
     articles
     creating-a-game-with-javascript
+tags: super-js-adventure javascript
 ---
 
 As you will have seen in earlier posts (I hope) we’re initially rendering the game at the SNES’s native resolution of 256x244. It works well for now, while we sort out the basics of the game engine, as all the sprites were drawn for this resolution with each sprite ‘cell’ being 8x8 pixels wide.

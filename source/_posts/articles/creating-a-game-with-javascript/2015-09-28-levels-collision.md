@@ -4,6 +4,7 @@ title: Levels & Collision - Part 1
 categories:
     articles
     creating-a-game-with-javascript
+tags: super-js-adventure javascript
 ---
 
 This area of game development has given me the most grief of all. And it’s mostly been me making mountains out of molehills. So let’s just start small and work our way up. See where we get.

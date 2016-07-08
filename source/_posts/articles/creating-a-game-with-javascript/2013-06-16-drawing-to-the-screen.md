@@ -4,6 +4,7 @@ title: Drawing to the Screen
 categories:
     articles
     creating-a-game-with-javascript
+tags: super-js-adventure javascript
 ---
 
 In the last post, we looked at the Game Loop and how to run our game at the sweet spot of 60fps. Now, let’s see some results, shall we? Time to make some pretty shapes.
