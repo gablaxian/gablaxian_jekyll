@@ -9,31 +9,26 @@ layout: default
         <aside class="Tutorial-chapters">
             <nav>
                 <ul>
-                    <li>{% if page_id == "introduction"             %}Introduction{% else %}<a href="introduction">Introduction</a>{% endif %}</li>
-                    <li>{% if page_id == "the-game-loop"            %}The Game Loop{% else %}<a href="the-game-loop">The Game Loop</a>{% endif %}</li>
-                    <li>{% if page_id == "drawing-to-the-screen"    %}Drawing to the Screen{% else %}<a href="drawing-to-the-screen">Drawing to the Screen</a>{% endif %}</li>
-                    <li>{% if page_id == "handling-user-input"      %}Handling User Input{% else %}<a href="handling-user-input">Handling User Input</a>{% endif %}</li>
-                    <li>{% if page_id == "scaling-the-canvas"       %}Scaling the Canvas{% else %}<a href="scaling-the-canvas">Scaling the Canvas</a>{% endif %}</li>
-                    <li>{% if page_id == "animation"                %}Animation - Part 1{% else %}<a href="animation">Animation - Part 1</a>{% endif %}</li>
-                    <li>{% if page_id == "levels-collision"         %}Levels &amp; Collision - part 1{% else %}<a href="levels-collision">Levels &amp; Collision - part 1</a>{% endif %}</li>
-                    <li>{% if page_id == "levels-part2"             %}Levels - part 2{% else %}<a href="levels-part2">Levels - part 2</a>{% endif %}</li>
-                    <li>{% if page_id == "level-editor-part1"       %}Level Editor - part 1{% else %}<a href="level-editor-part1">Level Editor - part 1</a>{% endif %}</li>
-
+                    {% for post in site.categories['creating-a-game-with-javascript'] reversed %}
+                    <li>
+                        {% if page.url == post.id %}
+                        {{ post.title }}
+                        {% else %}
+                        <a href="{{ post.url }}">{{ post.title }}</a>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
                     <!--
-                        Possible next steps
-                    -->
+                        Possible next steps:
 
-                    <!--
                     <li>
                         The Game Engine
                         <ul>
-                            <li>Intro</li>
                             <li>Part 1 - Game Objects</li>
                             <li>Part 2 - Managing the Level</li>
                             <li>Part 3 - Physics</li>
                         </ul>
                     </li>
-                    <li>The Level Editor</li>
                     <li>AI</li>
                     <li>GUI</li>
                     <li>Wrapping Up</li>

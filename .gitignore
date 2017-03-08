@@ -8,6 +8,5 @@ node_modules
 _site
 public
 
-# ignore compiled CSS/JS files
-source/assets/css
-source/assets/js
+# ignore compiled assets
+source/assets

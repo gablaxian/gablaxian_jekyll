@@ -1,51 +1,76 @@
 
-;(function(window) {
-    "use strict"
+export default {
 
-    const Core = {
-        init() {
-            // state
-            this.paused                 = false;
+    init() {
 
-            // FPS management
-            this.fps                    = 24;
-            this.animationUpdateTime    = 1000 / this.fps;
-            this.timeSinceLastFrameSwap = 0;
-            this.now                    = 0;
-            this.lastTime               = window.performance.now();
-            this.elapsed                = 0;
+        // state
+        this.paused                 = false;
 
-            // Events
-            window.addEventListener('resize', this.onResize.bind(this));
-            window.addEventListener('scroll', this.onScroll.bind(this));
+        // FPS management
+        this.fps                    = 24;
+        this.animationUpdateTime    = 1000 / this.fps;
+        this.timeSinceLastFrameSwap = 0;
+        this.now                    = 0;
+        this.lastTime               = window.performance.now();
+        this.elapsed                = 0;
 
-            // the loop
-            window.addEventListener('load', this.loop.bind(this));
-        },
+        //
+        this.scrollY                = window.pageYOffset;
+        this._resizeID;
 
-        onResize() {},
+        //
+        this.children               = [];
 
-        onScroll() {},
+        // Events
+        window.addEventListener('resize', this.onResize.bind(this));
+        window.addEventListener('scroll', this.onScroll.bind(this));
 
-        loop() {
-            this.now        = window.performance.now();
-            this.elapsed    = (this.now - this.lastTime);
+        // the loop
+        window.addEventListener('load', this.loop.bind(this));
+    },
 
-            this.timeSinceLastFrameSwap += this.elapsed;
-            this.lastTime = now;
+    onResize() {
+        clearTimeout(this._resizeID);
 
-            if( this.timeSinceLastFrameSwap >= this.animationUpdateTime ) {
-                // do the things
-                //
+        this._resizeID = setTimeout(() => {
 
-                // reset the timer
-                this.timeSinceLastFrameSwap = 0;
+            for (var child of this.children) {
+                if( child.onResize() ) {
+                    child.onResize();
+                }
             }
 
-            requestAnimationFrame(this.loop.bind(this));
+        }, 100);
+
+    },
+
+    onScroll() {
+        this.scrollY    = window.pageYOffset;
+    },
+
+    addChild(child) {
+        this.children.push(child);
+    },
+
+    loop() {
+        this.now        = window.performance.now();
+        this.elapsed    = (this.now - this.lastTime);
+
+        this.timeSinceLastFrameSwap += this.elapsed;
+        this.lastTime = this.now;
+
+        if( this.timeSinceLastFrameSwap >= this.animationUpdateTime ) {
+
+            // do the things
+            for (var child of this.children) {
+                child.update(this.elapsed);
+                child.draw();
+            }
+
+            // reset the timer
+            this.timeSinceLastFrameSwap = 0;
         }
+
+        requestAnimationFrame(this.loop.bind(this));
     }
-
-    window.Core = Core;
-
-})(window);
+}

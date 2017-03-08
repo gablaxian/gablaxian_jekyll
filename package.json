@@ -1,15 +1,28 @@
 {
+  "name": "gablaxian",
+  "version": "1.0.0",
+  "description": "gablaxian website",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gablaxian/gablaxian.com.git"
+  },
   "devDependencies": {
-    "babel-preset-es2015": "^6.5.0",
-    "del": "^2.2.0",
-    "gulp": "^3.9.0",
-    "gulp-autoprefixer": "^3.1.0",
-    "gulp-babel": "^6.1.2",
-    "gulp-concat": "^2.6.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-sass": "^2.1.1",
-    "gulp-sourcemaps": "^1.6.0",
-    "gulp-uglify": "^1.5.1",
-    "gulp-watch": "^4.3.5"
+    "del": "*",
+    "imagemin-webp": "^4.0.0",
+    "node-sass": "*",
+    "rollup": "*",
+    "uglify": "*"
+  },
+  "scripts": {
+    "fonts": "cp -rf assets/fonts source/assets/fonts",
+    "images": "cp -rf assets/img source/assets",
+    "webp:png": "for file in assets/img/**/*.png; do ./node_modules/.bin/cwebp -lossless -q 80 $file -o source/$file.webp -short; done;",
+    "webp:jpg": "for file in assets/img/**/*.jpg; do ./node_modules/.bin/cwebp -q 80 $file -o source/$file.webp -short; done;",
+    "webp:gif": "for file in assets/img/**/*.gif; do gif2webp $file -o source/$file.webp; done;",
+    "webp": "npm run webp:png & npm run webp:jpg & npm run webp:gif",
+    "sass": "node-sass assets/sass/build.scss source/assets/css/main.css",
+    "serviceWorker": "cp -f assets/js/ServiceWorker.js source/ServiceWorker.js",
+    "rollup": "rollup -c",
+    "build": "npm run fonts & npm run images & npm run sass & npm run serviceWorker & npm run rollup && npm run webp"
   }
 }

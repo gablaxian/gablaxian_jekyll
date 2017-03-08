@@ -18,10 +18,10 @@ There’s really no way around this. Editors are complex systems and you can’t
 
 There are already decent map/level editors out there. Many free. One frequently recommended map editor is [Tiled Map Editor](http://www.mapeditor.org/) and is definitely worth checking out. However, because it’s meant to be generalised, for what we’re after it is overly complicated and it does a few things in contrast to my mental model. Also, with this project being a learning/teaching vehicle, it made sense to build my own anyway. But Tiled does give us a direction to head in:
 
-<a href="http://doc.mapeditor.org/manual/images/terraintool/07-drawing-cobblestone.png" rel="external noopener noreferrer">![unreal engine level editor](http://doc.mapeditor.org/manual/images/terraintool/07-drawing-cobblestone.png)</a>
+<a href="/assets/img/articles/8-drawing-cobblestone.png" rel="external noopener noreferrer">![Tiled map editor](/assets/img/articles/8-drawing-cobblestone.png)</a>
 <small>(Click for larger image)</small>
 
-A level editor does not need to be as optimised as the game engine and, in simple cases, actually works more like an app, so we can use a lot more maintainable, structured code. A lot of its operations will be infrequently run and are often fine to take several seconds, e.g. exporting level data. Ideally, we would also like it to handle changes effectively. There is every chance that level structures and images will change over the course of development. If we had to rebuild an entire map every time we made some minor alterations, we would not be happy bunnies.
+A level editor does not need to be as optimised as the game engine and, in simple cases, actually works more like an app, so we can use a lot more maintainable, structured code. A lot of its operations will be infrequently run and are often fine to take several seconds (e.g. exporting level data). Ideally, we would also like it to handle changes effectively. There is every chance that level structures and images will change over the course of development. If we had to rebuild an entire map every time we made some minor alterations, we would not be happy bunnies.
 
 Unlike the rest of this blog, I won’t be documenting every aspect of the editor. Otherwise it would probably end up as a blog series in its own right. Instead this will be more of a discussion and overview of the techniques used. Once it’s done, it’ll go up on the game repo and you can pore over the commented code more closely.
 
@@ -34,14 +34,14 @@ So, with that:
 - Map selection
 - Layers
 - Layer selection
-- Default layers for required game-related systems such as objects, entities and collisions
+- Default layers for required game-related systems such as entities and collisions
 - Tile selection
 - Tile placement
 - Tile animations
-- Saving maps
-- Loading maps (We don’t really need to create maps because this is bespoke for our needs so we can hardcode the games’s few maps)
 - Objects (cave entrances, destructibles, etc...)
-- Exporting game data/all maps
+- Saving
+- Loading
+- Exporting game data
 
 ### Bonus features
 
@@ -163,13 +163,13 @@ let config = {
 
 {% endhighlight %}
 
-Map widths are provided in tiles, but internally all widths will be handled in pixels. Here, because I think of this game in ‘rooms’ I’ve supplied the calculations or the number of tiles to make it more understandable where the dimensions have come from. The overworld, for example, is a grid of 16x12 rooms. Each room is 32x22 tiles. So the overworld map size is (32*16) by (22*12) tiles or 512x264.
+Map widths are provided in tiles, but internally all widths will be handled in pixels. Here, because I think of this game in ‘rooms’ I’ve supplied the calculations or the number of tiles to make it more understandable where the dimensions have come from. The overworld, for example, is a grid of 16x12 rooms. Each room is 32x22 tiles. So the overworld map size is (32\*16) by (22\*12) tiles or 512x264.
 
 Then, using a sprinkling of (spanking new ES2015 syntax) JS we loop through the various arrays and populate the sidebar. e.g.
 
 {% highlight js %}
 
-LayersPanel = {
+let LayersPanel = {
     init(layers) {
         this.panel     = document.querySelector('.LayersPanel');
         this.container = this.panel.querySelector('.LayersPanel-layers');

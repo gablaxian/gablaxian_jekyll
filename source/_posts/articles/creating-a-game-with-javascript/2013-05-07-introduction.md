@@ -1,13 +1,13 @@
 ---
 layout: article-game-dev
-title: Super JS Adventure!
+title: Introduction
 categories:
     articles
     creating-a-game-with-javascript
 tags: super-js-adventure javascript
 ---
 
-## Introduction
+## Super JS Adventure
 
 In a previous version of this post, I outlined two potential routes for this project to go in. Crowdsource a new game, while also hopefully covering all aspects of game development, or recreate a classic: NES’s The Legend of Zelda but with SNES’s Zelda: A Link to the Past’s graphics. As expected from people on the Internet, frankly, no one gave a shit. So re-creating The Legend of Zelda but with SNES graphics, is a go!
 

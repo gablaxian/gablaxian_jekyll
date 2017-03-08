@@ -21,7 +21,7 @@ The game loop is the process a game goes through each time it creates each frame
 	- Draw graphics
 	- Update the screen
 
-The loop continues until the user breaks out of it by either pausing or quitting (or also closing the browser/tab in our case). In PC & Console games, this loop is usually a `while (true) {}` loop which runs indefinitely and as fast as the processor will allow. In a browser that same technique would lock up the interface and likely crash the tab. We _could_ use a similar technique to get the framerate as high as the browser will allow, as documented [in this article](http://www.chandlerprall.com/2011/06/beating-60fps-in-javascript/). But honestly, games are typically complicated enough that running above 60fps is hard to maintain, and beyond 60fps our eyes can no longer keep up, so any frames beyond that are effectively wasted making 60fps the sweet spot. And, handily, browsers have provided us a nicer option to achieve a loop at that speed. Whether or not we’ll actually be _able_ to run our game at that speed is another matter (but that’s where optimisation comes in).
+The loop continues until the user breaks out of it by either pausing or quitting (or also closing the browser/tab in our case). In PC & Console games, this loop is usually a `while (true) {}` loop which runs indefinitely and as fast as the processor will allow. In a browser that same technique would lock up the interface and likely crash the tab. We _could_ use a similar technique to get the framerate as high as the browser will allow, as documented [in this article](http://web.archive.org/web/20160810133238/http://www.chandlerprall.com/2011/06/beating-60fps-in-javascript/). But honestly, games are typically complicated enough that running above 60fps is hard to maintain, and beyond 60fps our eyes can no longer keep up, so any frames beyond that are effectively wasted making 60fps the sweet spot. And, handily, browsers have provided us a nicer option to achieve a loop at that speed. Whether or not we’ll actually be _able_ to run our game at that speed is another matter (but that’s where optimisation comes in).
 
 ## The Canvas
 
@@ -55,6 +55,10 @@ So, let’s get going! At the moment our game is pretty simple. One HTML file wi
 
 The canvas element may look a bit small, but that’s the native resolution of Zelda: A Link to the Past. Scary, huh? Obviously, it was scaled up when shown on TVs, and we’ll get to that later.
 
+<aside>
+When I first looked at this small square of a game, something didn’t seem right. Compared to playing the real Zelda:LttP on SNES/emulator, he seemed too tall and thin. The official game also has black bars at the top and bottom which made me question its true resolution. However, I’ve since learned that the SNES’s actual pixels aren’t square. They are wider than tall, leading to the squashed look of all SNES games. Crazy, right?
+</aside>
+
 The JS file is even more simple:
 
 {% highlight js %}
@@ -69,8 +73,6 @@ var height  = 224;
 We first get hold of the canvas element which just sets up a drawing surface, then get its drawing ‘context’, the actual surface we’ll be manipulating. I’ve also stored the initial size of the canvas just in case.
 
 So now we get some sort of loop going. For now, I’ll be emulating the sort of the loop you’d see in a basic PC Game. It’ll likely evolve over time.
-
-(Side Note: When I first looked at this small square of a game, something didn’t seem right. Compared to playing the real Zelda:LttP on SNES/emulator, he seemed too tall and thin. The official game also has black bars at the top and bottom which made me question its true resolution. However, I’ve since learned that the SNES’s actual pixels aren’t square. They are wider than tall, leading to the squashed look of all SNES games. Crazy, right?)
 
 ## Javascript Timers
 

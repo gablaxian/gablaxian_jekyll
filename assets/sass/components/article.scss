@@ -40,11 +40,16 @@
     text-transform: uppercase;
 }
 .Article-date {
-    color: #aaa;
+    color: #888;
+    display: block;
     font-size: #{(13/16)}rem;
+    font-weight: 700;
+    margin-top: 0.5rem;
 }
 .Article-tags {
-    a {
+    line-height: 1.1;
+    span {
+        color: #aaa;
         display: inline-block;
         font-size: #{(13/16)}rem;
     }
@@ -61,7 +66,8 @@
     }
 }
 
-.Article--tutorial {
+.Article--tutorial,
+.Article--long {
     h2 {
         font-family: '04b03regular';
         font-size: 1.25rem;

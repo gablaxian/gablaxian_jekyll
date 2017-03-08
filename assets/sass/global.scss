@@ -61,8 +61,16 @@ ul ul   { margin: 0.5rem 0 1rem 0 }
     clear: both;
 }
 
+.Intro {
+    margin-bottom: 2rem;
+
+    p {
+        margin: 0;
+    }
+}
+
 .Tutorial-chapters {
-    font-size: #{(14/16)}rem;
+    font-size: #{(13/16)}rem;
     margin-bottom: 1.5rem;
 
     ul {

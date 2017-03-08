@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Turtles In Time</title>
+
+    <style type="text/css" media="screen">
+        *    { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: #222; font-family: sans-serif; }
+        main { text-align: center; }
+
+        canvas {
+            image-rendering: -moz-crisp-edges; /* firefox */
+            image-rendering: pixelated;        /* chrome */
+        }
+
+        div {
+            color: #efefef;
+            margin-top: 1rem;
+        }
+        kbd {
+            background-color: #666;
+            border: 1px solid #000;
+            border-radius: 3px;
+            display: inline-block;
+            padding: 1px 4px 2px 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <main>
+        <canvas width="256" height="224"></canvas>
+
+        <div>
+            <kbd>x</kbd> attack <br>
+            <kbd>space</kbd> jump
+        </div>
+    </main>
+
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/helpers.js"></script>
+    <script src="assets/js/eventer.js"></script>
+    <script src="assets/js/tween.js"></script>
+    <script src="assets/js/timeline.js"></script>
+
+    <script src="assets/js/input.js"></script>
+    <script src="assets/js/spritesheet.js"></script>
+    <script src="assets/js/messager.js"></script>
+
+    <script src="assets/js/explosion.js"></script>
+    <script src="assets/js/projectile.js"></script>
+    <script src="assets/js/flames.js"></script>
+
+    <script src="assets/js/turtle.js"></script>
+    <script src="assets/js/enemy.js"></script>
+    <script src="assets/js/shredder.js"></script>
+    <script src="assets/js/level.js"></script>
+    <script src="assets/js/hud.js"></script>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

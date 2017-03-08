@@ -2,6 +2,10 @@
 layout: default
 ---
 
+    <div class="Intro">
+        <p>Welcome to the home of one gablaxian. A game-obsessed front-end developer living in Brighton.</p>
+    </div>
+
     <div class="Home">
 
         <div class="HomeArticles">
@@ -17,7 +21,7 @@ layout: default
 
                     <div class="Article-tags">
                     {% for tag in post.tags %}
-                        <a href="/tags/{{ tag }}">#{{ tag }}</a>
+                        <span>#{{ tag }}</span>
                     {% endfor %}
                     </div>
                 </header>
@@ -26,28 +30,26 @@ layout: default
                     {{ post.excerpt }}
                 </div>
 
-                <a href="{{ post.url }}">Read more&hellip;</a>
-
             </article>
             {% endfor %}
         </div>
 
         <div class="MiniBio">
-            <p>Welcome to the home of one gablaxian. A game-obsessed front-end developer living in Brighton.</p>
 
             <h2>Currently Playing</h2>
+
             <ul>
-                <li>Overwatch <span>(XBONE)</span></li>
-                <li>Disgaea <span>(PC)</span></li>
-                <li>Street Fighter V <span>(PC)</span></li>
+                {% for game in site.data.playing %}
+                <li class="{{ game.system }}">{{ game.title }} <span>({{ game.system }})</span></li>
+                {% endfor %}
             </ul>
 
             <h2>Recently Completed</h2>
+
             <ul>
-                <li>DOOM <span>(PC)</span></li>
-                <li>Ori and the Blind Forest: Definitive Edition <span>(XBONE)</span></li>
-                <li>Axiom Verge <span>(PC)</span></li>
-                <li>Undertale <span>(PC/Mac)</span></li>
+                {% for game in site.data.completed %}
+                <li class="{{ game.system }}">{{ game.title }} <span>({{ game.system }})</span></li>
+                {% endfor %}
             </ul>
 
             <h2>Gaming Networks</h2>
