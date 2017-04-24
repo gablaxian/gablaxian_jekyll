@@ -15,3 +15,6 @@ defaults:
       type: "pages"
     values:
       layout: "article-game-dev.html"
+
+kramdown:
+    header_offset: 1

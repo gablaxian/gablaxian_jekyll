@@ -1,0 +1,20 @@
+
+.Prose {
+    /* Yay Markdown and the annoying paragraph it adds when nesting lists! */
+    ul ul   { margin: 0.5rem 0 1rem 0 }
+    li p    { margin: 0 }
+
+    pre {
+        background-color: #fafafa;
+        border: 1px solid rgb(221, 221, 221);
+        line-height: 1.4;
+        margin-bottom: 2rem;
+        overflow-x: auto;
+        padding: 0.5em;
+    }
+
+    pre code {
+        font-family: 'Monaco', 'Consolas', 'Menlo', monospace;
+        font-size: #{(13/16)}em;
+    }
+}

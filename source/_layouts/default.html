@@ -2,74 +2,77 @@
 <html lang="en-gb">
 <head>
     <meta charset="utf-8">
-    <title>{% if page.title %}{{ page.title }} | {% endif %} gablaxian.com</title>
+    <title>{% if page.title %}{{ page.title }} | {% endif %}gablaxian.com</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <meta name="author" content="Graham Smith">
-    <meta name="description" content="Home of one gablaxian">
+    <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html }}{% else %}Home of one gablaxian{% endif %}">
     <meta name="keywords" content="gablaxian, web development, web developer, front end, HTML, CSS, javascript, canvas, brighton">
 
-    <link rel="dns-prefetch" href="//fonts.googleapis.com">
-    <link rel="icon" href="/favicon32x32.png">
+    <link rel="icon" href="/favicon.png" size="32x32" type="image/png">
+    <link rel="alternate" href="/rss.xml" type="application/rss+xml" title="gablaxian">
 
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400italic,400,700">
-    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="preload" as="font" href="/assets/fonts/04b_03-webfont.woff" crossorigin>
+    <link rel="preload" as="image" href="/assets/img/coin-animation.png">
 
+    <link rel="stylesheet" href="/assets/css/main.css?t={{ site.time | date: "%s" }}">
     <!--
-        Hey there! I thought I’d be all super geek-trendy and put some comments here in the header. Then I can be all like,"Oh, Hey! You must be a developer because you’re looking at my source code", and you’re all, like, "Whaaaaaat! I'm *totally* a developer! He *gets* me! WE ARE SO ALIKE".
 
-        Aaaah, we have fun don’t we.
+        Hello. I see you there.
 
-        Basically, it took me ages to design this grotesque, sorry excuse for a website. I built it on Jekyll, and I kind of wish I hadn’t, but I’ve recently learnt the power of permalinks, so it’s growing on me. And at least the site is fast. Like, REDONKULOUSLY fast. So there’s that.
     -->
 </head>
 <body>
 
-    {% include masthead.html %}
+    <header class="PageHeader" role="banner">
+        <a href="/">
+            <h1>gablaxian.com</h1>
+        </a>
+    </header>
 
-    <main class="SiteBody" role="main">
+    <nav class="PrimaryNavigation" role="navigation">
+        <ul>
+            <li>
+                <a href="/blog">Blog</a>
+            </li>
+            <li>
+                <a href="/articles">Series</a>
+            </li>
+        </ul>
+    </nav>
 
-        <div class="SiteBody-container">
+    <main class="PageContent" role="main">
 
-            {{ content }}
-
-        </div>
+        {{ content }}
 
     </main>
 
-    <footer class="SiteFooter">
+    <footer class="PageFooter">
 
-        <div class="SiteFooter-container">
+        <div>
 
-            <div class="SiteFooter-about">
-                <div class="AboutMe">
-                    <h2>About me</h2>
+            <p>Front-end developer living in Brighton and working for <a href="https://clearleft.com">Clearleft</a>.</p>
+            <p>I write about the Web, tech &amp; games. That’s about it.</p>
+            <p>Definitely <em>not</em> a designer.</p>
 
-                    <p>Front-end developer living in Brighton and working for <a href="http://clearleft.com" rel="external" target="_blank">Clearleft</a>.</p>
-                    <p>Definitely <i>not</i> a designer.</p>
-                </div>
-            </div>
+            <ul>
+                <li>
+                    <a href="https://twitter.com/gablaxian" class="twitter">twitter</a>
+                </li>
+                <li>
+                    <a href="https://github.com/gablaxian" class="github ir">github</a>
+                </li>
+                <li>
+                    <a href="/rss.xml" class="rss">rss</a>
+                </li>
+            </ul>
 
-            <div class="SiteFooter-links">
-                <ul class="SocialLinks">
-                    <li>
-                        <a href="https://twitter.com/gablaxian" class="twitter ir" rel="external">Twitter</a>
-                    </li>
-                    <li>
-                        <a href="https://www.flickr.com/photos/gablaxian/sets/" class="flickr ir" rel="external">Flickr</a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/gablaxian" class="github ir" rel="external">github</a>
-                    </li>
-                </ul>
-            </div>
-            
         </div>
 
     </footer>
 
-    <script src="/assets/js/main.js"></script>
+    <!-- <script src="/assets/js/main.js?t={{ site.time | date: "%s" }}" defer></script> -->
 
 </body>
 </html>

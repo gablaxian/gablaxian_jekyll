@@ -2,63 +2,47 @@
 layout: default
 ---
 
-    <div class="Intro">
-        <p>Welcome to the home of one gablaxian. A game-obsessed front-end developer living in Brighton.</p>
-    </div>
+    {% for post in site.posts limit:5 %}
+    <article>
 
-    <div class="Home">
+        <header>
+            <a href="{{ post.url }}">
+                <h2>{{ post.title }}</h2>
+            </a>
 
-        <div class="HomeArticles">
-            {% for post in site.posts limit:5 %}
-            <article class="Article Article--short">
+            <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%d %b %Y" }}</time>
+        </header>
 
-                <header class="Article-header">
-                    <a href="{{ post.url }}" class="Article-headerLink">
-                        <h1 class="Article-headerText">{{ post.title }}</h1>
-                    </a>
+        <div>
+            {{ post.excerpt }}
+        </div>
 
-                    <time datetime="{{ post.date | date_to_xmlschema }}" class="Article-date">{{ post.date | date: "%d %b %Y" }}</time>
+    </article>
+    {% endfor %}
 
-                    <div class="Article-tags">
-                    {% for tag in post.tags %}
-                        <span>#{{ tag }}</span>
-                    {% endfor %}
-                    </div>
-                </header>
+    <aside class="NotThatYouCare">
+        <h3>Currently Playing</h3>
 
-                <div class="Article-excerpt">
-                    {{ post.excerpt }}
-                </div>
-
-            </article>
+        <ul>
+            {% for game in site.data.playing %}
+            <li class="{{ game.system }}">{{ game.title }} <span>({{ game.system }})</span></li>
             {% endfor %}
-        </div>
+        </ul>
 
-        <div class="MiniBio">
+        <h3>Recently Completed</h3>
 
-            <h2>Currently Playing</h2>
+        <ul>
+            {% for game in site.data.completed %}
+            <li class="{{ game.system }}">{{ game.title }} <span>({{ game.system }})</span></li>
+            {% endfor %}
+        </ul>
 
-            <ul>
-                {% for game in site.data.playing %}
-                <li class="{{ game.system }}">{{ game.title }} <span>({{ game.system }})</span></li>
-                {% endfor %}
-            </ul>
+        <h3>Gaming Networks</h3>
 
-            <h2>Recently Completed</h2>
-
-            <ul>
-                {% for game in site.data.completed %}
-                <li class="{{ game.system }}">{{ game.title }} <span>({{ game.system }})</span></li>
-                {% endfor %}
-            </ul>
-
-            <h2>Gaming Networks</h2>
-            <ul>
-                <li><a href="http://steamcommunity.com/id/gablaxian" rel="external noopener noreferrer" target="_blank">Steam</a></li>
-                <li><a href="https://www.xboxgamertag.com/search/gablaxian/" rel="external noopener noreferrer" target="_blank">Xbox Live</a></li>
-                <li><a href="http://eu.battle.net/d3/en/profile/gablaxian-2624" rel="external noopener noreferrer" target="_blank">Battle.net - gablaxian#2624</a></li>
-                <li><a href="https://my.playstation.com/gablaxian" rel="external noopener noreferrer" target="_blank">PSN</a></li>
-            </ul>
-        </div>
-
-    </div>
+        <ul>
+            <li><a href="http://steamcommunity.com/id/gablaxian" rel="noopener noreferrer" target="_blank">Steam</a></li>
+            <li><a href="https://www.xboxgamertag.com/search/gablaxian/" rel="noopener noreferrer" target="_blank">Xbox Live</a></li>
+            <li><a href="https://eu.battle.net/d3/en/profile/gablaxian-2624/hero/50250088" rel="noopener noreferrer" target="_blank">Battle.net - gablaxian#2624</a></li>
+            <li><a href="https://my.playstation.com/gablaxian" rel="noopener noreferrer" target="_blank">PSN</a></li>
+        </ul>
+    </aside>

@@ -2,11 +2,14 @@
 npm-debug.log
 .jekyll-metadata
 .sass-cache
+yarn-error.log
 
 node_modules
 
 _site
 public
+
+deploy.sh
 
 # ignore compiled assets
 source/assets

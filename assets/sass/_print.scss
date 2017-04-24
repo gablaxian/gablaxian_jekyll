@@ -1,6 +1,6 @@
 
 @media print {
-    .starfield-bg, .site-header, .site-navigation { display: none }
+    .Page-masthead { display: none }
     * {
         background: transparent !important;
         color: #000 !important; /* Black prints faster: h5bp.com/s */
@@ -16,7 +16,6 @@
      */
 
     .ir a:after,
-    a[href^="javascript:"]:after,
     a[href^="#"]:after {
         content: "";
     }

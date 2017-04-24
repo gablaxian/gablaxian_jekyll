@@ -2,27 +2,34 @@
   "name": "gablaxian",
   "version": "1.0.0",
   "description": "gablaxian website",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gablaxian/gablaxian.com.git"
   },
   "devDependencies": {
     "del": "*",
-    "imagemin-webp": "^4.0.0",
+    "imagemin-webp": "*",
     "node-sass": "*",
-    "rollup": "*",
-    "uglify": "*"
+    "onchange": "^3.2.1",
+    "rollup": "*"
   },
   "scripts": {
-    "fonts": "cp -rf assets/fonts source/assets/fonts",
+    "clean": "rm -rf source/assets && mkdir source/assets",
+    "fonts": "cp -rf assets/fonts source/assets",
     "images": "cp -rf assets/img source/assets",
     "webp:png": "for file in assets/img/**/*.png; do ./node_modules/.bin/cwebp -lossless -q 80 $file -o source/$file.webp -short; done;",
     "webp:jpg": "for file in assets/img/**/*.jpg; do ./node_modules/.bin/cwebp -q 80 $file -o source/$file.webp -short; done;",
     "webp:gif": "for file in assets/img/**/*.gif; do gif2webp $file -o source/$file.webp; done;",
     "webp": "npm run webp:png & npm run webp:jpg & npm run webp:gif",
-    "sass": "node-sass assets/sass/build.scss source/assets/css/main.css",
+    "sass": "node-sass --output-style=compressed --source-map=true --output=source/assets/css/ assets/sass/build.scss source/assets/css/main.css && npm run stats:css",
     "serviceWorker": "cp -f assets/js/ServiceWorker.js source/ServiceWorker.js",
-    "rollup": "rollup -c",
-    "build": "npm run fonts & npm run images & npm run sass & npm run serviceWorker & npm run rollup && npm run webp"
+    "rollup": "rollup -c -f es && npm run stats:js",
+    "stats:css": "echo \"Size of main.css is $(stat -c%s \"source/assets/css/main.css\") bytes ($(gzip -c source/assets/css/main.css | wc -c) bytes gzipped)\"",
+    "stats:js": "echo \"Size of main.js is $(stat -c%s \"source/assets/js/main.js\") bytes ($(gzip -c source/assets/js/main.js | wc -c) bytes gzipped)\"",
+    "stats": "npm run stats:css && npm run stats:js",
+    "init": "npm run fonts & npm run images & npm run sass & npm run serviceWorker & npm run rollup & npm run webp",
+    "build": "npm run clean && npm run init && npm run stats",
+    "build:watch": "onchange 'assets/sass/*.scss' -- npm run sass"
   }
 }

@@ -1,27 +1,20 @@
 
-@import 'fonts';
-@import '_normalize';
-
 @import 'global';
+@import 'fonts';
 
-@import 'page';
 
-/* components */
+// components
+// @import 'components/article';
+// @import 'components/cv';
+// @import 'components/masthead';
+// @import 'components/page';
+// @import 'components/prose';
+// @import 'components/site-body';
 
-@import 'components/starfield';
-@import 'components/masthead';
-@import 'components/navigation';
-@import 'components/site-body';
-@import 'components/article';
-@import 'components/comments';
-@import 'components/site-footer';
-@import 'components/about-me';
-@import 'components/social-links';
-@import 'components/mini-bio';
 
-@import 'components/pagination';
+// vendor
+@import 'vendor/highlightjs';
 
-@import 'components/cv';
-@import 'syntax';
 
-@import 'print';
+// print
+// @import 'print';

@@ -10,10 +10,10 @@
     }
 
     aside {
-        position: absolute;
-        width: #{(200/16)}rem;
         font-size: #{(12/16)}rem;
+        position: absolute;
         transform: translateX(-110%);
+        width: #{(200/16)}rem;
     }
 }
 .Article-header {
@@ -31,9 +31,9 @@
     }
 }
 .Article-headerText {
-    font-family: '04b03regular';
+    font-family: $secondary-font;
     font-size: #{(26/16)}rem;
-    font-weight: 400;
+    font-weight: 700;
     text-shadow: 0 1px 0 #fff, 1px 2px 0 #BDBDBD;
     margin: 0;
     line-height: 1;
@@ -69,8 +69,9 @@
 .Article--tutorial,
 .Article--long {
     h2 {
-        font-family: '04b03regular';
+        font-family: $secondary-font;
         font-size: 1.25rem;
+        font-weight: 700;
         color: #222;
         margin: 0;
         padding-top: 2.4rem;

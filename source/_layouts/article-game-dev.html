@@ -2,11 +2,23 @@
 layout: default
 ---
 
-    <div class="Tutorial">
+    <div>
 
     {% assign page_id = page.url | split: "/" | last %}
 
-        <aside class="Tutorial-chapters">
+        <article>
+            {% if page.title %}
+            <header>
+                <h2>{{ page.title }}</h2>
+            </header>
+            {% endif %}
+
+            <div class="Prose">
+            {{ content }}
+            </div>
+        </article>
+
+        <aside>
             <nav>
                 <ul>
                     {% for post in site.categories['creating-a-game-with-javascript'] reversed %}
@@ -36,20 +48,5 @@ layout: default
                 </ul>
             </nav>
         </aside>
-
-        <article class="Article Article--tutorial">
-            {% if page.title %}
-            <header class="Article-header">
-                <h1 class="Article-headerText">{{ page.title }}</h1>
-            </header>
-            {% endif %}
-
-            {{ content }}
-
-            <div>
-                <a href="#top">↑ Top</a>
-            </div>
-        </article>
-
 
     </div>

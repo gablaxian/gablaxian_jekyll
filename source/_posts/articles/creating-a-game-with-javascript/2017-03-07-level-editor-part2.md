@@ -70,7 +70,7 @@ I think that about wraps up the features/usage. Keep reading for a look at some 
 
 Again, I am not using any kind of build step for my code, so every file is included manually and uses some of the latest JS additions where they were deemed useful. So it does require an up-to-date browser.
 
-Also, I am still experimenting with Kyle Simpson’s <abbr title="objects-linked-to-other-objects">OLOO</abbr> code style, as covered in his [You Don’t Know JS book](https://github.com/getify/You-Dont-Know-JS/blob/master/this%20%26%20object%20prototypes/ch6.md). Not to it’s best effect, mind you, but it does explain why you will rarely see the `new` operator and, instead, lots of `Object.create()`.
+Also, I am still experimenting with Kyle Simpson’s <abbr title="objects-linked-to-other-objects">OLOO</abbr> code style, as covered in his [You Don’t Know JS book](https://github.com/getify/You-Dont-Know-JS/blob/master/this%20%26%20object%20prototypes/ch6.md). Not to its best effect, mind you, but it does explain why you will rarely see the `new` operator and, instead, lots of `Object.create()`.
 
 ### The Files
 

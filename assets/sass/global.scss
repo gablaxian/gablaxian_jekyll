@@ -1,11 +1,48 @@
 
+$primary-font: BlinkMacSystemFont,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+$secondary-font: '04b03regular',BlinkMacSystemFont,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
 /** General Styles **/
+html {
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
 body {
-    position: relative;
     background-color: #fff;
-    font-family: 'Open Sans', sans-serif;
     color: #333;
-    line-height: 1.6;
+    font-family: $primary-font;
+    line-height: #{(24/16)};
+    margin: 0;
+    max-width: 38em;
+    padding: 0 1rem 1rem 1rem;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+}
+
+@media only screen and (min-width: 22.5em) {
+    body {
+        padding: 0 2rem 2rem 2rem;
+    }
+}
+
+main {
+    min-height: 30vh;
+}
+
+h2 {
+    font-family: $secondary-font;
+    font-size: #{(28/16)}rem;
+    font-weight: 700;
+    line-height: #{(18/16)};
+    text-shadow: 0 1px 0 #fff, 1px 2px 0 #BDBDBD;
+    text-transform: uppercase;
 }
 
 a {
@@ -21,72 +58,127 @@ img {
     max-width: 100%;
 }
 
-pre {
-    border: 1px solid rgb(221, 221, 221);
-    background-color: #fafafa;
-    line-height: 1.4;
-    margin-bottom: 2rem;
-    padding: 0.5em;
-}
-
-pre code {
-    font-family: 'Monaco', 'Consolas', 'Menlo', monospace;
-    font-size: #{(12/16)}rem;
-}
-
-/* Yay Markdown and the annoying paragraph it adds when nesting lists! */
-li p    { margin: 0 }
-ul ul   { margin: 0.5rem 0 1rem 0 }
-
-.ir {
-    background-color: transparent;
-    border: 0;
-    overflow: hidden;
-}
-
-.ir:before {
-    content: "";
-    display: block;
-    width: 0;
-    height: 100%;
-}
-
-.clearfix:before,
-.clearfix:after {
-    content: " "; /* 1 */
-    display: table; /* 2 */
-}
-
-.clearfix:after {
-    clear: both;
-}
-
-.Intro {
-    margin-bottom: 2rem;
-
-    p {
-        margin: 0;
+article {
+    header {
+        h2 {
+            line-height: 1;
+            margin-bottom: 0;
+        }
+    }
+    time {
+        color: #999;
+        font-size: #{(14/16)}rem;
     }
 }
 
-.Tutorial-chapters {
-    font-size: #{(13/16)}rem;
-    margin-bottom: 1.5rem;
+article + article {
+    margin-top: 2rem;
 
+    &:before {
+        background-color: #ccc;
+        content: '';
+        display: block;
+        height: 1px;
+        margin: 0 auto 2rem auto;
+        width: 45%;
+    }
+}
+
+abbr[title] {
+    border-bottom: 1px dotted #999;
+}
+
+.PageHeader {
+    a {
+        display: block;
+    }
+    h1 {
+        font-size: #{(28/16)}rem;
+    }
+}
+.PrimaryNavigation {
     ul {
-        list-style: none;
         margin: 0;
         padding: 0;
     }
+    li {
+        list-style: none;
+    }
 }
-@media (min-width: 45rem) {
-    .Tutorial {
-        display: flex;
+
+@media only screen and (min-width: 20em) {
+    .PageHeader {
+        margin-top: 1rem;
+        a {
+            background: url('/assets/img/coin-animation.png') 0 50% no-repeat;
+            background-size: #{(80/16)}rem;
+            image-rendering: pixelated;
+            height: #{(25/16)}rem;
+            width: #{(80/16)}rem;
+        }
+        h1 {
+            display: none;
+        }
     }
-    .Tutorial-chapters {
-        flex: 25%;
+
+    .PrimaryNavigation {
+        margin: 1.5rem 0 4rem 0;
     }
-    .Article--tutorial {
-        width: 75%;
+}
+
+.Prose {
+    figure {
+        font-size: 13px;
+        margin: 0;
+    }
+    .highlight pre {
+        border: 1px solid #eee;
+        padding: 0.5rem;
+        margin-top: 2rem;
+    }
+    pre {
+        overflow-x: auto;
+    }
+    code {
+        font-family: Monaco, Consolas, Menlo, monospace;
+    }
+    p {
+        margin: 2rem 0 0 0;
+
+        code {
+            background-color: #f4f4f4;
+            border: 1px solid #e2dede;
+            display: inline-block;
+            font-size: #{(13/16)}rem;
+            padding: 0 0.25rem;
+        }
+    }
+    h3 {
+        margin-top: 2rem;
+    }
+    h3 + p {
+        margin-top: 1rem;
+    }
+}
+
+.NotThatYouCare {
+    border-top: 1px solid #999;
+    color: #444;
+    margin-top: 2rem;
+    padding-top: 1rem;
+
+    li {
+        font-size: #{(14/16)}rem;
+    }
+}
+
+.PageFooter {
+    border-top: 1px solid #999;
+    color: #666;
+    margin-top: 2rem;
+    padding-top: 1rem;
+
+    p {
+        margin: 0.25rem 0;
     }
 }
