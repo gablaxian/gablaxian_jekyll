@@ -1,0 +1,21 @@
+
+@media only screen and (min-width: px2em(300px)) {
+    .PrimaryNavigation {
+        margin: 1.5rem 0;
+
+        ul {
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+        li {
+            list-style: none;
+        }
+        li + li {
+            margin-left: px2rem(12px);
+        }
+        a {
+            text-decoration: underline;
+        }
+    }
+}

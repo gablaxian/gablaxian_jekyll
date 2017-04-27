@@ -1,0 +1,41 @@
+.PageHeader {
+    a {
+        display: block;
+    }
+    h1 {
+        font-size: #{(28/16)}rem;
+    }
+}
+@media only screen and (min-width: px2em(300px)) {
+    .PageHeader {
+        margin-top: 1rem;
+
+        a {
+            background: url('/assets/img/coin-animation.png') 0 0 no-repeat;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: pixelated;
+            height: #{(40/16)}rem;
+            width: #{(32/16)}rem;
+
+            &:hover {
+                animation-name: spinningCoin;
+                animation-duration: 1s;
+                animation-timing-function: steps(4);
+                animation-iteration-count: infinite;
+            }
+        }
+
+        h1 {
+            display: none;
+        }
+    }
+}
+
+@keyframes spinningCoin {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: -128px 0;
+    }
+}

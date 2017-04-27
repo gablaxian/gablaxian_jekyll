@@ -30,6 +30,6 @@
     "stats": "npm run stats:css && npm run stats:js",
     "init": "npm run fonts & npm run images & npm run sass & npm run serviceWorker & npm run rollup & npm run webp",
     "build": "npm run clean && npm run init && npm run stats",
-    "build:watch": "onchange 'assets/sass/*.scss' -- npm run sass"
+    "build:watch": "onchange 'assets/sass/**/*.scss' -- npm run sass"
   }
 }

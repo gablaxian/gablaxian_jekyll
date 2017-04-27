@@ -211,6 +211,6 @@ Firstly, I need to re-tool a number of the tilesets and also add new ones. Then 
 
 ## Progress
 
-Check out the editor [progress on version 0.8](/experiments/super-js-adventure/0.8/editor)
+Check out the editor [progress on version 0.8](/experiments/super-js-adventure/0.8.1/editor)
 
 Or [see all the source code](//github.com/gablaxian/super-js-adventure) on Github.

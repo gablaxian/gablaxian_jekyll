@@ -1,49 +1,7 @@
 
-.Masthead {
-    position: relative;
-    z-index: 10;
-}
-.Masthead-header {
-    height: 40px;
-    margin: 0;
-}
-.Masthead-logo {
-    display: block;
-    background: url('/assets/img/coin-animation.png') 0 0 no-repeat;
-    width: 32px;
-    height: 40px;
-    margin: 0 auto;
-
-    image-rendering: -moz-crisp-edges;         /* Firefox */
-    image-rendering: -webkit-optimize-contrast;/* Webkit (non-standard naming) */
-    image-rendering: pixelated;
-    -ms-interpolation-mode: nearest-neighbor;  /* IE (non-standard property) */
-
-}
-.Masthead-logo:hover {
-    animation-name: spinningCoin;
-    animation-duration: 1s;
-    animation-timing-function: steps(4);
-    animation-iteration-count: infinite;
-}
-
-@keyframes spinningCoin {
-    from {
-        background-position: 0 0;
-    }
-    to {
-        background-position: -128px 0;
-    }
-}
-
-@media only screen and (max-width: 50em) {
-    .Masthead-container {
-        padding: 1rem 0;
-    }
-}
-
-@media only screen and (min-width: 50em) {
+@media only screen and (min-width: px2em(300px)) {
     .Masthead {
-        padding-top: 2rem;
+        display: flex;
+        justify-content: space-between;
     }
 }

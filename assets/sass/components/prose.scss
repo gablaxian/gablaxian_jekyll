@@ -1,20 +1,41 @@
 
 .Prose {
-    /* Yay Markdown and the annoying paragraph it adds when nesting lists! */
-    ul ul   { margin: 0.5rem 0 1rem 0 }
-    li p    { margin: 0 }
-
-    pre {
-        background-color: #fafafa;
-        border: 1px solid rgb(221, 221, 221);
-        line-height: 1.4;
-        margin-bottom: 2rem;
-        overflow-x: auto;
-        padding: 0.5em;
+    figure,
+    .highlighter-rouge {
+        font-size: 13px;
+        margin: 0;
     }
+    .highlight pre {
+        border: 1px solid #eee;
+        padding: 0.5rem;
+        margin-top: 2rem;
+    }
+    pre {
+        overflow-x: auto;
+    }
+    code {
+        font-family: Monaco, Consolas, Menlo, monospace;
+    }
+    p {
+        margin: 2rem 0 0 0;
 
-    pre code {
-        font-family: 'Monaco', 'Consolas', 'Menlo', monospace;
-        font-size: #{(13/16)}em;
+        code {
+            background-color: #f4f4f4;
+            border: 1px solid #e2dede;
+            display: inline-block;
+            font-size: #{(13/16)}rem;
+            padding: 0 0.25rem;
+        }
+    }
+    h3 {
+        margin-top: 2rem;
+    }
+    h3 + p {
+        margin-top: 1rem;
+    }
+    iframe {
+        display: block;
+        border: none;
+        margin: 0 auto 20px auto;
     }
 }
