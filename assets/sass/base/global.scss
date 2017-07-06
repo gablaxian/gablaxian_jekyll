@@ -18,15 +18,32 @@ body {
     font-family: $primary-font;
     line-height: #{(24/16)};
     margin: 0;
-    max-width: 38em;
+    max-width: 40em;
     padding: 0 1rem 1rem 1rem;
     position: relative;
-    -webkit-font-smoothing: antialiased;
 }
 
-@media only screen and (min-width: 22.5em) {
+@media only screen and (min-width: px2em(360px)) {
     body {
-        padding: 0 2rem 2rem 2rem;
+        font-size: 100%;
+        padding: 0 1.5rem;
+    }
+}
+@media only screen and (min-width: px2em(630px)) {
+    body {
+        margin-left: 1rem;
+        padding: 0 2rem;
+    }
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) { 
+    /* Retina-specific stuff here */
+    body {
+        font-weight: 300;
+    }
+    h2 {
+        -moz-osx-font-smoothing: grayscale;
+        -webkit-font-smoothing: antialiased;
     }
 }
 
@@ -44,7 +61,7 @@ h2 {
 }
 
 a {
-    color: #0498AB;
+    color: #008393;
     text-decoration: none;
     transition: color 0.1s ease;
 }
@@ -83,6 +100,7 @@ article + article {
 }
 
 abbr[title] {
+    text-decoration: none;
     border-bottom: 1px dotted #999;
 }
 

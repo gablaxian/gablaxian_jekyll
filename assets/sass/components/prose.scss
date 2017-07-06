@@ -6,11 +6,14 @@
         margin: 0;
     }
     .highlight pre {
+        background: #f6f6f6;
         border: 1px solid #eee;
-        padding: 0.5rem;
+        border-radius: 3px;
         margin-top: 2rem;
+        padding: 0.5rem;
     }
     pre {
+        margin: 2rem 0 0 0;
         overflow-x: auto;
     }
     code {
@@ -36,6 +39,23 @@
     iframe {
         display: block;
         border: none;
-        margin: 0 auto 20px auto;
+        margin: 2rem auto;
+    }
+    aside {
+        border-bottom: 1px solid #efefef;
+        border-top: 1px solid #efefef;
+        font-size: px2rem(14px);
+        margin-top: 2rem;
+        max-width: px2rem(280px);
+        padding: 1rem 0;
+    }
+}
+
+@media only screen and (min-width: px2em(960px)) {
+    .Prose {
+        aside {
+            position: absolute;
+            right: px2rem(-280px);
+        }
     }
 }

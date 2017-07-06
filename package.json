@@ -8,11 +8,10 @@
     "url": "git+https://github.com/gablaxian/gablaxian.com.git"
   },
   "devDependencies": {
-    "del": "*",
-    "imagemin-webp": "*",
-    "node-sass": "*",
-    "onchange": "^3.2.1",
-    "rollup": "*"
+    "imagemin-webp": "latest",
+    "node-sass": "latest",
+    "onchange": "latest",
+    "rollup": "latest"
   },
   "scripts": {
     "clean": "rm -rf source/assets && mkdir source/assets",
