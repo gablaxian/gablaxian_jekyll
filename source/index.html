@@ -32,7 +32,7 @@ layout: default
         <h3>Recently Completed</h3>
 
         <ul>
-            {% for game in site.data.completed %}
+            {% for game in site.data.completed limit:10 %}
             <li class="{{ game.system }}">{{ game.title }} <span>({{ game.system }})</span></li>
             {% endfor %}
         </ul>
