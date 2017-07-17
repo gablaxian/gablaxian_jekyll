@@ -49,6 +49,10 @@
         max-width: px2rem(280px);
         padding: 1rem 0;
     }
+    video {
+        display: block;
+        margin-top: 2rem;
+    }
 }
 
 @media only screen and (min-width: px2em(960px)) {

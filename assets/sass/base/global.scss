@@ -36,7 +36,7 @@ body {
     }
 }
 
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) { 
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
     /* Retina-specific stuff here */
     body {
         font-weight: 300;
@@ -69,7 +69,8 @@ a:hover {
     color: #044D56;
 }
 
-img {
+img,
+video {
     max-width: 100%;
 }
 
