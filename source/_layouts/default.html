@@ -1,17 +1,17 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-gb">
 <head>
     <meta charset="utf-8">
     <title>{% if page.title %}{{ page.title }} | {% endif %}gablaxian.com</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <meta name="author" content="Graham Smith">
-    <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html }}{% else %}Home of one gablaxian{% endif %}">
-    <meta name="keywords" content="gablaxian, web development, web developer, front end, HTML, CSS, javascript, canvas, brighton">
+    <meta name="theme-color" content="#2c1881">
 
+    <link rel="home" href="{{ site.url }}">
     <link rel="icon" href="/favicon.png" size="32x32" type="image/png">
     <link rel="alternate" href="/rss.xml" type="application/rss+xml" title="gablaxian">
+    <link rel="manifest" href="/manifest.json">
 
     <link rel="preload" as="font" href="/assets/fonts/04b_03-webfont.woff" crossorigin>
     <link rel="preload" as="image" href="/assets/img/coin-animation.png">
@@ -24,9 +24,27 @@
             src: url('/assets/fonts/04b_03-webfont.woff') format('woff');
             font-weight: 700;
             font-style: normal;
-            font-display: fallback;
+            font-display: optional;
         }
     </style>
+
+    <!-- Standard SEO -->
+    <link rel="canonical" href="{{ site.url }}">
+    <link rel="alternate" href="{{ site.url }}" hreflang="x-default">
+
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html }}{% else %}Home of one gablaxian{% endif %}">
+    <meta name="keywords" content="gablaxian, web development, web developer, front end, HTML, CSS, javascript, canvas, brighton">
+
+    <!-- Dublin Core basic info -->
+    <meta name="dcterms.Identifier" content="{{ site.url }}">
+    <meta name="dcterms.Format" content="text/html">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@gablaxian">
+    <meta name="twitter:title" content="{{ page.title }}">
+    <meta name="twitter:description" content="{% if page.excerpt %}{{ page.excerpt | strip_html }}{% else %}Home of one gablaxian{% endif %}">
     <!--
 
         Hello. I see you there.
@@ -45,10 +63,10 @@
         <nav class="PrimaryNavigation" role="navigation">
             <ul>
                 <li>
-                    <a href="/blog">Blog</a>
+                    <a href="/blog/">Blog</a>
                 </li>
                 <li>
-                    <a href="/articles">Series</a>
+                    <a href="/articles/">Series</a>
                 </li>
             </ul>
         </nav>
@@ -69,15 +87,9 @@
             <p>Definitely <em>not</em> a designer.</p>
 
             <ul>
-                <li>
-                    <a href="https://twitter.com/gablaxian" class="twitter">twitter</a>
-                </li>
-                <li>
-                    <a href="https://github.com/gablaxian" class="github ir">github</a>
-                </li>
-                <li>
-                    <a href="/rss.xml" class="rss">rss</a>
-                </li>
+                <li><a href="https://twitter.com/gablaxian" class="twitter">twitter</a></li>
+                <li><a href="https://github.com/gablaxian" class="github ir">github</a></li>
+                <li><a href="/rss.xml" class="rss">rss</a></li>
             </ul>
 
         </div>

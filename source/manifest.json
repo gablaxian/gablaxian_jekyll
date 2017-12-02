@@ -1,0 +1,16 @@
+{
+    "short_name": "gablaxian",
+    "name": "gablaxian.com",
+    "start_url": "/?utm_source=homescreen",
+    "icons": [
+        {
+            "src": "/assets/img/coin-animation.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ],
+    "background_color": "#fff",
+    "theme_color": "#fff",
+    "display": "standalone",
+    "orientation": "portrait"
+}
