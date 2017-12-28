@@ -2,47 +2,51 @@
 layout: default
 ---
 
-    {% for post in site.posts limit:5 %}
-    <article>
+    <div class="Grid Grid--two-thirds">
+        <section class="Entries">
+            {% for post in site.posts limit:5 %}
+            <article class="Entry">
 
-        <header>
-            <a href="{{ post.url }}">
-                <h2>{{ post.title }}</h2>
-            </a>
+                <header class="Entry-header">
+                    <a href="{{ post.url }}">
+                        <h2>{{ post.title }}</h2>
+                    </a>
 
-            <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%d %b %Y" }}</time>
-        </header>
+                    <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%d %b %Y" }}</time>
+                </header>
 
-        <div>
-            {{ post.excerpt }}
-        </div>
+                <div>
+                    {{ post.excerpt }}
+                </div>
 
-    </article>
-    {% endfor %}
-
-    <aside class="NotThatYouCare">
-        <h3>Currently Playing</h3>
-
-        <ul>
-            {% for game in site.data.playing %}
-            <li class="{{ game.system }}">{{ game.title }} <span>({{ game.system }})</span></li>
+            </article>
             {% endfor %}
-        </ul>
+        </section>
 
-        <h3>Recently Completed</h3>
+        <aside class="NotThatYouCare">
+            <h3>Currently Playing</h3>
 
-        <ul>
-            {% for game in site.data.completed limit:10 %}
-            <li class="{{ game.system }}">{{ game.title }} <span>({{ game.system }})</span></li>
-            {% endfor %}
-        </ul>
+            <ul>
+                {% for game in site.data.playing %}
+                <li class="{{ game.system }}">{{ game.title }} <span>({{ game.system }})</span></li>
+                {% endfor %}
+            </ul>
 
-        <h3>Gaming Networks</h3>
+            <h3>Recently Completed</h3>
 
-        <ul>
-            <li><a href="http://steamcommunity.com/id/gablaxian" rel="noopener noreferrer" target="_blank">Steam</a></li>
-            <li><a href="https://www.xboxgamertag.com/search/gablaxian/" rel="noopener noreferrer" target="_blank">Xbox Live</a></li>
-            <li><a href="https://eu.battle.net/d3/en/profile/gablaxian-2624/hero/50250088" rel="noopener noreferrer" target="_blank">Battle.net - gablaxian#2624</a></li>
-            <li><a href="https://my.playstation.com/gablaxian" rel="noopener noreferrer" target="_blank">PSN</a></li>
-        </ul>
-    </aside>
+            <ul>
+                {% for game in site.data.completed limit:10 %}
+                <li class="{{ game.system }}">{{ game.title }} <span>({{ game.system }})</span></li>
+                {% endfor %}
+            </ul>
+
+            <h3>Gaming Networks</h3>
+
+            <ul>
+                <li><a href="http://steamcommunity.com/id/gablaxian" rel="noopener noreferrer" target="_blank">Steam</a></li>
+                <li><a href="https://www.xboxgamertag.com/search/gablaxian/" rel="noopener noreferrer" target="_blank">Xbox Live</a></li>
+                <li><a href="https://eu.battle.net/d3/en/profile/gablaxian-2624/hero/50250088" rel="noopener noreferrer" target="_blank">Battle.net - gablaxian#2624</a></li>
+                <li><a href="https://my.playstation.com/gablaxian" rel="noopener noreferrer" target="_blank">PSN</a></li>
+            </ul>
+        </aside>
+    </div>

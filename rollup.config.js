@@ -1,7 +1,7 @@
 
 export default {
-    entry:          'assets/js/main.js',
-    dest:           'source/assets/js/main.js',
-    sourceMap:      true,
-    sourceMapFile:  'source/assets/js/main.map.js'
+    input:                  'assets/js/main.js',
+    outpuyt.file:           'source/assets/js/main.js',
+    output.sourcemap:       true,
+    output.sourcemapFile:   'source/assets/js/main.map.js'
 };

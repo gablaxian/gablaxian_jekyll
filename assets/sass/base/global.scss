@@ -120,6 +120,20 @@ abbr[title] {
     }
 }
 
+@media only screen and (min-width: px2em(960px)) {
+    .NotThatYouCare {
+        margin-top: 0;
+        position: absolute;
+        right: px2rem(-320px);
+        top: 0;
+        width: px2rem(300px);
+
+        ul {
+            padding-left: 1.5rem;
+        }
+    }
+}
+
 .PageFooter {
     border-top: 1px solid #999;
     color: #666;
