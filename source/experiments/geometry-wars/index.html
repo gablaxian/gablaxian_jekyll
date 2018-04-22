@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Graham Smith">
+    <title>Geometry Wars</title>
+
+    <link rel="icon" href="/favicon.png">
+
+    <style type="text/css" media="screen">
+        *            { margin: 0; padding: 0; box-sizing: border-box; }
+        body         { overflow: hidden }
+        #container   { position: relative; width: 300px; height: 200px; margin: 20px auto 0 auto; }
+
+        canvas {
+            image-rendering: -moz-crisp-edges;         /* Firefox */
+            image-rendering: pixelated;                /* Chrome */
+        }
+
+        #stats           { width: 256px; margin: 20px auto 0 auto; font-size: 12px; font-family: monospace; }
+        #debugger        { display: none; position: absolute; top: 0; right: -210px; width: 200px; padding: 1rem; border: 1px solid #ccc; font-family: monospace; font-size: 12px; }
+        #debugger > div  { display: flex; justify-content: space-between; }
+        #debugger hr     { margin: 0.5rem 0; }
+    </style>
+
+</head>
+
+<body>
+
+
+    <div id="container">
+        <canvas id="super-js-adventure"></canvas>
+
+        <div id="debugger"></div>
+    </div>
+
+    <div id="stats"></div>
+
+
+    <!--*****************************************
+        Scripts
+    ******************************************-->
+
+    <!-- Config -->
+    <script src="js/data/config.js"></script>
+
+    <!-- Data -->
+    <script src="js/data/game_data.js"></script>
+
+    <!-- Helpers -->
+    <script src="js/tools/stats.js"></script>
+    <script src="js/tools/debugger.js"></script>
+
+    <!-- Engine -->
+    <script src="js/engine/utils.js"></script>
+    <script src="js/engine/input.js"></script>
+    <script src="js/engine/tween.js"></script>
+    <script src="js/engine/eventer.js"></script>
+    <script src="js/engine/particle_generator.js"></script>
+
+    <!-- Game -->
+    <script src="js/game/enemy.js"></script>
+    <script src="js/game/hud.js"></script>
+    <script src="js/game/player.js"></script>
+    <script src="js/game/bullet.js"></script>
+    <script src="js/game/particle.js"></script>
+
+    <script src="js/main.js"></script>
+
+    <script>
+        Game.init();
+    </script>
+</body>
+</html>

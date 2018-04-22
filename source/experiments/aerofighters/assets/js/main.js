@@ -13,7 +13,7 @@ let Game = {
         this.context            = this.canvas.getContext('2d');
 
         //
-        this.width              = 332;
+        this.width              = 304;
         this.height             = 224;
 
         //
@@ -38,7 +38,7 @@ let Game = {
 
         //
         // states - start, playing, game_ending, end, final_message, paused
-        this.state              = 'playing';
+        this.state              = STATE.PLAYING;
 
 
         // Initialise!
@@ -83,18 +83,11 @@ let Game = {
         this.player.setY( ( SCREEN_HEIGHT - this.player.height - 20 )|0 );
 
         //
-        // var enemy = Object.create(Enemy).init('', this.width/2, this.height/2);
-
-        // this.enemies.push(enemy);
-
-        //
         this.hud = HUD;
         this.hud.init();
 
         //
-        let points = [{x:100, y:-60}, {x:100, y:0}, {x:120, y:60}, {x:110, y:100}, {x:60, y:100}, {x:0, y:50}, {x:-60, y:40}];
-
-        this.spline = Spline.init(points);
+        this.spline = Spline.init(paths[0]);
 
         //
         return Promise.resolve();
@@ -112,37 +105,12 @@ let Game = {
 
     drawBackground() {
 
-        let color1 = '#4caf50';
-        let color2 = '#cddc39';
+        this.context.drawImage( Game.spritesheets['bg_tokyo'].img, 0, -Math.floor((1008-this.height) - this.backgroundPos) );
 
-        this.context.save();
-
-        this.context.translate(0, this.backgroundPos);
-
-        this.context.fillStyle = color1;
-        this.context.fillRect(0, -128, this.width, 64);
-
-        this.context.fillStyle = color2;
-        this.context.fillRect(0, -64, this.width, 64);
-
-        this.context.fillStyle = color1;
-        this.context.fillRect(0, 0, this.width, 64);
-
-        this.context.fillStyle = color2;
-        this.context.fillRect(0, 64, this.width, 64);
-
-        this.context.fillStyle = color1;
-        this.context.fillRect(0, 128, this.width, 64);
-
-        this.context.fillStyle = color2;
-        this.context.fillRect(0, 192, this.width, 64);
-
-        this.context.restore();
-
-        this.backgroundPos++;
-
-        if ( this.backgroundPos >= 128 ) {
-            this.backgroundPos = 0;
+        if( Game.state === STATE.PLAYING ) {
+            if( this.backgroundPos < (1008 - this.height) ) {
+                this.backgroundPos += 0.3;
+            }
         }
     },
 
@@ -172,25 +140,25 @@ let Game = {
         }
     },
 
-     addProjectile(x, y, vel) {
+    addProjectile(x, y, vel) {
          
-         // check for any dead projectiles.
-         for( let projectile of this.projectiles ) {
+        // check for any dead projectiles.
+        for( let projectile of this.projectiles ) {
             if( !projectile.active ) {
                 projectile.init(x, y, vel);
                 return;
             }
-         }
+        }
 
-         // no dead projectiles found. add a new one.
-         let projectile = Object.create(Bullet).init(x, y, vel);
-         this.projectiles.push(projectile);
+        // no dead projectiles found. add a new one.
+        let projectile = Object.create(Bullet).init(x, y, vel);
+        this.projectiles.push(projectile);
 
-     },
+    },
 
-     addExplosion(x, y) {
-         //
-     },
+    addExplosion(x, y) {
+        //
+    },
 
     /*****************************************
      * Handlers
@@ -259,13 +227,24 @@ let Game = {
         // clear
         this.context.clearRect(0, 0, this.width, this.height);
 
-        if( this.state == 'paused' ) {
-            //
+        if( this.state == STATE.PAUSED ) {
+
+            this.drawBackground();
+
+            // draw player
+            this.player.update(this.elapsed);
+            this.player.draw(this.context);
+
+            // draw enemies
+            for(var enemy of this.enemies) {
+                if(!enemy.isDead) enemy.draw(this.context);
+            }
+
         }
-        else if( this.state == 'start' ) {
-            this.state = 'playing';
+        else if( this.state == STATE.START ) {
+            this.state = STATE.PLAYING;
         }
-        else if( this.state == 'playing' ) {
+        else if( this.state == STATE.PLAYING ) {
 
             this.drawBackground();
 
@@ -310,11 +289,15 @@ let Game = {
                 }
             }
 
+            if (DEBUG) {
+                this.spline.draw(this.context);
+            }
+
             // draw HUD
             // this.hud.draw(this.context);
+            
         }
 
-        this.spline.draw(this.context);
 
         //
         this.lastTime = now;
