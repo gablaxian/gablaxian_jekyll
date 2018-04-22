@@ -1,0 +1,43 @@
+.arr {
+    font-size: px2rem(12px);
+}
+.CV {
+    section {
+        padding-top: 2rem;
+        border-top: 1px solid #ccc;
+        margin-top: 2rem;
+    }
+}
+
+.CV-Details {
+    span:first-child {
+        display: inline-block;
+        font-size: px2rem(13px);
+        font-weight: 700;
+        text-transform: uppercase;
+        width: px2rem(60px);
+    }
+    span + span {
+        font-size: px2rem(14px);
+    }
+}
+.Employment {
+    time {
+
+    }
+}
+.Employment + .Employment {
+    margin-top: 4rem;
+}
+.Employment-dates {
+    color: #666;
+    font-size: px2rem(12px);
+    font-weight: 500;
+    text-transform: uppercase;
+}
+.Employment-position {
+    font-weight: 500;
+}
+.Employment-details {
+    font-size: px2rem(14px);
+}
