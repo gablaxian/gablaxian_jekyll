@@ -7,12 +7,6 @@
     "type": "git",
     "url": "git+https://github.com/gablaxian/gablaxian.com.git"
   },
-  "devDependencies": {
-    "imagemin-webp": "latest",
-    "node-sass": "latest",
-    "onchange": "latest",
-    "rollup": "latest"
-  },
   "scripts": {
     "clean": "rm -rf source/assets && mkdir source/assets",
     "fonts": "cp -rf assets/fonts source/assets",
@@ -29,13 +23,12 @@
     "stats": "npm run stats:css --silent && npm run stats:js --silent",
     "init": "npm run fonts --silent & npm run images --silent & npm run sass --silent & npm run serviceWorker --silent & npm run rollup --silent && npm run webp --silent",
     "build": "npm run clean --silent && npm run init --silent && npm run stats --silent",
-    "build:watch": "onchange 'assets/sass/**/*.scss' -- npm run sass",
-    "test": "snyk test",
-    "snyk-protect": "snyk protect",
-    "prepare": "npm run snyk-protect"
+    "build:watch": "onchange 'assets/sass/**/*.scss' -- npm run sass"
   },
-  "snyk": true,
-  "dependencies": {
-    "snyk": "^1.69.9"
+  "devDependencies": {
+    "imagemin-webp": "latest",
+    "node-sass": "latest",
+    "onchange": "latest",
+    "rollup": "latest"
   }
 }

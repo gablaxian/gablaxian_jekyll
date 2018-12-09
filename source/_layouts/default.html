@@ -17,14 +17,14 @@
     <link rel="preload" as="image" href="/assets/img/coin-animation.png">
 
     <link rel="stylesheet" href="/assets/css/main.css?t={{ site.time | date: "%s" }}">
-    
+
     <style media="screen">
         @font-face {
             font-family: '04b03regular';
             src: url('/assets/fonts/04b_03-webfont.woff') format('woff');
             font-weight: 700;
             font-style: normal;
-            font-display: optional;
+            font-display: fallback;
         }
     </style>
 
@@ -80,9 +80,12 @@
 
     <footer class="PageFooter">
 
-        <div>
+        <div class="PageFooter-content">
 
-            <p>Front-end developer living in Brighton and working for <a href="https://clearleft.com">Clearleft</a>.</p>
+            <p>
+              Software engineer now living in London and working for <a href="https://snyk.io">Snyk</a>.<br>
+              Ex-<a href="https://clearleft.com">Clearleft</a>.
+            </p>
             <p>I write about the Web, tech &amp; games. That’s about it.</p>
             <p>Definitely <em>not</em> a designer.</p>
 

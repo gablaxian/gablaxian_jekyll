@@ -21,7 +21,7 @@ let Player = {
         this.speed          = 2;
         this.health         = 16;
         this.damage         = 2;
-        
+
         this.shotDelay      = 100; // ms
         this.timeSinceLastShot = 0;
 

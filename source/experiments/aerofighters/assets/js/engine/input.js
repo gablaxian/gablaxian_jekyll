@@ -7,6 +7,7 @@ let Key = {
     LEFT:   0,
     RIGHT:  0,
     SPACE:  0,
+    ENTER:  0,
     X:      0
 }
 
@@ -17,6 +18,13 @@ let Input = {
         // Set up the keyboard events
         document.addEventListener('keydown', e => { this.changeKey(e.keyCode, 1) });
         document.addEventListener('keyup',   e => { this.changeKey(e.keyCode, 0) });
+
+        document.addEventListener('keypress', e => {
+            console.log(e.keyCode);
+            if( e.keyCode == 13 ) {
+                Game.state = Game.state === STATE.PAUSED ? STATE.PLAYING : STATE.PAUSED;
+            }
+        });
 
     },
 

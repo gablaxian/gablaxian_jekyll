@@ -139,8 +139,12 @@ abbr[title] {
     color: #666;
     margin-top: 2rem;
     padding-top: 1rem;
+}
 
-    p {
-        margin: 0.25rem 0;
-    }
+.PageFooter-content {
+  font-size: px2rem(14px);
+
+  p {
+      margin-top: px2rem(8px);
+  }
 }
