@@ -1,7 +1,7 @@
 
 'use strict';
 
-const DEBUG = 1;
+const DEBUG = 0;
 
 const SCREEN_WIDTH  = 332;
 const SCREEN_HEIGHT = 224;

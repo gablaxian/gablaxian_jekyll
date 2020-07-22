@@ -11,14 +11,14 @@ Now that we have a sense of how our game engine will run, we want to be able to 
 
 A level editor’s prime focus is to provide ease of editing as game’s database. Much like a <abbr title="Content management system">CMS</abbr> front-end to a database back-end. They are often ugly, menu driven monstrosities. The more complex the game engine, the uglier, is the general rule. For example, here’s the [Unreal Engine](https://www.unrealengine.com) level editor:
 
-<a href="https://docs.unrealengine.com/latest/images/Engine/UI/LevelEditor/Editor_Topic.jpg" rel="external noopener noreferrer">![unreal engine level editor](https://docs.unrealengine.com/latest/images/Engine/UI/LevelEditor/Editor_Topic.jpg)</a>
+<a href="https://docs.unrealengine.com/portals/0/images/GettingStarted/SubEditors/LevelEditor_Windows.png" rel="external noopener noreferrer" target="_blank">![unreal engine level editor](https://docs.unrealengine.com/portals/0/images/GettingStarted/SubEditors/LevelEditor_Windows.png)</a>
 <small>(Click for larger image)</small>
 
 There’s really no way around this. Editors are complex systems and you can’t hide everything away. Luckily, our game is a much simpler 2D affair with far fewer elements to it, so its editor can be simpler to match. In more complex situations, like the Unreal editor above, an editor will contain a variation of the game engine so that you can live edit the game.
 
 There are already decent map/level editors out there. Many free. One frequently recommended map editor is [Tiled Map Editor](http://www.mapeditor.org/) and is definitely worth checking out. However, because it’s meant to be generalised, for what we’re after it is overly complicated and it does a few things in contrast to my mental model. Also, with this project being a learning/teaching vehicle, it made sense to build my own anyway. But Tiled does give us a direction to head in:
 
-<a href="/assets/img/articles/8-drawing-cobblestone.png" rel="external noopener noreferrer">![Tiled map editor](/assets/img/articles/8-drawing-cobblestone.png)</a>
+<a href="https://doc.mapeditor.org/en/stable/_images/05-drawing-cobblestone.png" rel="external noopener noreferrer" target="_blank">![Tiled map editor](https://doc.mapeditor.org/en/stable/_images/05-drawing-cobblestone.png)</a>
 <small>(Click for larger image)</small>
 
 A level editor does not need to be as optimised as the game engine and, in simple cases, actually works more like an app, so we can use a lot more maintainable, structured code. A lot of its operations will be infrequently run and are often fine to take several seconds (e.g. exporting level data). Ideally, we would also like it to handle changes effectively. There is every chance that level structures and images will change over the course of development. If we had to rebuild an entire map every time we made some minor alterations, we would not be happy bunnies.

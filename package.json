@@ -18,10 +18,10 @@
     "sass": "node-sass --output-style=compressed --source-map=true --output=source/assets/css/ assets/sass/build.scss source/assets/css/main.css",
     "serviceWorker": "cp -f assets/js/ServiceWorker.js source/ServiceWorker.js",
     "rollup": "rollup -c -f es",
-    "stats:css": "echo \"--------------\nSize of main.css is $(stat -c%s \"source/assets/css/main.css\") bytes ($(gzip -c source/assets/css/main.css | wc -c) bytes gzipped)\n--------------\"",
-    "stats:js": "echo \"--------------\nSize of main.js is $(stat -c%s \"source/assets/js/main.js\") bytes ($(gzip -c source/assets/js/main.js | wc -c) bytes gzipped)\n--------------\"",
+    "stats:css": "echo \"--------------\nSize of main.css is $(stat -f%B \"source/assets/css/main.css\") bytes ($(gzip -c source/assets/css/main.css | wc -c) bytes gzipped)\n--------------\"",
+    "stats:js": "echo \"--------------\nSize of main.js is $(stat -f%B \"source/assets/js/main.js\") bytes ($(gzip -c source/assets/js/main.js | wc -c) bytes gzipped)\n--------------\"",
     "stats": "npm run stats:css --silent && npm run stats:js --silent",
-    "init": "npm run fonts --silent & npm run images --silent & npm run sass --silent & npm run serviceWorker --silent & npm run rollup --silent && npm run webp --silent",
+    "init": "npm run fonts --silent & npm run images --silent & npm run sass --silent & npm run serviceWorker --silent & npm run rollup --silent & npm run webp --silent",
     "build": "npm run clean --silent && npm run init --silent && npm run stats --silent",
     "build:watch": "onchange 'assets/sass/**/*.scss' -- npm run sass"
   },
