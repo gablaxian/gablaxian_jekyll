@@ -1,3 +1,9 @@
-.Grid {
-    position: relative;
+@media only screen and (min-width: px2em(630px)) {
+    .Grid {
+        display: grid;
+    }
+    .Grid--two-thirds {
+        grid-template-columns: 2fr 1fr;
+        grid-gap: 2rem;
+    }
 }

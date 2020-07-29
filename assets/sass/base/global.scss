@@ -18,7 +18,7 @@ body {
     font-family: $primary-font;
     line-height: #{(24/16)};
     margin: 0 auto;
-    max-width: 40em;
+    max-width: px2em(720px);
     padding: 0 1rem 1rem 1rem;
     position: relative;
 }
@@ -77,7 +77,6 @@ article {
     header {
         h2 {
             line-height: 1;
-            margin-bottom: 0;
         }
     }
     time {
@@ -86,7 +85,12 @@ article {
     }
 }
 
-article + article {
+abbr[title] {
+    text-decoration: none;
+    border-bottom: 1px dotted #999;
+}
+
+.Entry + .Entry {
     margin-top: 2rem;
 
     &:before {
@@ -99,9 +103,14 @@ article + article {
     }
 }
 
-abbr[title] {
-    text-decoration: none;
-    border-bottom: 1px dotted #999;
+.Entry-header {
+    a {
+        display: block;
+    }
+
+    h2 {
+        margin: 0;
+    }
 }
 
 .PageContent {
@@ -112,24 +121,29 @@ abbr[title] {
     border-top: 1px solid #999;
     color: #444;
     margin-top: 2rem;
-    padding-top: 1rem;
 
     li {
-        font-size: #{(14/16)}rem;
+        font-size: px2rem(13px);
+    }
+
+    span {
+        font-style: italic;
     }
 }
 
-@media only screen and (min-width: px2em(960px)) {
+@media only screen and (min-width: px2em(630px)) {
     .NotThatYouCare {
         margin-top: 0;
-        position: absolute;
-        right: px2rem(-320px);
-        top: 0;
-        width: px2rem(300px);
 
         ul {
-            padding-left: 1.5rem;
+            padding-left: 1rem;
         }
+    }
+
+    .Experiments {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 2rem;
     }
 }
 
