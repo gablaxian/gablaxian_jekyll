@@ -1,0 +1,17 @@
+---
+layout: default
+permalink: /experiments/
+---
+
+    <div class="Experiments">
+        {% for experiment in site.data.experiments %}
+        <article class="Experiment">
+            <header class="Experiment-header">
+                <a href="/experiments/{{ experiment.slug }}">
+                    <h2>{{ experiment.name }}</h2>
+                    <img src="/assets/img/experiments/{{ experiment.image }}.png" />
+                </a>
+            </header>
+        </article>
+        {% endfor %}
+    </div>
