@@ -16,7 +16,7 @@ body {
     background-color: #fff;
     color: #333;
     font-family: $primary-font;
-    line-height: #{(24/16)};
+    line-height: calc(24/16) * 1rem;
     margin: 0 auto;
     max-width: px2em(720px);
     padding: 0 1rem 1rem 1rem;
@@ -52,9 +52,9 @@ main {
 
 h2 {
     font-family: $secondary-font;
-    font-size: #{(28/16)}rem;
+    font-size: calc(28/16)rem;
     font-weight: 700;
-    line-height: #{(18/16)};
+    line-height: calc(18/16);
     text-shadow: 0 1px 0 #fff, 1px 2px 0 #BDBDBD;
     text-transform: uppercase;
 }
@@ -81,7 +81,7 @@ article {
     }
     time {
         color: #999;
-        font-size: #{(14/16)}rem;
+        font-size: calc(14/16)rem;
     }
 }
 

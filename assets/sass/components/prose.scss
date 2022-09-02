@@ -26,7 +26,7 @@
             background-color: #f4f4f4;
             border: 1px solid #e2dede;
             display: inline-block;
-            font-size: #{(13/16)}rem;
+            font-size: calc(13/16) * 1rem;
             padding: 0 0.25rem;
         }
     }

@@ -15,7 +15,7 @@
     "webp:jpg": "for file in $(find assets/img -name '*.jpg'); do ./node_modules/.bin/cwebp -q 80 $file -o public/$file.webp -short; done;",
     "webp:gif": "for file in $(find assets/img -name '*.gif'); do gif2webp $file -o source/$file.webp; done;",
     "webp": "npm run webp:png && npm run webp:jpg && npm run webp:gif",
-    "sass": "node-sass --output-style=compressed --source-map=true --output=source/assets/css/ assets/sass/build.scss source/assets/css/main.css",
+    "sass": "sass --style=compressed assets/sass/build.scss source/assets/css/main.css",
     "serviceWorker": "cp -f assets/js/ServiceWorker.js source/ServiceWorker.js",
     "rollup": "rollup -c -f es",
     "stats:css": "echo \"--------------\nSize of main.css is $(stat -f%B \"source/assets/css/main.css\") bytes ($(gzip -c source/assets/css/main.css | wc -c) bytes gzipped)\n--------------\"",
@@ -26,9 +26,9 @@
     "build:watch": "onchange 'assets/sass/**/*.scss' -- npm run sass"
   },
   "devDependencies": {
-    "imagemin-webp": "latest",
-    "node-sass": "latest",
-    "onchange": "latest",
-    "rollup": "latest"
+    "imagemin-webp": "^7.0.0",
+    "onchange": "^7.1.0",
+    "rollup": "^2.79.0",
+    "sass": "^1.54.8"
   }
 }
