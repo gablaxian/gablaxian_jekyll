@@ -11,22 +11,17 @@
     "clean": "rm -rf source/assets && mkdir source/assets",
     "fonts": "cp -rf assets/fonts source/assets",
     "images": "cp -rf assets/img source/assets",
-    "webp:png": "for file in $(find assets/img -name '*.png'); do ./node_modules/.bin/cwebp -lossless -q 80 $file -o public/$file.webp -short; done",
-    "webp:jpg": "for file in $(find assets/img -name '*.jpg'); do ./node_modules/.bin/cwebp -q 80 $file -o public/$file.webp -short; done;",
-    "webp:gif": "for file in $(find assets/img -name '*.gif'); do gif2webp $file -o source/$file.webp; done;",
-    "webp": "npm run webp:png && npm run webp:jpg && npm run webp:gif",
     "sass": "sass --style=compressed assets/sass/build.scss source/assets/css/main.css",
     "serviceWorker": "cp -f assets/js/ServiceWorker.js source/ServiceWorker.js",
     "rollup": "rollup -c -f es",
     "stats:css": "echo \"--------------\nSize of main.css is $(stat -f%B \"source/assets/css/main.css\") bytes ($(gzip -c source/assets/css/main.css | wc -c) bytes gzipped)\n--------------\"",
     "stats:js": "echo \"--------------\nSize of main.js is $(stat -f%B \"source/assets/js/main.js\") bytes ($(gzip -c source/assets/js/main.js | wc -c) bytes gzipped)\n--------------\"",
     "stats": "npm run stats:css --silent && npm run stats:js --silent",
-    "init": "npm run fonts --silent & npm run images --silent & npm run sass --silent & npm run serviceWorker --silent & npm run rollup --silent & npm run webp --silent",
+    "init": "npm run fonts --silent & npm run images --silent & npm run sass --silent & npm run serviceWorker --silent & npm run rollup --silent",
     "build": "npm run clean --silent && npm run init --silent && npm run stats --silent",
     "build:watch": "onchange 'assets/sass/**/*.scss' -- npm run sass"
   },
   "devDependencies": {
-    "imagemin-webp": "^7.0.0",
     "onchange": "^7.1.0",
     "rollup": "^2.79.0",
     "sass": "^1.54.8"
